@@ -1,0 +1,30 @@
+﻿//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ で生成されたインクルード ファイル。
+// Prototype1.rc で使用
+//
+#define IDM_ABOUTBOX                    0x0010
+#define IDD_ABOUTBOX                    100
+#define IDS_ABOUTBOX                    101
+#define IDD_PROTOTYPE1_DIALOG           102
+#define IDR_MAINFRAME                   128
+#define IDD_MODELSELECT_DIALOG          130
+#define IDD_CONFIGURATION_DIALOG        132
+#define IDB_BITMAP1                     134
+#define IDB_BITMAP_NOIMAGE              134
+#define IDC_BTN_SELECT                  1000
+#define IDC_BTN_SELECT_DUM              1001
+#define IDC_TREE_MODELCATEGORY          1001
+#define IDC_BTN_SELECT_CSV              1002
+#define IDC_LIST_MODEL                  1002
+#define IDC_STARTSELECTION              1003
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_CONTROL_VALUE         1004
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif
