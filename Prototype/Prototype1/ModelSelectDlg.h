@@ -29,7 +29,8 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedStartselection();
 	CImageList	m_imageList;		// NoImage画像表示用
-	UINT		mImageWidth;
-	UINT		mImageHeight;
+	UINT		m_ImageWidth;
+	UINT		m_ImageHeight;
+	CBitmap		m_bmpNoimage;
 	afx_msg void OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult);
 };

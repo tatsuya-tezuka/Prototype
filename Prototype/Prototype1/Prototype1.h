@@ -21,6 +21,16 @@ using namespace Gdiplus;
 // このクラスの実装については、Prototype1.cpp を参照してください
 //
 
+
+enum eImage {
+	eModel,		// NoImage
+	eBracket,
+	eAddunit,
+	eUnit1,
+	eUnit2,
+	eNumImage	// eImage項目数
+};
+
 // 機器一覧構造体
 struct mModelData {
 	CString category;

@@ -58,64 +58,89 @@ BOOL ModelSelectDlg::OnInitDialog()
 	}
 
 
-	//// 機種データの取得
-	//mEqDataList.clear();
-	//for (int i = 0; i < sizeof(mEqDataLIst) / sizeof(mEqDataLIst[0]); i++) {
-	//	mEqDataList.push_back(mEqDataLIst[i]);
-	//}
-
-	// リソースビットマップのサイズ取得
 	HBITMAP hBmp = NULL;
-	Gdiplus::Bitmap* pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	pThumbnail->GetHBITMAP(NULL, &hBmp);
-	// サイズ取得
-	BITMAP bm;
-	::ZeroMemory(&bm, sizeof(BITMAP));
-	if (::GetObject(hBmp, sizeof(BITMAP), &bm) != 0) {
-		mImageWidth = bm.bmWidth;
-		mImageHeight = bm.bmHeight;
-	}
-	DeleteObject(hBmp);
-	delete pThumbnail;
+	BITMAP Bmp;
 
-	// 機種用のイメージリストの作成（一先ず２個とする）
-	m_imageList.Create(mImageWidth, mImageHeight, ILC_COLOR24, 0, 1);
-	m_imageList.SetImageCount(2);
+	m_bmpNoimage.LoadBitmap(IDB_BITMAP_NOIMAGE);
+	m_bmpNoimage.GetBitmap(&Bmp);
+	m_imageList.Create(Bmp.bmWidth, Bmp.bmHeight, ILC_COLOR24, 0, 1);
+	m_imageList.SetImageCount(eNumImage);
 
-	CBitmap* pImage = NULL;
-	// ★機種イメージなしのビットマップを登録
-	pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	// ビットマップオブジェクトにアタッチする
-	pThumbnail->GetHBITMAP(NULL, &hBmp);
-	// ビットマップイメージの作成
-	pImage = new CBitmap();
-	pImage->Attach(hBmp);
+	hBmp = (HBITMAP)m_bmpNoimage;
+
+	CBitmap* pBmp = NULL;
+	pBmp = new CBitmap();
+	pBmp->Attach(hBmp);
+
 	// イメージリストの再設定
-	m_imageList.Replace(0, pImage, NULL);
-	delete pImage;
-	delete pThumbnail;
-	// ★機種I/O Sliceのビットマップを登録
-	pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	// ビットマップオブジェクトにアタッチする
-	pThumbnail->GetHBITMAP(NULL, &hBmp);
-	// ビットマップイメージの作成
-	pImage = new CBitmap();
-	pImage->Attach(hBmp);
-	// イメージリストの再設定
-	m_imageList.Replace(1, pImage, NULL);
-	delete pImage;
-	delete pThumbnail;
+	m_imageList.Replace(eModel, pBmp, NULL);
+
+	// メモリリーク予防
+	delete pBmp;
 
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
 
-	//// リスト作成
-	//vector<mModelData>::iterator itr;
-	//int item = 0;
-	//for (itr = theApp.mModelDataList.begin(); itr != theApp.mModelDataList.end(); itr++) {
-	//	AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
-	//	item++;
+
+
+	////// 機種データの取得
+	////mEqDataList.clear();
+	////for (int i = 0; i < sizeof(mEqDataLIst) / sizeof(mEqDataLIst[0]); i++) {
+	////	mEqDataList.push_back(mEqDataLIst[i]);
+	////}
+
+	//// リソースビットマップのサイズ取得
+	//HBITMAP hBmp = NULL;
+	//Gdiplus::Bitmap* pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
+	//pThumbnail->GetHBITMAP(NULL, &hBmp);
+	//// サイズ取得
+	//BITMAP bm;
+	//::ZeroMemory(&bm, sizeof(BITMAP));
+	//if (::GetObject(hBmp, sizeof(BITMAP), &bm) != 0) {
+	//	m_ImageWidth = bm.bmWidth;
+	//	m_ImageHeight = bm.bmHeight;
 	//}
+	//DeleteObject(hBmp);
+	//delete pThumbnail;
+
+	//// 機種用のイメージリストの作成（一先ず２個とする）
+	//m_imageList.Create(m_ImageWidth, m_ImageHeight, ILC_COLOR24, 0, 1);
+	//m_imageList.SetImageCount(2);
+
+	//CBitmap* pImage = NULL;
+	//// ★機種イメージなしのビットマップを登録
+	//pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
+	//// ビットマップオブジェクトにアタッチする
+	//pThumbnail->GetHBITMAP(NULL, &hBmp);
+	//// ビットマップイメージの作成
+	//pImage = new CBitmap();
+	//pImage->Attach(hBmp);
+	//// イメージリストの再設定
+	//m_imageList.Replace(0, pImage, NULL);
+	//delete pImage;
+	//delete pThumbnail;
+	//// ★機種I/O Sliceのビットマップを登録
+	//pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
+	//// ビットマップオブジェクトにアタッチする
+	//pThumbnail->GetHBITMAP(NULL, &hBmp);
+	//// ビットマップイメージの作成
+	//pImage = new CBitmap();
+	//pImage->Attach(hBmp);
+	//// イメージリストの再設定
+	//m_imageList.Replace(1, pImage, NULL);
+	//delete pImage;
+	//delete pThumbnail;
+
+	//// 機種リストにイメージを登録する
+	//m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
+
+	////// リスト作成
+	////vector<mModelData>::iterator itr;
+	////int item = 0;
+	////for (itr = theApp.mModelDataList.begin(); itr != theApp.mModelDataList.end(); itr++) {
+	////	AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
+	////	item++;
+	////}
 
 
 
@@ -213,7 +238,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	for (itr = theApp.mModelDataList.begin(); itr != theApp.mModelDataList.end(); itr++) {
 
 		if (selstr == (*itr).category) {
-			AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
+			AddItem(item, 0, (*itr).modelname, 0, 0);
 			item++;
 		}
 	}
