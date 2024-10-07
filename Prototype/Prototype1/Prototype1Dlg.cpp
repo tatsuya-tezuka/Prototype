@@ -2,6 +2,7 @@
 // Prototype1Dlg.cpp : 実装ファイル
 //
 
+
 #include "pch.h"
 #include "framework.h"
 #include "Prototype1.h"
