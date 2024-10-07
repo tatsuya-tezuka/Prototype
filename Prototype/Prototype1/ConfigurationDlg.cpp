@@ -1,4 +1,5 @@
-﻿// ConfigurationDlg.cpp : 実装ファイル
+﻿
+// ConfigurationDlg.cpp : 実装ファイル
 //
 
 #include "pch.h"
