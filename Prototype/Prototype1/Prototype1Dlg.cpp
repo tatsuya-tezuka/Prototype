@@ -194,7 +194,5 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 void CPrototype1Dlg::OnClickedBtnSelectDum()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	CString str;
-	str.Format(_T("「サンプル構成から選定」は未対応です。"));
-	AfxMessageBox(str);
+	MessageBox(_T("「サンプル構成から選定」は未対応です。"), _T("警告"), MB_OK | MB_ICONWARNING);
 }
