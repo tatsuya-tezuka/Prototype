@@ -11,6 +11,11 @@
 #define IDD_CONFIGURATION_DIALOG        132
 #define IDB_BITMAP1                     134
 #define IDB_BITMAP_NOIMAGE              134
+#define IDB_BITMAP_BRACKET              135
+#define IDB_BITMAP_ADDUNIT              136
+#define IDB_BITMAP_UNIT1                137
+#define IDB_BITMAP3                     138
+#define IDB_BITMAP_UNIT2                138
 #define IDC_BTN_SELECT                  1000
 #define IDC_BTN_SELECT_DUM              1001
 #define IDC_TREE_MODELCATEGORY          1001
@@ -22,7 +27,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_RESOURCE_VALUE        139
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           101

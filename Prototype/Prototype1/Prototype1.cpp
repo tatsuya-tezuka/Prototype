@@ -77,9 +77,9 @@ BOOL CPrototype1App::InitInstance()
 	// この文字列を変更してください。
 	SetRegistryKey(_T("アプリケーション ウィザードで生成されたローカル アプリケーション"));
 
-	// サムネイル表示でイメージを表示するための初期化（initialize GDI+）
-	GdiplusStartupInput gdiplusStartupInput;
-	GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
+	//// サムネイル表示でイメージを表示するための初期化（initialize GDI+）
+	//GdiplusStartupInput gdiplusStartupInput;
+	//GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
 
 	CPrototype1Dlg dlg;
 	m_pMainWnd = &dlg;
