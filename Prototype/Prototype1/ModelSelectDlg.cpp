@@ -47,12 +47,12 @@ BOOL ModelSelectDlg::OnInitDialog()
 
 	// 機器カテゴリー設定
 	CString stcategory = _T("");
-	for (int i = 0; i < theApp.mModelDataList.size(); i++)
+	for (int i = 0; i < theApp.sModelDataList.size(); i++)
 	{
-		if (stcategory != theApp.mModelDataList.at(i).category)
+		if (stcategory != theApp.sModelDataList.at(i).category)
 		{
 			// アイテムの追加
-			stcategory = theApp.mModelDataList.at(i).category;
+			stcategory = theApp.sModelDataList.at(i).category;
 			HTREEITEM hItemPnt1 = m_treeModelCategory.InsertItem(stcategory);
 		}
 	}
@@ -233,9 +233,9 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	m_listModel.DeleteAllItems();
 
 	// リスト作成
-	vector<mModelData>::iterator itr;
+	vector<sModelData>::iterator itr;
 	int item = 0;
-	for (itr = theApp.mModelDataList.begin(); itr != theApp.mModelDataList.end(); itr++) {
+	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
 		if (selstr == (*itr).category) {
 			AddItem(item, 0, (*itr).modelname, 0, 0);
