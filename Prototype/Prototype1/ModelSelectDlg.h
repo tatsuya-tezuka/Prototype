@@ -35,6 +35,8 @@ public:
 	UINT		m_ImageWidth;
 	UINT		m_ImageHeight;
 	CBitmap		m_bmpNoimage;
+	CString		m_selCategory;		// ユーザ選択カテゴリー
+	CString		m_selModel;			// ユーザ選択機種
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */

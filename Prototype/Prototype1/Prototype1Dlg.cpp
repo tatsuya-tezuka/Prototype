@@ -116,8 +116,8 @@ BOOL CPrototype1Dlg::OnInitDialog()
 
 	// TODO: 初期化をここに追加します。
 
-	theApp.SetmModelData();
-	theApp.SetmUnitData();
+	theApp.SetmModelDatafromCSV();
+	theApp.SetmUnitDatafromCSV();
 
 	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
 }

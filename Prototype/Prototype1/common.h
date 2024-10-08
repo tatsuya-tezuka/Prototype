@@ -27,10 +27,17 @@ struct sModelData {
 	CString modelname;
 	UINT bflg;		// 0:ñ≥å¯ÅA1:óLå¯
 
-	sModelData(CString cat, CString name, UINT flg) {
+	//sModelData(CString cat, CString name, UINT flg) {
+	//	category = cat;
+	//	modelname = name;
+	//	bflg = flg;
+	//}
+
+	BOOL set(CString cat, CString name, UINT flg) {
 		category = cat;
 		modelname = name;
 		bflg = flg;
+		return true;
 	}
 };
 
@@ -44,7 +51,17 @@ struct sUnitData {
 	CString fignumber;	// éËîzê}î‘
 	CString message;
 
-	sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+	//sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+	//	category = cat;
+	//	unitname = name;
+	//	type = ctype;
+	//	spec = cspec;
+	//	usage = cusage;
+	//	fignumber = num;
+	//	message = msg;
+	//}
+
+	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
 		category = cat;
 		unitname = name;
 		type = ctype;
@@ -52,6 +69,7 @@ struct sUnitData {
 		usage = cusage;
 		fignumber = num;
 		message = msg;
+		return true;
 	}
 };
 
@@ -59,7 +77,7 @@ struct sUnitData {
 struct sSelectedInfo {
 	sModelData model;
 	UINT id;
-	typedef struct {
+	struct {
 		UINT unitselectnum;
 		sUnitData unit;
 	} sSelectedUnitInfo[10];
