@@ -11,7 +11,11 @@
 /.vs/Git/v17
 /Prototype/Prototype1/Prototype1.vcxproj.user
 /Prototype/Prototype1/Prototype1.aps
+<<<<<<< HEAD
 /Prototype/x64/Release
 /Prototype/Prototype1/x64/Release/Prototype1.tlog
 /Prototype/Prototype1/x64/Release
 /Prototype/Prototype1/ConfigurationDlg.BAK
+=======
+/.vs/VSWorkspaceState.json
+>>>>>>> 20bbe222245709d488d96f4247894c4ef92aef22
