@@ -11,3 +11,7 @@
 /.vs/Git/v17
 /Prototype/Prototype1/Prototype1.vcxproj.user
 /Prototype/Prototype1/Prototype1.aps
+/Prototype/x64/Release
+/Prototype/Prototype1/x64/Release/Prototype1.tlog
+/Prototype/Prototype1/x64/Release
+/Prototype/Prototype1/ConfigurationDlg.BAK

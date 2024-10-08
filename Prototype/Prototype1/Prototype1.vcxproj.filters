@@ -39,6 +39,9 @@
     <ClInclude Include="ConfigurationDlg.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Prototype1.cpp">
@@ -75,6 +78,18 @@
       <Filter>リソース ファイル</Filter>
     </Image>
     <Image Include="res\noimage.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\Bracket.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\UnitDisable.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\UnitEnable.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\UnitEnable2.bmp">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

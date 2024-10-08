@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
     <ClInclude Include="ConfigurationDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ModelSelectDlg.h" />
@@ -212,8 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\noimage.bmp" />
+    <Image Include="res\Bracket.bmp" />
     <Image Include="res\noimage.bmp" />
     <Image Include="res\Prototype1.ico" />
+    <Image Include="res\UnitDisable.bmp" />
+    <Image Include="res\UnitEnable.bmp" />
+    <Image Include="res\UnitEnable2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
