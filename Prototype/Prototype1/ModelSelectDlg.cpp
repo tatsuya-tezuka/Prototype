@@ -1,5 +1,12 @@
 ﻿// ModelSelectDlg.cpp : 実装ファイル
 //
+/******************************************************************************
+* @file    ModelSelectDlg.cpp
+* @brief   ModelSelectDlgクラス
+* @auther  SCC
+* @date    2024/10/03 新規作成
+* @par
+******************************************************************************/
 
 #include "pch.h"
 #include "Prototype1.h"
@@ -8,7 +15,11 @@
 #include "ConfigurationDlg.h"
 
 
-// ModelSelectDlg ダイアログ
+//------------------------------------------------------------------------------------------
+//	概要：アプリケーション機種選択画面
+//        画面左部ツリーコントロールに機種一覧構造体より機種カテゴリーを表示する
+//        画面右部リストコントロールにカテゴリーごとの機種一覧を表示する
+//------------------------------------------------------------------------------------------
 
 IMPLEMENT_DYNAMIC(ModelSelectDlg, CDialogEx)
 
@@ -170,7 +181,16 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
 
-// 「選定を開始する」ボタン押下時イベント
+/*============================================================================*/
+/*! 「選定を開始する」ボタン押下時イベント
+
+-# 構成画面を表示する
+
+@param	
+
+@retval
+*/
+/*============================================================================*/
 void ModelSelectDlg::OnClickedStartselection()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
@@ -218,7 +238,16 @@ int ModelSelectDlg::AddItem(int nItem, int nSubItem, CString strItem, LPARAM dwP
 	return m_listModel.SetItem(&lv);
 }
 
-// 機種カテゴリー押下時イベント
+/*============================================================================*/
+/*! 機種カテゴリー押下時イベント
+
+-# 選択されたカテゴリーごとに機種リストに表示する機種を変更する
+
+@param	
+
+@retval
+*/
+/*============================================================================*/
 void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);

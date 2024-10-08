@@ -1,14 +1,21 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 
-
-// ModelSelectDlg ダイアログ
+/*
+	◆ModelSelectDlgヘッダーファイル
+	・アプリケーションクラス：ModelSelectDlg
+	・実装ファイル：ModelSelectDlg.cpp
+	・クラス内には「定義」「メンバ変数」「メンバ関数」のコメントを記述する
+*/
 
 class ModelSelectDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(ModelSelectDlg)
 
 public:
+	/* ------------------------------------------------------------------------------------ */
+	/* コンストラクション                                                                   */
+	/* ------------------------------------------------------------------------------------ */
 	ModelSelectDlg(CWnd* pParent = nullptr);   // 標準コンストラクター
 	virtual ~ModelSelectDlg();
 
@@ -17,20 +24,31 @@ public:
 	enum { IDD = IDD_MODELSELECT_DIALOG };
 #endif
 
+
+	/* ------------------------------------------------------------------------------------ */
+	/* メンバ変数                                                                           */
+	/* ------------------------------------------------------------------------------------ */
+public:
+	CTreeCtrl	m_treeModelCategory;
+	CListCtrl	m_listModel;
+	CImageList	m_imageList;		// NoImage画像表示用
+	UINT		m_ImageWidth;
+	UINT		m_ImageHeight;
+	CBitmap		m_bmpNoimage;
+
+	/* ------------------------------------------------------------------------------------ */
+	/* メンバ関数                                                                           */
+	/* ------------------------------------------------------------------------------------ */
+public:
+	virtual BOOL OnInitDialog();
+	afx_msg void OnClickedStartselection();
+	afx_msg void OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult);
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
 
 	int		AddItem(int nItem, int nSubItem, CString strItem, LPARAM dwParam = 0, int nImage = -1);
 
 	DECLARE_MESSAGE_MAP()
-public:
-	CTreeCtrl	m_treeModelCategory;
-	CListCtrl	m_listModel;
-	virtual BOOL OnInitDialog();
-	afx_msg void OnClickedStartselection();
-	CImageList	m_imageList;		// NoImage画像表示用
-	UINT		m_ImageWidth;
-	UINT		m_ImageHeight;
-	CBitmap		m_bmpNoimage;
-	afx_msg void OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult);
+
 };
