@@ -1,17 +1,17 @@
 ﻿
-
-// Prototype1.cpp : アプリケーションのクラス動作を定義します。
-//
+/******************************************************************************
+* @file    Prototype1.cpp
+* @brief   アプリケーションクラス
+* @auther  SCC
+* @date    2024/10/01 新規作成
+* @par
+******************************************************************************/
 
 #include "pch.h"
 #include "framework.h"
 #include "Prototype1.h"
 #include "Prototype1Dlg.h"
 #include <locale.h>
-//#include <string>
-//#include <fstream>
-//#include <sstream>
-//using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -25,8 +25,9 @@ BEGIN_MESSAGE_MAP(CPrototype1App, CWinApp)
 END_MESSAGE_MAP()
 
 
-// CPrototype1App の構築
-
+//------------------------------------------------------------------------------------ 
+//	概要：アプリケーションクラス
+//------------------------------------------------------------------------------------
 CPrototype1App::CPrototype1App()
 {
 	// 再起動マネージャーをサポートします
@@ -41,9 +42,9 @@ CPrototype1App::CPrototype1App()
 
 CPrototype1App theApp;
 
-
-// CPrototype1App の初期化
-
+//------------------------------------------------------------------------------------ 
+//	初期化
+//------------------------------------------------------------------------------------
 BOOL CPrototype1App::InitInstance()
 {
 	// アプリケーション マニフェストが visual スタイルを有効にするために、
@@ -115,7 +116,16 @@ BOOL CPrototype1App::InitInstance()
 	return FALSE;
 }
 
-// 機器一覧CSV情報取得
+/*============================================================================*/
+/*! 機器一覧CSV情報取得関数
+
+-# 機器一覧CSVから情報を取得し、機器一覧構造体に格納する
+
+@param	val
+
+@retval	成功した場合はtrue、それ以外はfalseを返す
+*/
+/*============================================================================*/
 BOOL CPrototype1App::SetmModelData()
 {
 	CString	readrow, cbuf, str;
@@ -158,7 +168,16 @@ BOOL CPrototype1App::SetmModelData()
 	return true;
 }
 
-// ユニット一覧CSV情報取得
+/*============================================================================*/
+/*! ユニット一覧CSV情報取得関数
+
+-# ユニット一覧CSVから情報を取得し、ユニット一覧構造体に格納する
+
+@param	val
+
+@retval	成功した場合はtrue、それ以外はfalseを返す
+*/
+/*============================================================================*/
 BOOL CPrototype1App::SetmUnitData()
 {
 	CString	readrow, cbuf, str;

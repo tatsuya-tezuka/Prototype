@@ -1,8 +1,12 @@
 ﻿
-// Prototype1.h : PROJECT_NAME アプリケーションのメイン ヘッダー ファイルです
-//
-
 #pragma once
+
+/*
+	◆アプリケーションヘッダーファイル
+	・アプリケーションクラス：CPrototype1App
+	・実装ファイル：Prototype1.cpp
+	・クラス内には「定義」「メンバ変数」「メンバ関数」のコメントを記述する
+*/
 
 #ifndef __AFXWIN_H__
 	#error "PCH に対してこのファイルをインクルードする前に 'pch.h' をインクルードしてください"
@@ -18,10 +22,6 @@ using namespace std;
 //using namespace Gdiplus;
 //#pragma comment(lib, "gdiplus.lib")
 
-// CPrototype1App:
-// このクラスの実装については、Prototype1.cpp を参照してください
-//
-
 class CPrototype1App : public CWinApp
 {
 public:
@@ -33,9 +33,15 @@ public:
 public:
 	virtual BOOL InitInstance();
 
+	/* ------------------------------------------------------------------------------------ */
+	/* メンバ変数                                                                           */
+	/* ------------------------------------------------------------------------------------ */
 	vector<sModelData> sModelDataList;
 	vector<sUnitData> sUnitDataList;
 
+	/* ------------------------------------------------------------------------------------ */
+	/* メンバ関数                                                                           */
+	/* ------------------------------------------------------------------------------------ */
 	BOOL SetmModelData();		// CSVから機器一覧を取得、構造体にセットする
 	BOOL SetmUnitData();		// CSVからユニット一覧を取得、構造体にセットする
 	vector<sModelData>& GetmModelData() { return sModelDataList; }
