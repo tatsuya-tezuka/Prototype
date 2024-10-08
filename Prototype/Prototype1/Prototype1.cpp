@@ -149,8 +149,8 @@ BOOL CPrototype1App::SetmModelData()
 		// 構造体に格納
 		UINT flg;
 		flg = _ttoi(inlist[2]);
-		sModelData model(inlist[0], inlist[1], flg);
-		sModelDataList.push_back(model);
+		mModelData model(inlist[0], inlist[1], flg);
+		mModelDataList.push_back(model);
 		inlist.clear();
 	}
 	file.Close();
@@ -192,8 +192,8 @@ BOOL CPrototype1App::SetmUnitData()
 		// 構造体に格納
 		UINT usage;
 		usage = _ttoi(inlist[4]);
-		sUnitData unit(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
-		sUnitDataList.push_back(unit);
+		mUnitData unit(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
+		mUnitDataList.push_back(unit);
 		inlist.clear();
 	}
 	file.Close();

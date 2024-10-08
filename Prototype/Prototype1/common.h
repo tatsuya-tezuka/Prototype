@@ -1,10 +1,5 @@
 #pragma once
 
-/*
-	◆共通定義
-
-*/
-
 enum eImage {
 	eModel,		// NoImage
 	eBracket,
@@ -15,12 +10,12 @@ enum eImage {
 };
 
 // 機器一覧構造体
-struct sModelData {
+struct mModelData {
 	CString category;
 	CString modelname;
 	UINT bflg;		// 0:無効、1:有効
 
-	sModelData(CString cat, CString name, UINT flg) {
+	mModelData(CString cat, CString name, UINT flg) {
 		category = cat;
 		modelname = name;
 		bflg = flg;
@@ -28,7 +23,7 @@ struct sModelData {
 };
 
 // ユニット一覧構造体
-struct sUnitData {
+struct mUnitData {
 	CString category;
 	CString unitname;
 	CString type;
@@ -37,7 +32,7 @@ struct sUnitData {
 	CString fignumber;	// 手配図番
 	CString message;
 
-	sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+	mUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
 		category = cat;
 		unitname = name;
 		type = ctype;
@@ -50,10 +45,10 @@ struct sUnitData {
 
 // 選択ユニット情報構造体
 struct mSelectedInfo {
-	sModelData model;
+	mModelData model;
 	UINT id;
 	typedef struct {
 		UINT unitselectnum;
-		sUnitData unit;
+		mUnitData unit;
 	} mSelectedUnitInfo[10];
 };

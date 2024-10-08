@@ -33,12 +33,12 @@ public:
 public:
 	virtual BOOL InitInstance();
 
-	vector<sModelData> sModelDataList;
-	vector<sUnitData> sUnitDataList;
+	vector<mModelData> mModelDataList;
+	vector<mUnitData> mUnitDataList;
 
 	BOOL SetmModelData();		// CSVから機器一覧を取得、構造体にセットする
 	BOOL SetmUnitData();		// CSVからユニット一覧を取得、構造体にセットする
-	vector<sModelData>& GetmModelData() { return sModelDataList; }
+	vector<mModelData>& GetmModelData() { return mModelDataList; }
 
 // 実装
 
