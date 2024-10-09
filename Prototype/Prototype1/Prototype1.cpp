@@ -128,7 +128,7 @@ BOOL CPrototype1App::InitInstance()
 @retval	成功した場合はtrue、それ以外はfalseを返す
 */
 /*============================================================================*/
-BOOL CPrototype1App::SetmModelData()
+BOOL CPrototype1App::SetmModelDatafromCSV()
 {
 	CString	readrow, cbuf, str;
 	BOOL bHead = TRUE;	//ヘッダー判定
@@ -161,7 +161,10 @@ BOOL CPrototype1App::SetmModelData()
 		// 構造体に格納
 		UINT flg;
 		flg = _ttoi(inlist[2]);
-		sModelData model(inlist[0], inlist[1], flg);
+		//sModelData model(inlist[0], inlist[1], flg);
+		//sModelDataList.push_back(model);
+		sModelData model;
+		model.set(inlist[0], inlist[1], flg);
 		sModelDataList.push_back(model);
 		inlist.clear();
 	}
@@ -180,7 +183,7 @@ BOOL CPrototype1App::SetmModelData()
 @retval	成功した場合はtrue、それ以外はfalseを返す
 */
 /*============================================================================*/
-BOOL CPrototype1App::SetmUnitData()
+BOOL CPrototype1App::SetmUnitDatafromCSV()
 {
 	CString	readrow, cbuf, str;
 	BOOL bHead = TRUE;	//ヘッダー判定
@@ -213,7 +216,10 @@ BOOL CPrototype1App::SetmUnitData()
 		// 構造体に格納
 		UINT usage;
 		usage = _ttoi(inlist[4]);
-		sUnitData unit(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
+		//sUnitData unit(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
+		//sUnitDataList.push_back(unit);
+		sUnitData unit;
+		unit.set(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
 		sUnitDataList.push_back(unit);
 		inlist.clear();
 	}

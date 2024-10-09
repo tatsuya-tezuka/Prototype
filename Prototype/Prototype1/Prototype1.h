@@ -38,12 +38,13 @@ public:
 	/* ------------------------------------------------------------------------------------ */
 	vector<sModelData> sModelDataList;
 	vector<sUnitData> sUnitDataList;
+	sSelectedInfo sSelectinfo;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
-	BOOL SetmModelData();		// CSVから機器一覧を取得、構造体にセットする
-	BOOL SetmUnitData();		// CSVからユニット一覧を取得、構造体にセットする
+	BOOL SetmModelDatafromCSV();		// CSVから機器一覧を取得、構造体にセットする
+	BOOL SetmUnitDatafromCSV();		// CSVからユニット一覧を取得、構造体にセットする
 	vector<sModelData>& GetmModelData() { return sModelDataList; }
 
 // 実装

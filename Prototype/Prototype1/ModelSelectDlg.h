@@ -35,6 +35,9 @@ public:
 	UINT		m_ImageWidth;
 	UINT		m_ImageHeight;
 	CBitmap		m_bmpNoimage;
+	CString		m_selCategory;		// ユーザ選択カテゴリー
+	CString		m_selModel;			// ユーザ選択機種
+	CButton		m_btnStartSelection;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -43,6 +46,7 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedStartselection();
 	afx_msg void OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult);
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート

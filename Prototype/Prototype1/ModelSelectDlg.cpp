@@ -26,7 +26,8 @@ IMPLEMENT_DYNAMIC(ModelSelectDlg, CDialogEx)
 ModelSelectDlg::ModelSelectDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MODELSELECT_DIALOG, pParent)
 {
-
+	m_ImageHeight = 0;
+	m_ImageWidth = 0;
 }
 
 ModelSelectDlg::~ModelSelectDlg()
@@ -38,12 +39,14 @@ void ModelSelectDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TREE_MODELCATEGORY, m_treeModelCategory);
 	DDX_Control(pDX, IDC_LIST_MODEL, m_listModel);
+	DDX_Control(pDX, IDC_STARTSELECTION, m_btnStartSelection);
 }
 
 
 BEGIN_MESSAGE_MAP(ModelSelectDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_STARTSELECTION, &ModelSelectDlg::OnClickedStartselection)
 	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE_MODELCATEGORY, &ModelSelectDlg::OnSelchangedTreeModelcategory)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_MODEL, &ModelSelectDlg::OnItemchangedListModel)
 END_MESSAGE_MAP()
 
 
@@ -177,6 +180,9 @@ BOOL ModelSelectDlg::OnInitDialog()
 
 	//m_listModel.InsertItem(&lvItem);
 
+	// 「選定を開始する」ボタン非活性
+	m_btnStartSelection.EnableWindow(FALSE);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
@@ -196,6 +202,15 @@ void ModelSelectDlg::OnClickedStartselection()
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
 	// 機種選択情報を選択情報構造体に格納
+	int idx = -1;
+	while ((idx = m_listModel.GetNextItem(idx, LVNI_SELECTED)) != -1)
+	{
+		TCHAR seltext[256];
+		m_listModel.GetItemText(idx, 0, seltext, 256);
+		m_selModel = seltext;
+	}
+
+	theApp.sSelectinfo.model.set(m_selCategory, m_selModel, 1);
 
 	ConfigurationDlg ConfDlg;
 	ConfDlg.DoModal();
@@ -253,11 +268,14 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
+	// 「選定を開始する」ボタン非活性
+	m_btnStartSelection.EnableWindow(FALSE);
+
 	//カテゴリー取得
 	HTREEITEM hItem = m_treeModelCategory.GetSelectedItem();
 	if (hItem == nullptr) return;
 
-	CString selstr = m_treeModelCategory.GetItemText(hItem);
+	m_selCategory = m_treeModelCategory.GetItemText(hItem);
 
 	m_listModel.DeleteAllItems();
 
@@ -266,11 +284,31 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	int item = 0;
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
-		if (selstr == (*itr).category) {
+		if (m_selCategory == (*itr).category) {
 			AddItem(item, 0, (*itr).modelname, 0, 0);
 			item++;
 		}
 	}
+
+	*pResult = 0;
+}
+
+/*============================================================================*/
+/*! 機種選択時イベント
+
+-# 「選定を開始する」ボタンを有効化
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	// 「選定を開始する」ボタン活性化
+	m_btnStartSelection.EnableWindow(TRUE);
 
 	*pResult = 0;
 }
