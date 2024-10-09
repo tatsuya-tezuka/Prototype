@@ -52,7 +52,16 @@ END_MESSAGE_MAP()
 
 // ModelSelectDlg メッセージ ハンドラー
 
+/*============================================================================*/
+/*! 機種選択画面
 
+-# 初期化
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
 BOOL ModelSelectDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -207,9 +216,9 @@ BOOL ModelSelectDlg::OnInitDialog()
 
 -# 構成画面を表示する
 
-@param	
+@param	なし
 
-@retval
+@retval なし
 */
 /*============================================================================*/
 void ModelSelectDlg::OnClickedStartselection()
@@ -273,9 +282,9 @@ int ModelSelectDlg::AddItem(int nItem, int nSubItem, CString strItem, LPARAM dwP
 
 -# 選択されたカテゴリーごとに機種リストに表示する機種を変更する
 
-@param	
+@param	なし
 
-@retval
+@retval なし
 */
 /*============================================================================*/
 void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult)
@@ -313,9 +322,9 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 
 -# 「選定を開始する」ボタンを有効化
 
-@param
+@param  なし
 
-@retval
+@retval なし
 */
 /*============================================================================*/
 void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)

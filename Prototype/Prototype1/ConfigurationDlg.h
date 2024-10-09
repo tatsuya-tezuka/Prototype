@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
+#include "CUnitControl.h"
+#include "CUnitControlBase.h"
 
 // ConfigurationDlg ダイアログ
 
@@ -19,6 +20,9 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
+	CUnitControlBase mUnitBase;
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
 };

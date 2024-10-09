@@ -85,6 +85,16 @@ END_MESSAGE_MAP()
 
 // CPrototype1Dlg メッセージ ハンドラー
 
+/*============================================================================*/
+/*! トップ画面
+
+-# 初期化
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
 BOOL CPrototype1Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -176,9 +186,9 @@ HCURSOR CPrototype1Dlg::OnQueryDragIcon()
 
 -# 機種選択画面を表示する
 
-@param			
+@param  なし			
 
-@retval	
+@retval	なし
 */
 /*============================================================================*/
 void CPrototype1Dlg::OnClickedBtnSelect()
@@ -192,9 +202,9 @@ void CPrototype1Dlg::OnClickedBtnSelect()
 
 -# 選択されたCSVファイルより情報を取得し、構成画面を表示する
 
-@param	
+@param	なし
 
-@retval
+@retval なし
 */
 /*============================================================================*/
 void CPrototype1Dlg::OnClickedBtnSelectCsv()
@@ -214,9 +224,9 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 
 -# メッセージの表示
 
-@param	
+@param	なし
 
-@retval
+@retval なし
 */
 /*============================================================================*/
 void CPrototype1Dlg::OnClickedBtnSelectDum()
