@@ -39,13 +39,14 @@ void ModelSelectDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TREE_MODELCATEGORY, m_treeModelCategory);
 	DDX_Control(pDX, IDC_LIST_MODEL, m_listModel);
+	DDX_Control(pDX, IDC_STARTSELECTION, m_btnStartSelection);
 }
 
 
 BEGIN_MESSAGE_MAP(ModelSelectDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_STARTSELECTION, &ModelSelectDlg::OnClickedStartselection)
 	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE_MODELCATEGORY, &ModelSelectDlg::OnSelchangedTreeModelcategory)
-//	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_MODEL, &ModelSelectDlg::OnItemchangedListModel)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_MODEL, &ModelSelectDlg::OnItemchangedListModel)
 END_MESSAGE_MAP()
 
 
@@ -179,6 +180,9 @@ BOOL ModelSelectDlg::OnInitDialog()
 
 	//m_listModel.InsertItem(&lvItem);
 
+	// 「選定を開始する」ボタン非活性
+	m_btnStartSelection.EnableWindow(FALSE);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
@@ -264,6 +268,9 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
+	// 「選定を開始する」ボタン非活性
+	m_btnStartSelection.EnableWindow(FALSE);
+
 	//カテゴリー取得
 	HTREEITEM hItem = m_treeModelCategory.GetSelectedItem();
 	if (hItem == nullptr) return;
@@ -282,6 +289,26 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 			item++;
 		}
 	}
+
+	*pResult = 0;
+}
+
+/*============================================================================*/
+/*! 機種選択時イベント
+
+-# 「選定を開始する」ボタンを有効化
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	// 「選定を開始する」ボタン活性化
+	m_btnStartSelection.EnableWindow(TRUE);
 
 	*pResult = 0;
 }

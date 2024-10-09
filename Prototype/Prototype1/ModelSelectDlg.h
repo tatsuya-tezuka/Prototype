@@ -37,6 +37,7 @@ public:
 	CBitmap		m_bmpNoimage;
 	CString		m_selCategory;		// ユーザ選択カテゴリー
 	CString		m_selModel;			// ユーザ選択機種
+	CButton		m_btnStartSelection;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -53,4 +54,6 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 
+public:
+	afx_msg void OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult);
 };
