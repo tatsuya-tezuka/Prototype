@@ -92,5 +92,11 @@
     <Image Include="res\UnitEnable2.bmp">
       <Filter>リソース ファイル</Filter>
     </Image>
+    <Image Include="res\bitmap_n.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\image.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>

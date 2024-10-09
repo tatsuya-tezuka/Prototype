@@ -9,12 +9,13 @@
 /* enum’è‹`                                                                             */
 /* ------------------------------------------------------------------------------------ */
 enum eImage {
-	eModel,		// NoImage
+	eDisableModel,		// NoImage
+	eEnableModel,		
 	eBracket,
 	eAddunit,
 	eUnit1,
 	eUnit2,
-	eNumImage	// eImage€–Ú”
+	eNumImage			// eImage€–Ú”
 };
 
 /* ------------------------------------------------------------------------------------ */

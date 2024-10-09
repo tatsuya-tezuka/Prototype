@@ -213,7 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\noimage.bmp" />
+    <Image Include="res\bitmap_n.bmp" />
     <Image Include="res\Bracket.bmp" />
+    <Image Include="res\image.bmp" />
     <Image Include="res\noimage.bmp" />
     <Image Include="res\Prototype1.ico" />
     <Image Include="res\UnitDisable.bmp" />

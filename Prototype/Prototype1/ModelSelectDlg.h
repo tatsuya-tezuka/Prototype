@@ -31,10 +31,11 @@ public:
 public:
 	CTreeCtrl	m_treeModelCategory;
 	CListCtrl	m_listModel;
-	CImageList	m_imageList;		// NoImage画像表示用
+	CImageList	m_imageList;		// 機種画像表示用
 	UINT		m_ImageWidth;
 	UINT		m_ImageHeight;
 	CBitmap		m_bmpNoimage;
+	CBitmap		m_bmpimage;
 	CString		m_selCategory;		// ユーザ選択カテゴリー
 	CString		m_selModel;			// ユーザ選択機種
 	CButton		m_btnStartSelection;

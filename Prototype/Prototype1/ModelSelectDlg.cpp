@@ -71,14 +71,14 @@ BOOL ModelSelectDlg::OnInitDialog()
 		}
 	}
 
-
+	// ビットマップをイメージリストに設定
 	HBITMAP hBmp = NULL;
 	BITMAP Bmp;
 
 	m_bmpNoimage.LoadBitmap(IDB_BITMAP_NOIMAGE);
 	m_bmpNoimage.GetBitmap(&Bmp);
 	m_imageList.Create(Bmp.bmWidth, Bmp.bmHeight, ILC_COLOR24, 0, 1);
-	m_imageList.SetImageCount(eNumImage);
+	m_imageList.SetImageCount(2);
 
 	hBmp = (HBITMAP)m_bmpNoimage;
 
@@ -87,14 +87,29 @@ BOOL ModelSelectDlg::OnInitDialog()
 	pBmp->Attach(hBmp);
 
 	// イメージリストの再設定
-	m_imageList.Replace(eModel, pBmp, NULL);
+	m_imageList.Replace(eDisableModel, pBmp, NULL);
 
 	// メモリリーク予防
 	delete pBmp;
 
+
+	m_bmpimage.LoadBitmap(IDB_BITMAP_IMAGE);
+	m_bmpimage.GetBitmap(&Bmp);
+	
+	hBmp = (HBITMAP)m_bmpimage;
+
+	pBmp = new CBitmap();
+	pBmp->Attach(hBmp);
+
+	// イメージリストの再設定
+	m_imageList.Replace(eEnableModel, pBmp, NULL);
+
+	// メモリリーク予防
+	delete pBmp;	
+
+
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
-
 
 
 	////// 機種データの取得
@@ -285,7 +300,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
 		if (m_selCategory == (*itr).category) {
-			AddItem(item, 0, (*itr).modelname, 0, 0);
+			AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
 			item++;
 		}
 	}
