@@ -46,6 +46,7 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedStartselection();
 	afx_msg void OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult);
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
@@ -54,6 +55,4 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 
-public:
-	afx_msg void OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult);
 };
