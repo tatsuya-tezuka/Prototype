@@ -177,10 +177,17 @@ CUnitControl* CUnitControlBase::CreateUnit(UINT type, UINT id)
 	CBitmap* pImage = NULL;
 	HBITMAP hBmp = NULL;
 	CPoint pt = CPoint(0, 0);
+	CBitmap cbmp;
+	BITMAP Bmp;
 
-	Gdiplus::Bitmap* pThumbnail = Gdiplus::Bitmap::FromResource(mInstance, MAKEINTRESOURCE(mUnitImage[type]));
-	// ビットマップオブジェクトにアタッチする
-	pThumbnail->GetHBITMAP(NULL, &hBmp);
+	cbmp.LoadBitmap(mUnitImage[type]);
+	cbmp.GetBitmap(&Bmp);
+
+	hBmp = (HBITMAP)cbmp;
+
+	//Gdiplus::Bitmap* pThumbnail = Gdiplus::Bitmap::FromResource(mInstance, MAKEINTRESOURCE(mUnitImage[type]));
+	//// ビットマップオブジェクトにアタッチする
+	//pThumbnail->GetHBITMAP(NULL, &hBmp);
 	// ビットマップイメージの作成
 	pImage = new CBitmap();
 	pImage->Attach(hBmp);
@@ -192,7 +199,7 @@ CUnitControl* CUnitControlBase::CreateUnit(UINT type, UINT id)
 
 	// オブジェクトの削除
 	delete pImage;
-	delete pThumbnail;
+	//delete pThumbnail;
 
 	return ptr;
 }
@@ -215,7 +222,7 @@ void CUnitControlBase::UnitAlignment()
 	// ボタン表示領域の取得
 	CRect rect, rc;
 	// 表示領域のウィンドウサイズ取得
-	GetWindowRect(rect);
+	//GetWindowRect(rect);
 
 	// ダイアログのクライアント位置に変換
 	mParent->ScreenToClient(rect);

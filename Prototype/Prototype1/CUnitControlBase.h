@@ -44,7 +44,7 @@ public:
 
 protected:
 	HINSTANCE			mInstance;
-	CWnd* mParent;
+	CWnd				*mParent;
 	UINT				mUnitImage[UnitMax];
 	CUnitControl* mpStartBracket;
 	CUnitControl* mpEndBracket;
