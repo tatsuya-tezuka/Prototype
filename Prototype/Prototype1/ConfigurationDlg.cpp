@@ -15,7 +15,8 @@ IMPLEMENT_DYNAMIC(ConfigurationDlg, CDialogEx)
 ConfigurationDlg::ConfigurationDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_CONFIGURATION_DIALOG, pParent)
 {
-
+	// 初期化
+	mSaveCx = mSaveCy = 0;
 }
 
 ConfigurationDlg::~ConfigurationDlg()
@@ -25,10 +26,13 @@ ConfigurationDlg::~ConfigurationDlg()
 void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_STATIC_UNITBASE, mUnitBase);
 }
 
 
 BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
+	ON_WM_SIZE()
+	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
 END_MESSAGE_MAP()
 
 
@@ -48,7 +52,11 @@ BOOL ConfigurationDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO: ここに初期化を追加してください
+	// ユニットバースコントロールを登録してダイアログのリサイズ時に同期させる
+	// WM_SIZEをオーバライドしてユニットを表示させる
+	SetControlInfo(IDC_STATIC_UNITBASE, ANCHORE_LEFTTOP | RESIZE_BOTH);
+	SetControlInfo(IDOK, ANCHORE_BOTTOM);
+	SetControlInfo(IDCANCEL, ANCHORE_BOTTOM);
 
 	// ★ユニットベースの作成
 	// 各種別のビットマップリソースを登録
@@ -62,4 +70,106 @@ BOOL ConfigurationDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
+}
+
+
+void ConfigurationDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+
+	if (nType == SIZE_MINIMIZED)
+		return;
+
+	if (GetSafeHwnd() == NULL)
+		return;
+
+	if (mControl.size() == 0)
+		return;
+
+	if (mSaveCx == 0) {
+		mSaveCx = cx;
+		mSaveCy = cy;
+		return;
+	}
+
+	int dx = cx - mSaveCx;
+	int dy = cy - mSaveCy;
+
+	CRect rect, rectClient;
+	GetClientRect(rectClient);
+
+	CWnd* pWnd;
+	DWORD info;
+	WORD anchore;
+
+	vector<DWORD>::iterator itr;
+	for (itr = mControl.begin(); itr != mControl.end(); itr++) {
+		info = (*itr);
+		pWnd = GetDlgItem(LOWORD(info));
+		if (!pWnd) {
+			continue;
+		}
+
+		if (!HIWORD(info))
+			continue;
+
+		anchore = HIWORD(info);
+		pWnd->GetWindowRect(rect);
+		ScreenToClient(rect);
+
+		if (anchore & RESIZE_HOR)
+			rect.right += dx;
+		else if (anchore & ANCHORE_RIGHT)
+			rect.OffsetRect(dx, 0);
+
+		if (anchore & RESIZE_VER)
+			rect.bottom += dy;
+		else if (anchore & ANCHORE_BOTTOM)
+			rect.OffsetRect(0, dy);
+
+		pWnd->MoveWindow(rect);
+		mUnitBase.UnitAlignment();
+	}
+
+	mSaveCx = cx;
+	mSaveCy = cy;
+}
+/*============================================================================*/
+/*! 構成画面
+
+-# ★ユニットボタン押下イベント
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
+void ConfigurationDlg::OnUnitCommand(UINT nID)
+{
+	bool ret = mUnitBase.FindUnit(nID);
+
+	if (ret == false) {
+		// 存在しない場合は何もしない
+		return;
+	}
+
+	if (MessageBox(_T("Singleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
+		if (MessageBox(_T("Doubleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
+			if (MessageBox(_T("削除ですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
+				return;
+			}
+			// ユニットの削除
+			mUnitBase.DeleteUnit(nID);
+			return;
+		}
+		// ダブルユニットで更新する
+		mUnitBase.UpdateUnit(nID, 2);
+		// 新たに空ユニットを登録する
+		mUnitBase.AddUnit(nID + 1);
+		return;
+	}
+	// シングルユニットで更新する
+	mUnitBase.UpdateUnit(nID, 1);
+	// 新たに空ユニットを登録する
+	mUnitBase.AddUnit(nID + 1);
 }
