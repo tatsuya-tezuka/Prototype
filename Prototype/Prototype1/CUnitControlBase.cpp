@@ -133,6 +133,9 @@ void CUnitControlBase::DeleteUnit(UINT command)
 	if (itr == mUnits.end())
 		return;
 
+	if ((*itr).second->GetType() == UnitEmpty)
+		return;
+
 	delete (*itr).second;
 	mUnits.erase(itr);
 

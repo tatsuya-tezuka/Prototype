@@ -153,6 +153,8 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		return;
 	}
 
+	UINT selectUnitType = mUnitBase.GetUnitType(nID);
+
 	if (MessageBox(_T("Singleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
 		if (MessageBox(_T("Doubleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
 			if (MessageBox(_T("削除ですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
@@ -163,13 +165,17 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 			return;
 		}
 		// ダブルユニットで更新する
-		mUnitBase.UpdateUnit(nID, 2);
-		// 新たに空ユニットを登録する
-		mUnitBase.AddUnit(nID + 1);
+		mUnitBase.UpdateUnit(nID, 2); // 実際はユニット選択画面で選定されたユニットサイズを指定する
+		if (selectUnitType == CUnitControlBase::UnitEmpty) {
+			// 新たに空ユニットを登録する
+			mUnitBase.AddUnit(nID + 1);
+		}
 		return;
 	}
 	// シングルユニットで更新する
-	mUnitBase.UpdateUnit(nID, 1);
-	// 新たに空ユニットを登録する
-	mUnitBase.AddUnit(nID + 1);
+	mUnitBase.UpdateUnit(nID, 1); // 実際はユニット選択画面で選定されたユニットサイズを指定する
+	if (selectUnitType == CUnitControlBase::UnitEmpty) {
+		// 新たに空ユニットを登録する
+		mUnitBase.AddUnit(nID + 1);
+	}
 }
