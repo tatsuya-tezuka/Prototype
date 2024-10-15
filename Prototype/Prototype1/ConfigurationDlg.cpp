@@ -27,6 +27,7 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_STATIC_UNITBASE, mUnitBase);
+	DDX_Control(pDX, IDC_STATIC_MODELNAME, m_pctModelName);
 }
 
 
@@ -67,6 +68,9 @@ BOOL ConfigurationDlg::OnInitDialog()
 	// ユニットベースの作成
 	mUnitBase.CreateUnitBase(theApp.m_hInstance, this);
 	// ★ユニットベースの作成
+
+	m_pctModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
