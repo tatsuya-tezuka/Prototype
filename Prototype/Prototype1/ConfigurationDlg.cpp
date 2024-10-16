@@ -6,7 +6,7 @@
 #include "Prototype1.h"
 #include "afxdialogex.h"
 #include "ConfigurationDlg.h"
-
+#include "UnitSelectionDlg.h"
 
 // ConfigurationDlg ダイアログ
 
@@ -196,6 +196,10 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		return;
 	}
 
+	UnitSelectionDlg unitseldlg;
+	unitseldlg.DoModal();
+
+	/*
 	UINT selectUnitType = mUnitBase.GetUnitType(nID);
 
 	if (MessageBox(_T("Singleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
@@ -221,4 +225,5 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		// 新たに空ユニットを登録する
 		mUnitBase.AddUnit(nID + 1);
 	}
+	*/
 }

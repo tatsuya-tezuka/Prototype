@@ -14,6 +14,8 @@
 #define IDB_BITMAP_UNIT1                137
 #define IDB_BITMAP_UNIT2                138
 #define IDB_BITMAP_IMAGE                139
+#define IDD_DIALOG                      139
+#define IDD_UNITSELECTION_DIALOG        139
 #define IDB_BITMAP_NOIMAGE              140
 #define IDC_BTN_SELECT                  1000
 #define IDC_BTN_SELECT_DUM              1001
@@ -34,7 +36,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        139
+#define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101

@@ -18,6 +18,11 @@ enum eImage {
 	eNumImage			// eImage項目数
 };
 
+enum eFlg {
+	eDisable,
+	eEnable
+};
+
 /* ------------------------------------------------------------------------------------ */
 /* struct定義                                                                           */
 /* ------------------------------------------------------------------------------------ */
@@ -40,6 +45,18 @@ struct sModelData {
 		bflg = flg;
 		return true;
 	}
+
+	//operator UINT() 
+	//{
+	//	if (modelname.IsEmpty()) 
+	//	{
+	//		return -1;
+	//	}
+	//	else
+	//	{
+	//		return bflg;
+	//	}
+	//}
 };
 
 // ユニット一覧構造体
