@@ -14,7 +14,6 @@
 #define IDB_BITMAP_UNIT1                137
 #define IDB_BITMAP_UNIT2                138
 #define IDB_BITMAP_IMAGE                139
-#define IDD_DIALOG                      139
 #define IDD_UNITSELECTION_DIALOG        139
 #define IDB_BITMAP_NOIMAGE              140
 #define IDC_BTN_SELECT                  1000
@@ -25,6 +24,7 @@
 #define IDC_STARTSELECTION              1003
 #define IDC_LIST1                       1004
 #define IDC_LIST_CONFIG                 1004
+#define IDC_LIST_UNITSELECTION          1004
 #define IDC_STATIC_UNITBASE             1005
 #define IDC_STATIC_MODELNAME            1009
 #define IDC_EDIT_UNITLIST               1010
