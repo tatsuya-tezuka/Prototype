@@ -37,7 +37,9 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-	CStatic m_pctModelName;
+	CStatic m_stcModelName;
+	CEdit m_editUnitList;
+	CStatic m_stcUnitNum;
 
 protected:
 	// コントロールのリサイズ
@@ -71,5 +73,4 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnUnitCommand(UINT nID);
-	
 };

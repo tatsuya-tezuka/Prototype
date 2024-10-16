@@ -2,6 +2,7 @@
 #include <afxwin.h>
 
 #include "CUnitControl.h"
+#include "common.h"
 
 // ビットマップ用
 #include <gdiplus.h>
@@ -14,7 +15,7 @@ using namespace std;
 
 static const UINT mUnitBracketCommand = 4000;
 static const UINT mUnitStartCommand = 8000;
-static const UINT mUnitMax = 10;
+//static const UINT mUnitMax = 10;
 
 class CUnitControlBase : public CStatic
 {

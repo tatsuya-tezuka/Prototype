@@ -27,7 +27,9 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_STATIC_UNITBASE, mUnitBase);
-	DDX_Control(pDX, IDC_STATIC_MODELNAME, m_pctModelName);
+	DDX_Control(pDX, IDC_STATIC_MODELNAME, m_stcModelName);
+	DDX_Control(pDX, IDC_EDIT_UNITLIST, m_editUnitList);
+	DDX_Control(pDX, IDC_STATIC_UNITLABEL3, m_stcUnitNum);
 }
 
 
@@ -69,8 +71,45 @@ BOOL ConfigurationDlg::OnInitDialog()
 	mUnitBase.CreateUnitBase(theApp.m_hInstance, this);
 	// ★ユニットベースの作成
 
-	m_pctModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
+	// ログフォント情報の取得
+	CFont* pfont;
+	pfont = GetFont();
+	LOGFONT lfl, lfm, lfs;
+	pfont->GetLogFont(&lfl);
+	pfont->GetLogFont(&lfm);
+	pfont->GetLogFont(&lfs);
 
+	CFont fntModelName, fntUnitList, fntUnitNum;
+
+	// ユニット選択数フォント設定
+	fntUnitNum.CreateFontIndirect(&lfs);
+	CString unitnum;
+	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
+	m_stcUnitNum.SetWindowText(unitnum);
+	m_stcUnitNum.SetFont(&fntUnitNum);
+
+	// ユニットリストフォント設定
+	fntUnitList.CreateFontIndirect(&lfm);
+	// ユーザ選択情報構造体からユニット情報を取得
+	CString strunit = _T("");
+	for (int i = 0; i < mUnitMax; i++) 
+	{
+		//theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname = _T("ユニット");
+		if (!theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname.IsEmpty()) 
+		{
+			strunit += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname;
+			strunit += _T("\r\n\r\n");
+		}
+	}
+	m_editUnitList.SetWindowText(strunit);
+	m_editUnitList.SetFont(&fntUnitList);
+
+	// 機種名フォント設定
+	lfl.lfHeight = -20;
+	lfl.lfWeight = 800;
+	fntModelName.CreateFontIndirect(&lfl);
+	m_stcModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
+	m_stcModelName.SetFont(&fntModelName);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。

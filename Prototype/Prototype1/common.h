@@ -74,12 +74,14 @@ struct sUnitData {
 	}
 };
 
+const static UINT mUnitMax = 10;
+
 // 選択ユニット情報構造体
 struct sSelectedInfo {
 	sModelData model;
-	UINT id;
+	UINT unitselecttotal;		// ユニット選択数
 	struct {
-		UINT unitselectnum;
+		UINT unitid;			// ユニット選択順番	
 		sUnitData unit;
-	} sSelectedUnitInfo[10];
+	} sSelectedUnitInfo[mUnitMax];
 };
