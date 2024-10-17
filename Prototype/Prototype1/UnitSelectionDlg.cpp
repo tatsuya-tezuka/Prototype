@@ -62,7 +62,7 @@ BOOL UnitSelectionDlg::OnInitDialog()
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
 	{
 		CString strusage;
-		strusage.Format(_T("%d"), theApp.sUnitDataList.at(i).usage);
+		strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
 		// 行の挿入
 		m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
 		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
