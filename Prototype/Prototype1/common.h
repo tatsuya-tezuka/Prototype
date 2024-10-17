@@ -43,6 +43,12 @@ struct sModelData {
 	CString modelname;
 	UINT bflg;		// 0:無効、1:有効
 
+	sModelData() {
+		category = _T("");
+		modelname = _T("");
+		bflg = 0;
+	}
+
 	//sModelData(CString cat, CString name, UINT flg) {
 	//	category = cat;
 	//	modelname = name;
@@ -79,15 +85,25 @@ struct sUnitData {
 	CString fignumber;	// 手配図番
 	CString message;
 
-	//sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
-	//	category = cat;
-	//	unitname = name;
-	//	type = ctype;
-	//	spec = cspec;
-	//	usage = cusage;
-	//	fignumber = num;
-	//	message = msg;
-	//}
+	sUnitData() {
+		category = _T("");
+		unitname = _T("");
+		type = _T("");
+		spec = _T("");
+		usage = 0;
+		fignumber = _T("");
+		message = _T("");
+	}
+
+	/*sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+		category = cat;
+		unitname = name;
+		type = ctype;
+		spec = cspec;
+		usage = cusage;
+		fignumber = num;
+		message = msg;
+	}*/
 
 	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
 		category = cat;
@@ -111,4 +127,13 @@ struct sSelectedInfo {
 		UINT unitid;			// ユニット選択順番	
 		sUnitData unit;
 	} sSelectedUnitInfo[mUnitMax];
+
+	sSelectedInfo()
+	{
+		unitselecttotal = 0;
+		for (int i = 0; i < mUnitMax; i++)
+		{
+			sSelectedUnitInfo[i].unitid = i;
+		}
+	}
 };

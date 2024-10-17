@@ -194,6 +194,7 @@
     <ClInclude Include="Prototype1Dlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UnitQtyDlg.h" />
     <ClInclude Include="UnitSelectionDlg.h" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +210,7 @@
     </ClCompile>
     <ClCompile Include="Prototype1.cpp" />
     <ClCompile Include="Prototype1Dlg.cpp" />
+    <ClCompile Include="UnitQtyDlg.cpp" />
     <ClCompile Include="UnitSelectionDlg.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -23,5 +23,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl m_listunit;
+	CString m_selunit;
+
 	virtual BOOL OnInitDialog();
+	afx_msg void OnClickedButtonOk();
 };
