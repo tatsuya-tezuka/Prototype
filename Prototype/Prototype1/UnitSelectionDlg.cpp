@@ -50,7 +50,30 @@ BOOL UnitSelectionDlg::OnInitDialog()
 		LVS_EX_HEADERINALLVIEWS
 	);
 
+	// 列を設定する
+	for (int i = 0; i < mUnitlistHeader.size(); i++) 
+	{
+		// ヘッダー
+		m_listunit.InsertColumn(i, mUnitlistHeader[i], LVCFMT_LEFT);
+	}
 
+	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
+	{
+		CString strusage;
+		strusage.Format(_T("%d"), theApp.sUnitDataList.at(i).usage);
+		// 行の挿入
+		m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+		m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+		m_listunit.SetItemText(i, 3, strusage);
+	}
+
+	// 列数を取得して列幅を自動設定をする
+	for (int i = 0; i < m_listunit.GetHeaderCtrl()->GetItemCount(); i++)
+	{
+		m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
+	}
+	
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
