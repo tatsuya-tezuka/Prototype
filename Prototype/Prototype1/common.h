@@ -131,7 +131,7 @@ struct sSelectedInfo {
 
 	sSelectedInfo()
 	{
-		unitselecttotal = 0;
+		unitselecttotal = -1;
 		for (int i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unitid = i;

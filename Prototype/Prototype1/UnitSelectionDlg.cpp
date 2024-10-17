@@ -109,22 +109,29 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	while ((idx = m_listunit.GetNextItem(idx, LVNI_SELECTED)) != -1)
 	{
 		m_listunit.GetItemText(idx, 0, tszText, 256);
-		m_selunit = tszText;
+		m_selUnitname = tszText;
 	}
 
-	// 選択情報を構造体に格納
+	UnitQtyDlg unitqtydlg;
+
+	// 選択情報を変数に格納
 	vector<sUnitData>::iterator itr;
 	for (itr = theApp.sUnitDataList.begin(); itr != theApp.sUnitDataList.end(); itr++)
 	{
-		if (m_selunit == (*itr).unitname)
+		if (m_selUnitname == (*itr).unitname)
 		{
-			theApp.sSelectinfo.sSelectedUnitInfo[theApp.sSelectinfo.unitselecttotal].unit = (*itr);
-			theApp.sSelectinfo.unitselecttotal += 1;
+			m_selUnitInfo = (*itr);
+			unitqtydlg.SetUnitSelData(m_selUnitInfo);
+			//theApp.sSelectinfo.sSelectedUnitInfo[theApp.sSelectinfo.unitselecttotal].unit = (*itr);
+			//theApp.sSelectinfo.unitselecttotal += 1;
 		}
 	}
 
 	// メッセージ情報がある場合は表示
 
-	UnitQtyDlg unitqtydlg;
+	///UnitQtyDlg unitqtydlg;
 	unitqtydlg.DoModal();
+
+	// 数量選択画面で「OK」の場合は閉じる
+	this->EndDialog(TRUE);
 }

@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
 #include "CUnitListCtrl.h"
 
 // UnitSelectionDlg ダイアログ
@@ -28,7 +27,8 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-	CString	m_selunit;
+	CString	m_selUnitname;
+	sUnitData m_selUnitInfo;
 protected:
 	CFont	mListFont;
 	CFont	mHeaderFont;
