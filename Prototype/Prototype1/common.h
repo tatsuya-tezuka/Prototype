@@ -6,6 +6,10 @@
 	◆共通定義
 */
 
+// 機種一覧CSVヘッダー情報
+const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
+// ユニット一覧CSVヘッダー情報
+const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, {_T("タイプ")}, {_T("仕様")}, {_T("占有数")}, {_T("手配図番")}, {_T("メッセージ")} };
 // ユニット選択画面ヘッダー情報
 const std::vector<CString> mUnitlistHeader = { {_T("形名")}, {_T("タイプ")}, {_T("仕様")}, {_T("ユニット占有数")} };
 const std::vector<UINT> mUnitlistHeaderSize = { {80}, {80}, {250}, {100} };
@@ -39,6 +43,12 @@ struct sModelData {
 	CString category;
 	CString modelname;
 	UINT bflg;		// 0:無効、1:有効
+
+	sModelData() {
+		category = _T("");
+		modelname = _T("");
+		bflg = 0;
+	}
 
 	//sModelData(CString cat, CString name, UINT flg) {
 	//	category = cat;
@@ -76,15 +86,25 @@ struct sUnitData {
 	CString fignumber;	// 手配図番
 	CString message;
 
-	//sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
-	//	category = cat;
-	//	unitname = name;
-	//	type = ctype;
-	//	spec = cspec;
-	//	usage = cusage;
-	//	fignumber = num;
-	//	message = msg;
-	//}
+	sUnitData() {
+		category = _T("");
+		unitname = _T("");
+		type = _T("");
+		spec = _T("");
+		usage = 0;
+		fignumber = _T("");
+		message = _T("");
+	}
+
+	/*sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+		category = cat;
+		unitname = name;
+		type = ctype;
+		spec = cspec;
+		usage = cusage;
+		fignumber = num;
+		message = msg;
+	}*/
 
 	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
 		category = cat;
@@ -108,4 +128,13 @@ struct sSelectedInfo {
 		UINT unitid;			// ユニット選択順番	
 		sUnitData unit;
 	} sSelectedUnitInfo[mUnitMax];
+
+	sSelectedInfo()
+	{
+		unitselecttotal = 0;
+		for (int i = 0; i < mUnitMax; i++)
+		{
+			sSelectedUnitInfo[i].unitid = i;
+		}
+	}
 };

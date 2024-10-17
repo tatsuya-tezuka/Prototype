@@ -49,4 +49,5 @@ protected:
 public:
 	CUnitListCtrl m_listunit;
 	virtual BOOL OnInitDialog();
+	afx_msg void OnClickedButtonOk();
 };

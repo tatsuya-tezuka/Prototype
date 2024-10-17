@@ -11,6 +11,7 @@
 #include "framework.h"
 #include "Prototype1.h"
 #include "Prototype1Dlg.h"
+#include "afxdialogex.h"
 #include <locale.h>
 
 #ifdef _DEBUG
@@ -144,13 +145,6 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 
 	while (file.ReadString(readrow))
 	{
-		// ヘッダー判定
-		if (bHead)
-		{
-			bHead = FALSE;
-			continue;
-		}
-
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
 			str.Trim();
@@ -158,11 +152,27 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 			inlist.push_back(str);
 		}
 
+		// ヘッダー判定
+		if (bHead)
+		{
+			// ヘッダ情報チェック
+			for (int i = 0; i < mModelCsvHeader.size(); i++)
+			{
+				if (!(mModelCsvHeader[i] == inlist[i]))
+				{
+					file.Close();
+					return false;
+				}
+			}
+
+			bHead = FALSE;
+			inlist.clear();
+			continue;
+		}
+
 		// 構造体に格納
 		UINT flg;
 		flg = _ttoi(inlist[2]);
-		//sModelData model(inlist[0], inlist[1], flg);
-		//sModelDataList.push_back(model);
 		sModelData model;
 		model.set(inlist[0], inlist[1], flg);
 		sModelDataList.push_back(model);
@@ -199,13 +209,6 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 
 	while (file.ReadString(readrow))
 	{
-		// ヘッダー判定
-		if (bHead)
-		{
-			bHead = FALSE;
-			continue;
-		}
-
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
 			str.Trim();
@@ -213,11 +216,27 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			inlist.push_back(str);
 		}
 
+		// ヘッダー判定
+		if (bHead)
+		{
+			// ヘッダ情報チェック
+			for (int i = 0; i < mUnitCsvHeader.size(); i++)
+			{
+				if (!(mUnitCsvHeader[i] == inlist[i]))
+				{
+					file.Close();
+					return false;
+				}
+			}
+
+			bHead = FALSE;
+			inlist.clear();
+			continue;
+		}
+		
 		// 構造体に格納
 		UINT usage;
 		usage = _ttoi(inlist[4]);
-		//sUnitData unit(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
-		//sUnitDataList.push_back(unit);
 		sUnitData unit;
 		unit.set(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
 		sUnitDataList.push_back(unit);

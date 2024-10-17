@@ -126,8 +126,11 @@ BOOL CPrototype1Dlg::OnInitDialog()
 
 	// TODO: 初期化をここに追加します。
 
-	theApp.SetmModelDatafromCSV();
-	theApp.SetmUnitDatafromCSV();
+	if ( (!theApp.SetmModelDatafromCSV()) || (!theApp.SetmUnitDatafromCSV()))
+	{
+		MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+	};
+	//theApp.SetmUnitDatafromCSV();
 
 	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
 }

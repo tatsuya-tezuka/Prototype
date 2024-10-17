@@ -5,6 +5,7 @@
 #include "Prototype1.h"
 #include "afxdialogex.h"
 #include "UnitSelectionDlg.h"
+#include "UnitQtyDlg.h"
 
 
 // UnitSelectionDlg ダイアログ
@@ -43,6 +44,7 @@ void UnitSelectionDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(UnitSelectionDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_BUTTON_OK, &UnitSelectionDlg::OnClickedButtonOk)
 END_MESSAGE_MAP()
 
 
@@ -77,7 +79,7 @@ BOOL UnitSelectionDlg::OnInitDialog()
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
 	{
 		CString strusage;
-		strusage.Format(_T("%d"), theApp.sUnitDataList.at(i).usage);
+		strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
 		// 行の挿入
 		m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
 		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
@@ -94,4 +96,35 @@ BOOL UnitSelectionDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
+}
+
+// OKボタン押下時イベント
+void UnitSelectionDlg::OnClickedButtonOk()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
+	// 選択されているアイテムのユニット名を取得
+	int idx = -1;	
+	TCHAR tszText[256];
+	while ((idx = m_listunit.GetNextItem(idx, LVNI_SELECTED)) != -1)
+	{
+		m_listunit.GetItemText(idx, 0, tszText, 256);
+		m_selunit = tszText;
+	}
+
+	// 選択情報を構造体に格納
+	vector<sUnitData>::iterator itr;
+	for (itr = theApp.sUnitDataList.begin(); itr != theApp.sUnitDataList.end(); itr++)
+	{
+		if (m_selunit == (*itr).unitname)
+		{
+			theApp.sSelectinfo.sSelectedUnitInfo[theApp.sSelectinfo.unitselecttotal].unit = (*itr);
+			theApp.sSelectinfo.unitselecttotal += 1;
+		}
+	}
+
+	// メッセージ情報がある場合は表示
+
+	UnitQtyDlg unitqtydlg;
+	unitqtydlg.DoModal();
 }
