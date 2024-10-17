@@ -166,6 +166,7 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 			}
 
 			bHead = FALSE;
+			inlist.clear();
 			continue;
 		}
 
@@ -229,6 +230,7 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			}
 
 			bHead = FALSE;
+			inlist.clear();
 			continue;
 		}
 		
