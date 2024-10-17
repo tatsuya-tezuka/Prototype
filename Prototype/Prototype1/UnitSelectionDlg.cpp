@@ -14,11 +14,25 @@ IMPLEMENT_DYNAMIC(UnitSelectionDlg, CDialogEx)
 UnitSelectionDlg::UnitSelectionDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_UNITSELECTION_DIALOG, pParent)
 {
-
+	mListFont.CreateStockObject(DEFAULT_GUI_FONT);
+	LOGFONT lf;
+	if (mListFont.GetLogFont(&lf)) {
+		lf.lfHeight = -(LONG)(mMaxLine * 12);
+		mListFont.DeleteObject();
+		mListFont.CreateFontIndirect(&lf);
+	}
+	mHeaderFont.CreateStockObject(DEFAULT_GUI_FONT);
+	if (mListFont.GetLogFont(&lf)) {
+		lf.lfHeight = -12;
+		mHeaderFont.DeleteObject();
+		mHeaderFont.CreateFontIndirect(&lf);
+	}
 }
 
 UnitSelectionDlg::~UnitSelectionDlg()
 {
+	mListFont.DeleteObject();
+	mHeaderFont.DeleteObject();
 }
 
 void UnitSelectionDlg::DoDataExchange(CDataExchange* pDX)
@@ -50,11 +64,14 @@ BOOL UnitSelectionDlg::OnInitDialog()
 		LVS_EX_HEADERINALLVIEWS
 	);
 
+	m_listunit.SetFont(&mListFont);
+	m_listunit.GetHeaderCtrl()->SetFont(&mHeaderFont);
+
 	// 列を設定する
 	for (int i = 0; i < mUnitlistHeader.size(); i++) 
 	{
 		// ヘッダー
-		m_listunit.InsertColumn(i, mUnitlistHeader[i], LVCFMT_LEFT);
+		m_listunit.InsertColumn(i, mUnitlistHeader[i], LVCFMT_LEFT, mUnitlistHeaderSize[i]);
 	}
 
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
@@ -69,10 +86,10 @@ BOOL UnitSelectionDlg::OnInitDialog()
 	}
 
 	// 列数を取得して列幅を自動設定をする
-	for (int i = 0; i < m_listunit.GetHeaderCtrl()->GetItemCount(); i++)
-	{
-		m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
-	}
+	//for (int i = 0; i < m_listunit.GetHeaderCtrl()->GetItemCount(); i++)
+	//{
+	//	m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
+	//}
 	
 
 	return TRUE;  // return TRUE unless you set the focus to a control
