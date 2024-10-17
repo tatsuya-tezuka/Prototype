@@ -28,6 +28,7 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
+	CString	m_selunit;
 protected:
 	CFont	mListFont;
 	CFont	mHeaderFont;
