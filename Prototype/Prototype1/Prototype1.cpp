@@ -156,9 +156,9 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 		if (bHead)
 		{
 			// ヘッダ情報チェック
-			for (int i = 0; i < mModellistHeader.size(); i++)
+			for (int i = 0; i < mModelCsvHeader.size(); i++)
 			{
-				if (!(mModellistHeader[i] == inlist[i]))
+				if (!(mModelCsvHeader[i] == inlist[i]))
 				{
 					file.Close();
 					return false;
@@ -208,13 +208,6 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 
 	while (file.ReadString(readrow))
 	{
-		// ヘッダー判定
-		if (bHead)
-		{
-			bHead = FALSE;
-			continue;
-		}
-
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
 			str.Trim();
@@ -222,6 +215,23 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			inlist.push_back(str);
 		}
 
+		// ヘッダー判定
+		if (bHead)
+		{
+			// ヘッダ情報チェック
+			for (int i = 0; i < mUnitCsvHeader.size(); i++)
+			{
+				if (!(mUnitCsvHeader[i] == inlist[i]))
+				{
+					file.Close();
+					return false;
+				}
+			}
+
+			bHead = FALSE;
+			continue;
+		}
+		
 		// 構造体に格納
 		UINT usage;
 		usage = _ttoi(inlist[4]);

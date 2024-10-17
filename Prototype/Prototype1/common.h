@@ -6,8 +6,10 @@
 	◆共通定義
 */
 
-// 機種一覧ヘッダー情報
-const std::vector<CString> mModellistHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
+// 機種一覧CSVヘッダー情報
+const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
+// ユニット一覧CSVヘッダー情報
+const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, {_T("タイプ")}, {_T("仕様")}, {_T("占有数")}, {_T("手配図番")}, {_T("メッセージ")} };
 // ユニット選択画面ヘッダー情報
 const std::vector<CString> mUnitlistHeader = { {_T("形名")}, {_T("タイプ")}, {_T("仕様")}, {_T("ユニット占有数")} };
 
