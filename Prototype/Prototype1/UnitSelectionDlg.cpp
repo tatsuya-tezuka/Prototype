@@ -130,8 +130,15 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	// メッセージ情報がある場合は表示
 
 	///UnitQtyDlg unitqtydlg;
-	unitqtydlg.DoModal();
+	int ret = -1;
+	ret = unitqtydlg.DoModal();
 
 	// 数量選択画面で「OK」の場合は閉じる
-	this->EndDialog(TRUE);
+	switch (ret)
+	{
+	case IDOK:
+		this->EndDialog(TRUE);
+		break;
+	}
+	
 }
