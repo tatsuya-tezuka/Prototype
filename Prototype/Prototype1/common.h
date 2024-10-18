@@ -123,7 +123,7 @@ const static UINT mUnitMax = 10;
 // 選択ユニット情報構造体
 struct sSelectedInfo {
 	sModelData model;
-	UINT unitselecttotal;		// ユニット選択数
+	int unitselecttotal;		// ユニット選択数
 	struct {
 		UINT unitid;			// ユニット選択順番	
 		sUnitData unit;

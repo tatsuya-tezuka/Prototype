@@ -332,7 +332,7 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 		m_selModel = seltext;
 	}
 
-	theApp.GetmModelData();
+	theApp.GetsModelData();
 
 	for (auto itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); ++itr)
 	{

@@ -196,8 +196,27 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		return;
 	}
 
+	int seltotalBf, seltotalAf; 
+	// ユニット選択前の選択済み数を取得
+	seltotalBf = theApp.GetsSelectinfoData().unitselecttotal;
+	//seltotalBf = theApp.sSelectinfo.unitselecttotal;
+	//seltotalBf = theApp.sSelectinfo.unitselecttotal;
+
 	UnitSelectionDlg unitseldlg;
 	unitseldlg.DoModal();
+
+	seltotalAf = theApp.sSelectinfo.unitselecttotal;
+
+	// 選択済み数が変わっていなければ何もしない
+	if (seltotalBf == seltotalAf) return;
+
+	for (int i = seltotalBf; i < seltotalAf; i++)
+	{
+		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i+1].unit.usage);
+		// 新たに空ユニットを登録する
+		mUnitBase.AddUnit(nID + 1);
+		nID++;
+	}
 
 	/*
 	UINT selectUnitType = mUnitBase.GetUnitType(nID);
