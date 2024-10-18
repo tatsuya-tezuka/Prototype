@@ -39,12 +39,14 @@ enum eFlg {
 /* ------------------------------------------------------------------------------------ */
 
 // 機器一覧構造体
-struct sModelData {
+struct sModelData 
+{
 	CString category;
 	CString modelname;
 	UINT bflg;		// 0:無効、1:有効
 
-	sModelData() {
+	sModelData() 
+	{
 		category = _T("");
 		modelname = _T("");
 		bflg = 0;
@@ -56,10 +58,19 @@ struct sModelData {
 	//	bflg = flg;
 	//}
 
-	BOOL set(CString cat, CString name, UINT flg) {
+	BOOL set(CString cat, CString name, UINT flg) 
+	{
 		category = cat;
 		modelname = name;
 		bflg = flg;
+		return true;
+	}
+
+	BOOL clear()
+	{
+		category = _T("");
+		modelname = _T("");
+		bflg = 0;
 		return true;
 	}
 
@@ -77,7 +88,8 @@ struct sModelData {
 };
 
 // ユニット一覧構造体
-struct sUnitData {
+struct sUnitData 
+{
 	CString category;
 	CString unitname;
 	CString type;
@@ -86,7 +98,8 @@ struct sUnitData {
 	CString fignumber;	// 手配図番
 	CString message;
 
-	sUnitData() {
+	sUnitData() 
+	{
 		category = _T("");
 		unitname = _T("");
 		type = _T("");
@@ -106,7 +119,8 @@ struct sUnitData {
 		message = msg;
 	}*/
 
-	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
+	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) 
+	{
 		category = cat;
 		unitname = name;
 		type = ctype;
@@ -116,12 +130,25 @@ struct sUnitData {
 		message = msg;
 		return true;
 	}
+
+	BOOL clear()
+	{
+		category = _T("");
+		unitname = _T("");
+		type = _T("");
+		spec = _T("");
+		usage = 0;
+		fignumber = _T("");
+		message = _T("");
+		return true;
+	}
 };
 
 const static UINT mUnitMax = 10;
 
 // 選択ユニット情報構造体
-struct sSelectedInfo {
+struct sSelectedInfo 
+{
 	sModelData model;
 	int unitselecttotal;		// ユニット選択数
 	struct {
@@ -136,5 +163,28 @@ struct sSelectedInfo {
 		{
 			sSelectedUnitInfo[i].unitid = i;
 		}
+	}
+
+	// 全選択データのクリア
+	BOOL clear()
+	{
+		model.clear();
+		unitselecttotal = -1;
+		for (int i = 0; i < mUnitMax; i++)
+		{
+			sSelectedUnitInfo[i].unit.clear();
+		}
+		return true;
+	}
+
+	// ユニット情報のクリア
+	BOOL clearUnit()
+	{
+		unitselecttotal = -1;
+		for (int i = 0; i < mUnitMax; i++)
+		{
+			sSelectedUnitInfo[i].unit.clear();
+		}
+		return true;
 	}
 };

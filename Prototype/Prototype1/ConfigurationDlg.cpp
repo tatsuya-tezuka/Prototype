@@ -36,6 +36,7 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_WM_SIZE()
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
+	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -246,4 +247,13 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		mUnitBase.AddUnit(nID + 1);
 	}
 	*/
+}
+
+
+void ConfigurationDlg::OnBnClickedCancel()
+{
+	// ユニット選択情報をクリア
+	theApp.sSelectinfo.clearUnit();
+
+	CDialogEx::OnCancel();
 }

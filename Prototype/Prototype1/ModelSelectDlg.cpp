@@ -47,6 +47,7 @@ BEGIN_MESSAGE_MAP(ModelSelectDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_STARTSELECTION, &ModelSelectDlg::OnClickedStartselection)
 	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE_MODELCATEGORY, &ModelSelectDlg::OnSelchangedTreeModelcategory)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_MODEL, &ModelSelectDlg::OnItemchangedListModel)
+	ON_BN_CLICKED(IDCANCEL, &ModelSelectDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -351,4 +352,13 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 
 	*pResult = 0;
+}
+
+
+void ModelSelectDlg::OnBnClickedCancel()
+{
+	// 選択情報をクリア
+	theApp.sSelectinfo.clear();
+
+	CDialogEx::OnCancel();
 }

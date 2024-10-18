@@ -73,4 +73,5 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnUnitCommand(UINT nID);
+	afx_msg void OnBnClickedCancel();
 };
