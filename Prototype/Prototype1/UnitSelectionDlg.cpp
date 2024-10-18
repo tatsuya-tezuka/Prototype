@@ -130,7 +130,7 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	// メッセージ情報がある場合は表示
 
 	///UnitQtyDlg unitqtydlg;
-	int ret = -1;
+	INT_PTR ret = -1;
 	ret = unitqtydlg.DoModal();
 
 	// 数量選択画面で「OK」の場合は閉じる

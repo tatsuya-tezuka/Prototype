@@ -46,7 +46,6 @@ public:
 	BOOL SetmModelDatafromCSV();		// CSVから機器一覧を取得、構造体にセットする
 	BOOL SetmUnitDatafromCSV();		// CSVからユニット一覧を取得、構造体にセットする
 	vector<sModelData>& GetsModelData() { return sModelDataList; }
-	sSelectedInfo GetsSelectinfoData() { return sSelectinfo; }
 
 // 実装
 

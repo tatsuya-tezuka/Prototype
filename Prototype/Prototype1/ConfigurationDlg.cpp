@@ -83,9 +83,7 @@ BOOL ConfigurationDlg::OnInitDialog()
 
 	// ユニット選択数フォント設定
 	fntUnitNum.CreateFontIndirect(&lfs);
-	CString unitnum;
-	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
-	m_stcUnitNum.SetWindowText(unitnum);
+	m_stcUnitNum.SetWindowText(_T("0"));
 	m_stcUnitNum.SetFont(&fntUnitNum);
 
 	// ユニットリストフォント設定
@@ -198,9 +196,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	int seltotalBf, seltotalAf; 
 	// ユニット選択前の選択済み数を取得
-	seltotalBf = theApp.GetsSelectinfoData().unitselecttotal;
-	//seltotalBf = theApp.sSelectinfo.unitselecttotal;
-	//seltotalBf = theApp.sSelectinfo.unitselecttotal;
+	seltotalBf = theApp.sSelectinfo.unitselecttotal;
 
 	UnitSelectionDlg unitseldlg;
 	unitseldlg.DoModal();
@@ -209,6 +205,11 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	// 選択済み数が変わっていなければ何もしない
 	if (seltotalBf == seltotalAf) return;
+
+	// 選択ユニット数の更新
+	CString unitnum;
+	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal + 1);
+	m_stcUnitNum.SetWindowText(unitnum);
 
 	for (int i = seltotalBf; i < seltotalAf; i++)
 	{
