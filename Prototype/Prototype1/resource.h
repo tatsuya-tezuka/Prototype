@@ -17,6 +17,7 @@
 #define IDD_UNITSELECTION_DIALOG        139
 #define IDB_BITMAP_NOIMAGE              140
 #define IDD_UNITQTY_DIALOG              141
+#define IDR_MENU_DELETE                 144
 #define IDC_BTN_SELECT                  1000
 #define IDC_BTN_SELECT_DUM              1001
 #define IDC_TREE_MODELCATEGORY          1001
@@ -35,15 +36,17 @@
 #define IDC_BUTTON_CSVEXPORT            1014
 #define IDC_BUTTON_OK                   1015
 #define IDC_STATIC_UNITQTY              1016
-#define IDC_COMBO1                      1017
 #define IDC_COMBO_QTY                   1017
+#define ID_32771                        32771
+#define ID_32772                        32772
+#define ID_DELETE                       32774
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        144
-#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_RESOURCE_VALUE        145
+#define _APS_NEXT_COMMAND_VALUE         32775
 #define _APS_NEXT_CONTROL_VALUE         1018
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

@@ -37,6 +37,8 @@ BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_WM_SIZE()
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
+	ON_WM_CONTEXTMENU()
+//	ON_COMMAND(IDD_CONFIGURATION_DIALOG, &ConfigurationDlg::OnIddConfigurationDialog)
 END_MESSAGE_MAP()
 
 
@@ -249,11 +251,70 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	*/
 }
 
+/*============================================================================*/
+/*! 戻るボタン押下時イベント
 
+-# ユニット選択情報のクリア
+
+@param
+
+@retval
+*/
+/*============================================================================*/
 void ConfigurationDlg::OnBnClickedCancel()
 {
 	// ユニット選択情報をクリア
 	theApp.sSelectinfo.clearUnit();
 
 	CDialogEx::OnCancel();
+}
+
+
+/*============================================================================*/
+/*! 右クリック時イベント
+
+-# 削除メニュー表示
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::OnContextMenu(CWnd* pWnd, CPoint point)
+{
+	// 削除メニューの表示
+	CMenu menu;
+	if (menu.LoadMenu(IDR_MENU_DELETE))
+	{
+		CMenu* pSubMenu = menu.GetSubMenu(0);
+		
+		if (pSubMenu == NULL) return;
+		pSubMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+	}
+
+}
+
+
+/*============================================================================*/
+/*! 削除メニュー押下時イベント
+
+-# ユニット図の削除
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+BOOL ConfigurationDlg::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
+	switch (LOWORD(wParam))
+	{
+		// 削除メニュー選択
+	case ID_DELETE:
+
+		break;
+	}
+
+	return CDialogEx::OnCommand(wParam, lParam);
 }
