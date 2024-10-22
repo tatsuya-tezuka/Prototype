@@ -312,7 +312,8 @@ BOOL ConfigurationDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 	{
 		// 削除メニュー選択
 	case ID_DELETE:
-
+		// ユニットの削除
+		//mUnitBase.DeleteUnit(nID);
 		break;
 	}
 
