@@ -201,6 +201,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	// ユニット選択前の選択済み数を取得
 	seltotalBf = theApp.sSelectinfo.unitselecttotal;
 
+	// ユニット選択画面を表示
 	UnitSelectionDlg unitseldlg;
 	unitseldlg.DoModal();
 
