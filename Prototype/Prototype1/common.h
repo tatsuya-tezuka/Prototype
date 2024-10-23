@@ -158,7 +158,7 @@ struct sSelectedInfo
 
 	sSelectedInfo()
 	{
-		unitselecttotal = -1;
+		unitselecttotal = 0;
 		for (int i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unitid = i;
@@ -169,7 +169,7 @@ struct sSelectedInfo
 	BOOL clear()
 	{
 		model.clear();
-		unitselecttotal = -1;
+		unitselecttotal = 0;
 		for (int i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unit.clear();
@@ -180,7 +180,7 @@ struct sSelectedInfo
 	// ユニット情報のクリア
 	BOOL clearUnit()
 	{
-		unitselecttotal = -1;
+		unitselecttotal = 0;
 		for (int i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unit.clear();

@@ -85,11 +85,15 @@ BOOL ConfigurationDlg::OnInitDialog()
 	CFont fntModelName, fntUnitList, fntUnitNum;
 
 	// ユニット選択数フォント設定
+	lfs.lfHeight = -10;
+	lfs.lfWeight = 200;
 	fntUnitNum.CreateFontIndirect(&lfs);
 	m_stcUnitNum.SetWindowText(_T("0"));
 	m_stcUnitNum.SetFont(&fntUnitNum);
 
 	// ユニットリストフォント設定
+	lfs.lfHeight = -15;
+	lfs.lfWeight = 400;
 	fntUnitList.CreateFontIndirect(&lfm);
 	// ユーザ選択情報構造体からユニット情報を取得
 	CString strunit = _T("");
@@ -210,16 +214,20 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	// 選択済み数が変わっていなければ何もしない
 	if (seltotalBf == seltotalAf) return;
 
+	UINT selectUnitType = mUnitBase.GetUnitType(nID);
+
 	// 選択ユニット数の更新
 	CString unitnum;
-	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal + 1);
+	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
 	m_stcUnitNum.SetWindowText(unitnum);
 
 	for (int i = seltotalBf; i < seltotalAf; i++)
 	{
-		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i+1].unit.usage);
-		// 新たに空ユニットを登録する
-		mUnitBase.AddUnit(nID + 1);
+		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
+		if (selectUnitType == CUnitControlBase::UnitEmpty) {
+			// 新たに空ユニットを登録する
+			mUnitBase.AddUnit(nID + 1);
+		}
 		nID++;
 	}
 

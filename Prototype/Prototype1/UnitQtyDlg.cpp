@@ -65,9 +65,9 @@ void UnitQtyDlg::OnBnClickedOk()
 	// 選択情報を構造体に格納
 	for (int i = 0; i < idx; i++) 
 	{
-		int num = theApp.sSelectinfo.unitselecttotal += 1;
+		int num = theApp.sSelectinfo.unitselecttotal;
 		theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
-		//theApp.sSelectinfo.unitselecttotal += 1;
+		theApp.sSelectinfo.unitselecttotal += 1;
 	}
 
 	CDialogEx::OnOK();
