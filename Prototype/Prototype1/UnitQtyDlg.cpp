@@ -36,12 +36,31 @@ END_MESSAGE_MAP()
 // UnitQtyDlg メッセージ ハンドラー
 
 
+/*============================================================================*/
+/*! 数量選択画面
+
+-# 初期化
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
 BOOL UnitQtyDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 	// TODO: ここに初期化を追加してください
-	for (int i = 0; i < mUnitMax; i++)
+
+	int totalusage = 0;
+	for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
+	{
+		totalusage += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
+	}
+
+	int opt = (mUnitMax - totalusage) / m_unitdata->usage;
+
+	for (int i = 0; i < opt; i++)
 	{
 		// 初期値設定
 		CString qty;
@@ -57,6 +76,16 @@ BOOL UnitQtyDlg::OnInitDialog()
 }
 
 
+/*============================================================================*/
+/*! 数量選択画面
+
+-# ★OKボタンイベント
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
 void UnitQtyDlg::OnBnClickedOk()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
@@ -65,7 +94,10 @@ void UnitQtyDlg::OnBnClickedOk()
 	// 選択情報を構造体に格納
 	for (int i = 0; i < idx; i++) 
 	{
-		int num = theApp.sSelectinfo.unitselecttotal;
+		//int num = theApp.sSelectinfo.unitselecttotal;
+		//theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
+
+		UINT num = theApp.mSelectUnitId - mUnitStartCommand + i;
 		theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
 		theApp.sSelectinfo.unitselecttotal += 1;
 	}

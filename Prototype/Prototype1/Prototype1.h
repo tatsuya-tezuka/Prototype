@@ -39,6 +39,7 @@ public:
 	vector<sModelData> sModelDataList;
 	vector<sUnitData> sUnitDataList;
 	sSelectedInfo sSelectinfo;
+	UINT mSelectUnitId;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */

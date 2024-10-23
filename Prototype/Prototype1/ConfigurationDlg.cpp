@@ -199,6 +199,8 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		return;
 	}
 
+	theApp.mSelectUnitId = nID;
+
 	int seltotalBf, seltotalAf; 
 	// ユニット選択前の選択済み数を取得
 	seltotalBf = theApp.sSelectinfo.unitselecttotal;
@@ -282,7 +284,8 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	if (message == mMessage_UnitDelete) {
 		// ユニットの削除
 		mUnitBase.DeleteUnit((UINT)wParam);
-		theApp.sSelectinfo.unitselecttotal -= 1;
+		//theApp.sSelectinfo.unitselecttotal -= 1;
+		theApp.sSelectinfo.clearUnit((UINT)wParam - mUnitStartCommand);
 		CString unitnum;
 		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
 		m_stcUnitNum.SetWindowText(unitnum);

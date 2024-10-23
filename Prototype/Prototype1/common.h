@@ -16,6 +16,8 @@ const std::vector<UINT> mUnitlistHeaderSize = { {80}, {80}, {250}, {100} };
 
 const UINT mMessage_UnitDelete = WM_USER + 100;
 
+static const UINT mUnitMax = 10;
+static const UINT mUnitStartCommand = 8000;
 
 /* ------------------------------------------------------------------------------------ */
 /* enum定義                                                                             */
@@ -146,7 +148,6 @@ struct sUnitData
 	}
 };
 
-const static UINT mUnitMax = 10;
 
 // 選択ユニット情報構造体
 struct sSelectedInfo 
@@ -161,9 +162,9 @@ struct sSelectedInfo
 	sSelectedInfo()
 	{
 		unitselecttotal = 0;
-		for (int i = 0; i < mUnitMax; i++)
+		for (UINT i = 0; i < mUnitMax; i++)
 		{
-			sSelectedUnitInfo[i].unitid = i;
+			sSelectedUnitInfo[i].unitid = mUnitStartCommand + i;
 		}
 	}
 
@@ -172,7 +173,7 @@ struct sSelectedInfo
 	{
 		model.clear();
 		unitselecttotal = 0;
-		for (int i = 0; i < mUnitMax; i++)
+		for (UINT i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unit.clear();
 		}
@@ -180,10 +181,18 @@ struct sSelectedInfo
 	}
 
 	// ユニット情報のクリア
+	BOOL clearUnit(int id)
+	{
+		unitselecttotal = -1;
+		sSelectedUnitInfo[id].unit.clear();
+
+
+		return true;
+	}
 	BOOL clearUnit()
 	{
 		unitselecttotal = 0;
-		for (int i = 0; i < mUnitMax; i++)
+		for (UINT i = 0; i < mUnitMax; i++)
 		{
 			sSelectedUnitInfo[i].unit.clear();
 		}
