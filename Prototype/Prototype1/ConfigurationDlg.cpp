@@ -201,28 +201,19 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	theApp.mSelectUnitId = nID;
 
-	int seltotalBf, seltotalAf; 
-	// ユニット選択前の選択済み数を取得
-	seltotalBf = theApp.sSelectinfo.unitselecttotal;
-
 	// ユニット選択画面を表示
 	UnitSelectionDlg unitseldlg;
-	unitseldlg.DoModal();
-
-	seltotalAf = theApp.sSelectinfo.unitselecttotal;
-
-	// 選択済み数が変わっていなければ何もしない
-	if (seltotalBf == seltotalAf) return;
-
-	UINT selectUnitType = mUnitBase.GetUnitType(nID);
+	if(unitseldlg.DoModal() != IDOK) return;
 
 	// 選択ユニット数の更新
 	CString unitnum;
 	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
 	m_stcUnitNum.SetWindowText(unitnum);
 
-	for (int i = seltotalBf; i < seltotalAf; i++)
+	for (int i = nID- mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
 	{
+		UINT selectUnitType = mUnitBase.GetUnitType(nID);
+
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
 		if (selectUnitType == CUnitControlBase::UnitEmpty) {
 			// 新たに空ユニットを登録する

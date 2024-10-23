@@ -98,8 +98,27 @@ void UnitQtyDlg::OnBnClickedOk()
 		//theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
 
 		UINT num = theApp.mSelectUnitId - mUnitStartCommand + i;
-		theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
-		theApp.sSelectinfo.unitselecttotal += 1;
+
+		// 空のユニットに追加
+		if (theApp.sSelectinfo.sSelectedUnitInfo[num].unit.unitname.IsEmpty())
+		{
+			theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
+			theApp.sSelectinfo.unitselecttotal += 1;
+			continue;
+		}
+		// 既存ユニットの更新
+		else
+		{
+			if (i > 0)
+			{
+				int idxto = theApp.sSelectinfo.unitselecttotal - i + 1;
+				int idxfm = theApp.sSelectinfo.unitselecttotal - i;
+				//既存データをひとつ後にずらす
+				theApp.sSelectinfo.sSelectedUnitInfo[idxto].unit = theApp.sSelectinfo.sSelectedUnitInfo[idxfm].unit;
+				theApp.sSelectinfo.unitselecttotal += 1;
+			}
+			theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
+		}
 	}
 
 	CDialogEx::OnOK();

@@ -137,7 +137,7 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	switch (ret)
 	{
 	case IDOK:
-		this->EndDialog(TRUE);
+		this->EndDialog(IDOK);
 		break;
 	}
 	

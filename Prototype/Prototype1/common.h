@@ -155,7 +155,7 @@ struct sSelectedInfo
 	sModelData model;
 	int unitselecttotal;		// ユニット選択数
 	struct {
-		UINT unitid;			// ユニット選択順番	
+		UINT unitid;			// ユニットid	
 		sUnitData unit;
 	} sSelectedUnitInfo[mUnitMax];
 
@@ -183,9 +183,20 @@ struct sSelectedInfo
 	// ユニット情報のクリア
 	BOOL clearUnit(int id)
 	{
-		unitselecttotal = -1;
 		sSelectedUnitInfo[id].unit.clear();
 
+		for (int i = id; i < unitselecttotal; i++)
+		{
+			if (i == mUnitMax - 1)
+			{
+				sSelectedUnitInfo[i].unit.clear();
+			}
+			else
+			{
+				sSelectedUnitInfo[i].unit = sSelectedUnitInfo[i + 1].unit;
+			}
+		}
+		unitselecttotal -= 1;
 
 		return true;
 	}
