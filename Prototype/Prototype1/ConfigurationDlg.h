@@ -75,5 +75,5 @@ public:
 	afx_msg void OnUnitCommand(UINT nID);
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
-	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 };

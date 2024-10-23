@@ -52,4 +52,6 @@ protected:
 public:
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	virtual void PreSubclassWindow();
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnUnitDelete();
 };

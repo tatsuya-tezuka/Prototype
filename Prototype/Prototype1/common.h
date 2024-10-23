@@ -14,6 +14,8 @@ const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, 
 const std::vector<CString> mUnitlistHeader = { {_T("形名")}, {_T("タイプ")}, {_T("仕様")}, {_T("ユニット占有数")} };
 const std::vector<UINT> mUnitlistHeaderSize = { {80}, {80}, {250}, {100} };
 
+const UINT mMessage_UnitDelete = WM_USER + 100;
+
 
 /* ------------------------------------------------------------------------------------ */
 /* enum定義                                                                             */

@@ -304,27 +304,17 @@ void ConfigurationDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 }
 
 
-/*============================================================================*/
-/*! 削除メニュー押下時イベント
-
--# ユニット図の削除
-
-@param
-
-@retval
-*/
-/*============================================================================*/
-BOOL ConfigurationDlg::OnCommand(WPARAM wParam, LPARAM lParam)
+LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// TODO: ここに特定なコードを追加するか、もしくは基底クラスを呼び出してください。
-	switch (LOWORD(wParam))
-	{
-		// 削除メニュー選択
-	case ID_DELETE:
+	if (message == mMessage_UnitDelete) {
 		// ユニットの削除
-		//mUnitBase.DeleteUnit(nID);
-		break;
+		mUnitBase.DeleteUnit((UINT)wParam);
+		theApp.sSelectinfo.unitselecttotal -= 1;
+		CString unitnum;
+		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal + 1);
+		m_stcUnitNum.SetWindowText(unitnum);
+		return TRUE;
 	}
 
-	return CDialogEx::OnCommand(wParam, lParam);
+	return CDialogEx::WindowProc(message, wParam, lParam);
 }
