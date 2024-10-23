@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Prototype1.h"
 #include "CUnitControlBase.h"
 
 /*
