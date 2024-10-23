@@ -40,11 +40,14 @@ public:
 	CStatic m_stcModelName;
 	CEdit m_editUnitList;
 	CStatic m_stcUnitNum;
+	CFont m_fntl, m_fntm, m_fnts;
+	LOGFONT m_lfl, m_lfm, m_lfs;
 
 protected:
 	// コントロールのリサイズ
 	vector<DWORD>		mControl;
 	int					mSaveCx, mSaveCy;
+	CUnitControlBase mUnitBase;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -61,13 +64,14 @@ protected:
 		DWORD info = MAKELONG(id, anchore);
 		mControl.push_back(info);
 	}
+	void SetUnitList(CFont& font);
+	void SetUnitNum(CFont& font);
 
 	/* ------------------------------------------------------------------------------------ */
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
-	CUnitControlBase mUnitBase;
-
+	
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();

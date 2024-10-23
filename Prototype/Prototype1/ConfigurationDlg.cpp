@@ -75,44 +75,31 @@ BOOL ConfigurationDlg::OnInitDialog()
 	// ログフォント情報の取得
 	CFont* pfont;
 	pfont = GetFont();
-	LOGFONT lfl, lfm, lfs;
-	pfont->GetLogFont(&lfl);
-	pfont->GetLogFont(&lfm);
-	pfont->GetLogFont(&lfs);
-
-	CFont fntModelName, fntUnitList, fntUnitNum;
-
+	
+	pfont->GetLogFont(&m_lfs);
+	pfont->GetLogFont(&m_lfm);
+	pfont->GetLogFont(&m_lfl);
+	
 	// ユニット選択数フォント設定
-	lfs.lfHeight = -10;
-	lfs.lfWeight = 200;
-	fntUnitNum.CreateFontIndirect(&lfs);
-	m_stcUnitNum.SetWindowText(_T("0"));
-	m_stcUnitNum.SetFont(&fntUnitNum);
+	m_lfs.lfHeight = -11;
+	m_lfs.lfWeight = 400;
+	m_fnts.CreateFontIndirect(&m_lfs);
+	SetUnitNum(m_fnts);
+	//m_stcUnitNum.SetWindowText(_T("0"));
+	//m_stcUnitNum.SetFont(&m_fnts);
 
 	// ユニットリストフォント設定
-	lfs.lfHeight = -15;
-	lfs.lfWeight = 400;
-	fntUnitList.CreateFontIndirect(&lfm);
-	// ユーザ選択情報構造体からユニット情報を取得
-	CString strunit = _T("");
-	for (int i = 0; i < mUnitMax; i++) 
-	{
-		//theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname = _T("ユニット");
-		if (!theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname.IsEmpty()) 
-		{
-			strunit += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname;
-			strunit += _T("\r\n\r\n");
-		}
-	}
-	m_editUnitList.SetWindowText(strunit);
-	m_editUnitList.SetFont(&fntUnitList);
+	m_lfm.lfHeight = -13;
+	m_lfm.lfWeight = 450;
+	m_fntm.CreateFontIndirect(&m_lfm);
+	SetUnitList(m_fntm);
 
 	// 機種名フォント設定
-	lfl.lfHeight = -20;
-	lfl.lfWeight = 800;
-	fntModelName.CreateFontIndirect(&lfl);
+	m_lfl.lfHeight = -20;
+	m_lfl.lfWeight = 800;
+	m_fntl.CreateFontIndirect(&m_lfl);
 	m_stcModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
-	m_stcModelName.SetFont(&fntModelName);
+	m_stcModelName.SetFont(&m_fntl);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
@@ -206,11 +193,12 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	if(unitseldlg.DoModal() != IDOK) return;
 
 	// 選択ユニット数の更新
-	CString unitnum;
+	SetUnitNum(m_fnts);
+	/*CString unitnum;
 	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
-	m_stcUnitNum.SetWindowText(unitnum);
+	m_stcUnitNum.SetWindowText(unitnum);*/
 
-	for (int i = nID- mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
+	for (int i = nID - mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
 	{
 		UINT selectUnitType = mUnitBase.GetUnitType(nID);
 
@@ -221,6 +209,8 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		}
 		nID++;
 	}
+	// 選択ユニットリストの更新
+	SetUnitList(m_fntm);
 
 	/*
 	UINT selectUnitType = mUnitBase.GetUnitType(nID);
@@ -252,7 +242,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 }
 
 /*============================================================================*/
-/*! 戻るボタン押下時イベント
+/*! 構成画面
 
 -# ユニット選択情報のクリア
 
@@ -277,11 +267,59 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		mUnitBase.DeleteUnit((UINT)wParam);
 		//theApp.sSelectinfo.unitselecttotal -= 1;
 		theApp.sSelectinfo.clearUnit((UINT)wParam - mUnitStartCommand);
-		CString unitnum;
+
+		// 選択ユニット数の更新
+		SetUnitNum(m_fnts);
+		/*CString unitnum;
 		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
-		m_stcUnitNum.SetWindowText(unitnum);
+		m_stcUnitNum.SetWindowText(unitnum);*/
+
+		// 選択ユニットリストの更新
+		SetUnitList(m_fntm);
+
 		return TRUE;
 	}
 
 	return CDialogEx::WindowProc(message, wParam, lParam);
+}
+
+/*============================================================================*/
+/*! 構成画面
+
+-# ユニットリスト設定関数
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::SetUnitList(CFont &font)
+{
+	// ユーザ選択情報構造体からユニット情報を取得
+	CString strunit = _T("");
+	for (int i = 0; i < mUnitMax; i++)
+	{
+		strunit += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.unitname;
+		strunit += _T("\r\n\r\n");
+	}
+	m_editUnitList.SetWindowText(strunit);
+	m_editUnitList.SetFont(&font);
+}
+
+/*============================================================================*/
+/*! 構成画面
+
+-# ユニット数設定関数
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::SetUnitNum(CFont& font)
+{
+	CString unitnum;
+	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
+	m_stcUnitNum.SetWindowText(unitnum);
+	m_stcUnitNum.SetFont(&font);
 }
