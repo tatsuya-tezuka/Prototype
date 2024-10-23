@@ -37,8 +37,6 @@ BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_WM_SIZE()
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
-	ON_WM_CONTEXTMENU()
-//	ON_COMMAND(IDD_CONFIGURATION_DIALOG, &ConfigurationDlg::OnIddConfigurationDialog)
 END_MESSAGE_MAP()
 
 
@@ -279,31 +277,6 @@ void ConfigurationDlg::OnBnClickedCancel()
 }
 
 
-/*============================================================================*/
-/*! 右クリック時イベント
-
--# 削除メニュー表示
-
-@param
-
-@retval
-*/
-/*============================================================================*/
-void ConfigurationDlg::OnContextMenu(CWnd* pWnd, CPoint point)
-{
-	// 削除メニューの表示
-	CMenu menu;
-	if (menu.LoadMenu(IDR_MENU_DELETE))
-	{
-		CMenu* pSubMenu = menu.GetSubMenu(0);
-		
-		if (pSubMenu == NULL) return;
-		pSubMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
-	}
-
-}
-
-
 LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == mMessage_UnitDelete) {
@@ -311,7 +284,7 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		mUnitBase.DeleteUnit((UINT)wParam);
 		theApp.sSelectinfo.unitselecttotal -= 1;
 		CString unitnum;
-		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal + 1);
+		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
 		m_stcUnitNum.SetWindowText(unitnum);
 		return TRUE;
 	}

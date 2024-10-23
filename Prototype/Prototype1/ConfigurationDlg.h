@@ -74,6 +74,5 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnUnitCommand(UINT nID);
 	afx_msg void OnBnClickedCancel();
-	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
