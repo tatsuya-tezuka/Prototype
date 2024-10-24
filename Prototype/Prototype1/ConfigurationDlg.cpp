@@ -267,6 +267,11 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		mUnitBase.DeleteUnit((UINT)wParam);
 		//theApp.sSelectinfo.unitselecttotal -= 1;
 		theApp.sSelectinfo.clearUnit((UINT)wParam - mUnitStartCommand);
+		if (theApp.sSelectinfo.unitselecttotal == mUnitMax - 1)
+		{
+			// 新たに空ユニットを登録する
+			mUnitBase.AddUnit((UINT)wParam);
+		}
 
 		// 選択ユニット数の更新
 		SetUnitNum(m_fnts);
