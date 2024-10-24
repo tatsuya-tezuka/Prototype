@@ -64,10 +64,10 @@ BOOL ConfigurationDlg::OnInitDialog()
 
 	// ★ユニットベースの作成
 	// 各種別のビットマップリソースを登録
-	mUnitBase.SetUnitImage(CUnitControlBase::UnitBracket, IDB_BITMAP_BRACKET);
-	mUnitBase.SetUnitImage(CUnitControlBase::UnitEmpty, IDB_BITMAP_ADDUNIT);
-	mUnitBase.SetUnitImage(CUnitControlBase::UnitSingle, IDB_BITMAP_UNIT1);
-	mUnitBase.SetUnitImage(CUnitControlBase::UnitDouble, IDB_BITMAP_UNIT2);
+	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitBracket, IDB_BITMAP_BRACKET);
+	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitEmpty, IDB_BITMAP_ADDUNIT);
+	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitSingle, IDB_BITMAP_UNIT1);
+	mUnitBase.SetUnitImage(/*CUnitControlBase::*/ UnitDouble, IDB_BITMAP_UNIT2);
 	// ユニットベースの作成
 	mUnitBase.CreateUnitBase(theApp.m_hInstance, this);
 	// ★ユニットベースの作成
@@ -179,6 +179,7 @@ void ConfigurationDlg::OnSize(UINT nType, int cx, int cy)
 /*============================================================================*/
 void ConfigurationDlg::OnUnitCommand(UINT nID)
 {
+	UINT selectUnitType = mUnitBase.GetUnitType(nID);
 	bool ret = mUnitBase.FindUnit(nID);
 
 	if (ret == false) {
@@ -190,6 +191,9 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	// ユニット選択画面を表示
 	UnitSelectionDlg unitseldlg;
+
+	unitseldlg.SetUnitType(selectUnitType);
+
 	if(unitseldlg.DoModal() != IDOK) return;
 
 	// 選択ユニット数の更新
@@ -200,10 +204,10 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	for (int i = nID - mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
 	{
-		UINT selectUnitType = mUnitBase.GetUnitType(nID);
+		selectUnitType = mUnitBase.GetUnitType(nID);
 
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
-		if (selectUnitType == CUnitControlBase::UnitEmpty) {
+		if (selectUnitType == /*CUnitControlBase:: */ UnitEmpty) {
 			// 新たに空ユニットを登録する
 			mUnitBase.AddUnit(nID + 1);
 		}

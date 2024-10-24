@@ -37,6 +37,14 @@ enum eFlg {
 	eEnable
 };
 
+enum {
+	UnitBracket,
+	UnitEmpty,
+	UnitSingle,
+	UnitDouble,
+
+	UnitMax,
+};
 
 /* ------------------------------------------------------------------------------------ */
 /* struct定義                                                                           */
@@ -153,7 +161,7 @@ struct sUnitData
 struct sSelectedInfo 
 {
 	sModelData model;
-	int unitselecttotal;		// ユニット選択数
+	int unitselecttotal;		// ユニット選択数	
 	struct {
 		UINT unitid;			// ユニットid	
 		sUnitData unit;

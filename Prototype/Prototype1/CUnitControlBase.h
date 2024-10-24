@@ -27,14 +27,14 @@ public:
 	/* ------------------------------------------------------------------------------------ */
 public:
 	const UINT mGap = 1;
-	enum {
-		UnitBracket,
-		UnitEmpty,
-		UnitSingle,
-		UnitDouble,
+	//enum {
+	//	UnitBracket,
+	//	UnitEmpty,
+	//	UnitSingle,
+	//	UnitDouble,
 
-		UnitMax,
-	};
+	//	UnitMax,
+	//};
 
 protected:
 

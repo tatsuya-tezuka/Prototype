@@ -90,20 +90,69 @@ BOOL UnitSelectionDlg::OnInitDialog()
 
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
 	{
-		CString strusage;
-		strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
-		// 行の挿入
-		m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
-		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
-		m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
-		m_listunit.SetItemText(i, 3, strusage);
+		//if (theApp.sUnitDataList.at(i).usage <= (mUnitMax - theApp.sSelectinfo.unitselecttotal))
+		//{
+			CString strusage;
+			strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
+			// 行の挿入
+			m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+			m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+			m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+			m_listunit.SetItemText(i, 3, strusage);
+		//}
+		//else if (m_selUnitType == (UINT)UnitSingle && 
+		//	theApp.sUnitDataList.at(i).usage <= (UINT)UnitSingle - 1)
+		//{
+		//	CString strusage;
+		//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
+		//	// 行の挿入
+		//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+		//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+		//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+		//	m_listunit.SetItemText(i, 3, strusage);
+		//}
+		//else if (m_selUnitType == (UINT)UnitDouble &&
+		//	theApp.sUnitDataList.at(i).usage <= (UINT)UnitDouble - 1)
+		//{
+		//	CString strusage;
+		//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
+		//	// 行の挿入
+		//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+		//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+		//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+		//	m_listunit.SetItemText(i, 3, strusage);
+		//}
 	}
+
+	//for (int i = 0; i < theApp.sUnitDataList.size(); i++)
+	//{
+	//	CString strusage;
+	//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
+	//	// 行の挿入
+	//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+	//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+	//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+	//	m_listunit.SetItemText(i, 3, strusage);
+	//}
 
 	// 列数を取得して列幅を自動設定をする
 	//for (int i = 0; i < m_listunit.GetHeaderCtrl()->GetItemCount(); i++)
 	//{
 	//	m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
 	//}
+
+	// ユニット選択可能残の取得
+	m_unitRemaining = mUnitMax;
+	int unitusagetotal = 0;
+	for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
+	{
+		unitusagetotal += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
+	}
+	m_unitRemaining -= unitusagetotal;
+	if (!(m_selUnitType == (UINT)UnitEmpty))
+	{
+		m_unitRemaining -= m_selUnitType - 1;
+	}
 	
 	// 「OK」ボタン非活性
 	m_btnOk.EnableWindow(FALSE);
@@ -137,18 +186,24 @@ void UnitSelectionDlg::OnClickedButtonOk()
 
 	UnitQtyDlg unitqtydlg;
 
-	// 選択情報を変数に格納
+	// 選択ユニット情報の取得
 	vector<sUnitData>::iterator itr;
 	for (itr = theApp.sUnitDataList.begin(); itr != theApp.sUnitDataList.end(); itr++)
 	{
 		if (m_selUnitname == (*itr).unitname)
 		{
 			m_selUnitInfo = (*itr);
-			unitqtydlg.SetUnitSelData(m_selUnitInfo);
+			//unitqtydlg.SetUnitSelData(*itr);
 			//theApp.sSelectinfo.sSelectedUnitInfo[theApp.sSelectinfo.unitselecttotal].unit = (*itr);
 			//theApp.sSelectinfo.unitselecttotal += 1;
 		}
 	}
+
+	// 選択ユニットの占有数チェック
+
+
+	// 選択情報の格納準備
+	unitqtydlg.SetUnitSelData(m_selUnitInfo);
 
 	// メッセージ情報がある場合は表示
 

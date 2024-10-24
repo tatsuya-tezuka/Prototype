@@ -33,12 +33,14 @@ protected:
 	CFont	mListFont;
 	CFont	mHeaderFont;
 	CButton m_btnOk;
-
+private:
+	UINT m_selUnitType;
+	int m_unitRemaining;		// ユニット選択可能残
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-
+	void SetUnitType(UINT type) { m_selUnitType = type; }
 protected:
 
 	/* ------------------------------------------------------------------------------------ */
