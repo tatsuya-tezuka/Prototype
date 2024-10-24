@@ -32,6 +32,7 @@ public:
 protected:
 	CFont	mListFont;
 	CFont	mHeaderFont;
+	CButton m_btnOk;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -51,4 +52,6 @@ public:
 	CUnitListCtrl m_listunit;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClickedButtonOk();
+	
+	afx_msg void OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pResult);
 };

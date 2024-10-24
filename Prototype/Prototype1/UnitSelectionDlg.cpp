@@ -40,17 +40,29 @@ void UnitSelectionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_UNITSELECTION, m_listunit);
+	DDX_Control(pDX, IDC_BUTTON_OK, m_btnOk);
 }
 
 
 BEGIN_MESSAGE_MAP(UnitSelectionDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &UnitSelectionDlg::OnClickedButtonOk)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_UNITSELECTION, &UnitSelectionDlg::OnItemchangedListUnitselection)
 END_MESSAGE_MAP()
 
 
 // UnitSelectionDlg メッセージ ハンドラー
 
 
+/*============================================================================*/
+/*! ユニット選択画面
+
+-# 初期化
+
+@param
+
+@retval
+*/
+/*============================================================================*/
 BOOL UnitSelectionDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -93,12 +105,23 @@ BOOL UnitSelectionDlg::OnInitDialog()
 	//	m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
 	//}
 	
+	// 「OK」ボタン非活性
+	m_btnOk.EnableWindow(FALSE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
 
-// OKボタン押下時イベント
+/*============================================================================*/
+/*! ユニット選択画面
+
+-# OKボタン押下時イベント
+
+@param
+
+@retval
+*/
+/*============================================================================*/
 void UnitSelectionDlg::OnClickedButtonOk()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
@@ -141,4 +164,25 @@ void UnitSelectionDlg::OnClickedButtonOk()
 		break;
 	}
 	
+}
+
+/*============================================================================*/
+/*! ユニット選択画面
+
+-# ユニットリスト選択時
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void UnitSelectionDlg::OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+	m_btnOk.EnableWindow(TRUE);
+
+	*pResult = 0;
+
+
 }
