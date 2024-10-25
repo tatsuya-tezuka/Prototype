@@ -91,6 +91,11 @@ void UnitQtyDlg::OnBnClickedOk()
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 	int idx = m_cmbUnitQty.GetCurSel() + 1;
 
+	//for (int i = mUnitMax - 1; i > 現在選択されているnID; i--)
+	//{
+	//	theApp.sSelectinfo.sSelectedUnitInfo[i].unit = theApp.sSelectinfo.sSelectedUnitInfo[i-1].unit;
+	//}
+
 	// 選択情報を構造体に格納
 	for (int i = 0; i < idx; i++) 
 	{

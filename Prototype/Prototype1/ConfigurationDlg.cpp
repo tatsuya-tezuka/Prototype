@@ -180,7 +180,7 @@ void ConfigurationDlg::OnSize(UINT nType, int cx, int cy)
 /*============================================================================*/
 void ConfigurationDlg::OnUnitCommand(UINT nID)
 {
-	UINT selectUnitType = mUnitBase.GetUnitType(nID);
+	UINT selectUnitTypeBf = mUnitBase.GetUnitType(nID);
 	bool ret = mUnitBase.FindUnit(nID);
 
 	if (ret == false) {
@@ -193,7 +193,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	// ユニット選択画面を表示
 	UnitSelectionDlg unitseldlg;
 
-	unitseldlg.SetUnitType(selectUnitType);
+	unitseldlg.SetUnitType(selectUnitTypeBf);
 
 	if(unitseldlg.DoModal() != IDOK) return;
 
@@ -205,10 +205,11 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	for (int i = nID - mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
 	{
-		selectUnitType = mUnitBase.GetUnitType(nID);
+		UINT selectUnitTypeAf = mUnitBase.GetUnitType(nID);
 
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
-		if (selectUnitType == /*CUnitControlBase:: */ UnitEmpty) {
+
+		if (selectUnitTypeAf == /*CUnitControlBase:: */ UnitEmpty) {
 			// 新たに空ユニットを登録する
 			mUnitBase.AddUnit(nID + 1);
 		}
