@@ -335,20 +335,24 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 
 	theApp.GetsModelData();
 
+	UINT flg = -1;
 	for (auto itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); ++itr)
 	{
-		if ((itr->modelname == m_selModel) && (itr->bflg == eEnable))
+		if (itr->modelname == m_selModel)
 		{
-			// 「選定を開始する」ボタン活性化
-			m_btnStartSelection.EnableWindow(TRUE);
+			flg = itr->bflg;
 			break;
 		}
-		else
-		{
-			// 「選定を開始する」ボタン非活性化
-			m_btnStartSelection.EnableWindow(FALSE);
-			break;
-		}
+	}
+	if (flg == eDisable)
+	{
+		// 「選定を開始する」ボタン非活性化
+		m_btnStartSelection.EnableWindow(FALSE);
+	}
+	else if (flg == eEnable)
+	{
+		// 「選定を開始する」ボタン活性化
+		m_btnStartSelection.EnableWindow(TRUE);
 	}
 
 	*pResult = 0;
