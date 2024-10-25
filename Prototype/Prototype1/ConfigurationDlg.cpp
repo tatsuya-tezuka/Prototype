@@ -214,6 +214,11 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		}
 		nID++;
 	}
+	if (!mUnitBase.IsEmpty())
+	{
+		mUnitBase.DeleteUnit(nID);
+	}
+
 	// 選択ユニットリストの更新
 	SetUnitList(m_fntm);
 

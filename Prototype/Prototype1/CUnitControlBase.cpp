@@ -137,8 +137,8 @@ void CUnitControlBase::DeleteUnit(UINT command)
 	if (itr == mUnits.end())
 		return;
 
-	if ((*itr).second->GetType() == UnitEmpty)
-		return;
+	//if ((*itr).second->GetType() == UnitEmpty)
+	//	return;
 
 	// 対象ユニットを削除する
 	delete (*itr).second;
@@ -264,8 +264,8 @@ void CUnitControlBase::UnitAlignment()
 /*============================================================================*/
 bool CUnitControlBase::IsEmpty()
 {
-	if (mUnits.size() == mUnitMax)
-		return false;
+	//if (mUnits.size() == mUnitMax)
+	//	return false;
 
 	// ユニットサイズの合計チェック
 	map<UINT, CUnitControl*>::iterator itr;
