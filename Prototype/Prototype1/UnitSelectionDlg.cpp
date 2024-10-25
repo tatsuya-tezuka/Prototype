@@ -151,7 +151,7 @@ BOOL UnitSelectionDlg::OnInitDialog()
 	m_unitRemaining -= unitusagetotal;
 	if (!(m_selUnitType == (UINT)UnitEmpty))
 	{
-		m_unitRemaining -= m_selUnitType - 1;
+		m_unitRemaining += (m_selUnitType - 1);
 	}
 	
 	// 「OK」ボタン非活性
@@ -200,10 +200,14 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	}
 
 	// 選択ユニットの占有数チェック
-
+	if (m_selUnitInfo.usage > m_unitRemaining)
+	{
+		MessageBox(_T("ユニット選択可能残を超過するため、このユニットは選択できません。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		return;
+	}
 
 	// 選択情報の格納準備
-	unitqtydlg.SetUnitSelData(m_selUnitInfo);
+	unitqtydlg.GetUnitData(m_selUnitInfo, m_unitRemaining);
 
 	// メッセージ情報がある場合は表示
 
@@ -235,6 +239,7 @@ void UnitSelectionDlg::OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pR
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
 	m_btnOk.EnableWindow(TRUE);
 
 	*pResult = 0;

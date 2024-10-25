@@ -81,8 +81,11 @@ bool CUnitControlBase::CreateUnitBase(HINSTANCE hInstance, CWnd* parent)
 /*============================================================================*/
 void CUnitControlBase::AddUnit(UINT command)
 {
-	if (mUnits.size() == mUnitMax)
+	if (IsEmpty() == false) {
 		return;
+	}
+	//if (mUnits.size() == mUnitMax)
+	//	return;
 
 	// SingleDisableの作成
 	CUnitControl* pEmpty = CreateUnit(UnitEmpty, command);
@@ -137,14 +140,26 @@ void CUnitControlBase::DeleteUnit(UINT command)
 	if ((*itr).second->GetType() == UnitEmpty)
 		return;
 
+	// 対象ユニットを削除する
 	delete (*itr).second;
 	mUnits.erase(itr);
+	// 空ユニットを削除する
+	for (itr = mUnits.begin(); itr != mUnits.end(); itr++) {
+		if ((*itr).second->GetType() == UnitEmpty) {
+			delete (*itr).second;
+			mUnits.erase(itr);
+			break;
+		}
+	}
 
 	// コマンドIDを振りなおす
 	map<UINT, CUnitControl*> temp;
 	mUnits.swap(temp);
 	command = mUnitStartCommand;
 	for (itr = temp.begin(); itr != temp.end(); itr++) {
+		if ((*itr).second->GetType() == UnitEmpty) {
+			break;
+		}
 		mUnits.insert(map<UINT, CUnitControl*>::value_type(command, (*itr).second));
 		(*itr).second->SetDlgCtrlID(command);
 		command++;
@@ -235,4 +250,34 @@ void CUnitControlBase::UnitAlignment()
 	mParent->ScreenToClient(rect);
 	pt.x = rect.right + mGap;
 	pt.y = rect.top;
+}
+
+/*============================================================================*/
+/*! ユニットコントロールベース
+
+-# 空ユニットが必要かをチェックする
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+bool CUnitControlBase::IsEmpty()
+{
+	if (mUnits.size() == mUnitMax)
+		return false;
+
+	// ユニットサイズの合計チェック
+	map<UINT, CUnitControl*>::iterator itr;
+	UINT unitnum = 0;
+	for (itr = mUnits.begin(); itr != mUnits.end(); itr++) {
+		if ((*itr).second->GetType() == UnitSingle)
+			unitnum += 1;
+		if ((*itr).second->GetType() == UnitDouble)
+			unitnum += 2;
+	}
+	if (unitnum == mUnitMax)
+		return false;
+
+	return true;
 }

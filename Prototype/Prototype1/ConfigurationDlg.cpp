@@ -35,7 +35,8 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_WM_SIZE()
-	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
+	//ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
+	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + (mUnitMax - 1), OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
@@ -271,11 +272,16 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		mUnitBase.DeleteUnit((UINT)wParam);
 		//theApp.sSelectinfo.unitselecttotal -= 1;
 		theApp.sSelectinfo.clearUnit((UINT)wParam - mUnitStartCommand);
-		if (theApp.sSelectinfo.unitselecttotal == mUnitMax - 1)
-		{
+		if (mUnitBase.IsEmpty() == true) {
 			// 新たに空ユニットを登録する
-			mUnitBase.AddUnit(mUnitStartCommand + mUnitMax);
+			// 格納されているユニット数から空ユニット位置を求める
+			mUnitBase.AddUnit(mUnitStartCommand + (mUnitBase.GetUnitCount()));
 		}
+		//if (theApp.sSelectinfo.unitselecttotal == mUnitMax - 1)
+		//{
+		//	// 新たに空ユニットを登録する
+		//	mUnitBase.AddUnit(mUnitStartCommand + mUnitMax);
+		//}
 
 		// 選択ユニット数の更新
 		SetUnitNum(m_fnts);

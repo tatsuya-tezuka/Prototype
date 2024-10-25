@@ -52,13 +52,13 @@ BOOL UnitQtyDlg::OnInitDialog()
 
 	// TODO: ここに初期化を追加してください
 
-	int totalusage = 0;
-	for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
-	{
-		totalusage += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
-	}
+	//int totalusage = 0;
+	//for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
+	//{
+	//	totalusage += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
+	//}
 
-	int opt = (mUnitMax - totalusage) / m_unitdata->usage;
+	int opt = m_unitRemaining / m_unitdata->usage;
 
 	for (int i = 0; i < opt; i++)
 	{

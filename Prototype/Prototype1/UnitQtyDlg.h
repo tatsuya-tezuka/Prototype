@@ -31,12 +31,17 @@ public:
 protected:
 private:
 	sUnitData* m_unitdata;
+	int m_unitRemaining;		// ユニット選択可能残
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-	void SetUnitSelData(sUnitData data) { m_unitdata = &data; }
+	void GetUnitData(sUnitData data, int remain) 
+	{
+		m_unitdata = &data; 
+		m_unitRemaining = remain;
+	}
 protected:
 
 	/* ------------------------------------------------------------------------------------ */

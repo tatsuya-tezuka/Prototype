@@ -74,9 +74,14 @@ public:
 			return UnitMax;
 		return (*itr).second->GetType();
 	}
+	UINT	GetUnitCount()
+	{
+		return (UINT)mUnits.size();
+	}
 	void	AddUnit(UINT command);
 	void	UpdateUnit(UINT command, UINT size);
 	void	DeleteUnit(UINT command);
+	bool	IsEmpty();
 
 protected:
 
