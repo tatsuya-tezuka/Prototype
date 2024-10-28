@@ -127,7 +127,7 @@ void CUnitControlBase::UpdateUnit(UINT command, UINT size, CString strBitmapFile
 	}
 	else {
 		HBITMAP hBitmap = NULL;
-		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), _T("UnitSize2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), strBitmapFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		// ビットマップを登録
 		mImages.push_back(hBitmap);
 		((CUnitControl*)(*itr).second)->SetBitmap((HBITMAP)hBitmap);
