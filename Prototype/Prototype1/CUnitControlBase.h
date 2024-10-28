@@ -51,6 +51,7 @@ protected:
 	CUnitControl* mpEndBracket;
 
 	map<UINT, CUnitControl*>	mUnits;
+	vector<HBITMAP>	mImages;
 
 	/* ------------------------------------------------------------------------------------ */
 	/* ÉÅÉìÉoä÷êî                                                                           */
@@ -79,7 +80,7 @@ public:
 		return (UINT)mUnits.size();
 	}
 	void	AddUnit(UINT command);
-	void	UpdateUnit(UINT command, UINT size);
+	void	UpdateUnit(UINT command, UINT size, CString strBitmapFile=_T(""));
 	void	DeleteUnit(UINT command);
 	bool	IsEmpty();
 

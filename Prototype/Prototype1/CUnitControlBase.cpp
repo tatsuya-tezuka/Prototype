@@ -24,6 +24,10 @@ CUnitControlBase::~CUnitControlBase()
 	for (itr = mUnits.begin(); itr != mUnits.end(); itr++) {
 		delete (*itr).second;
 	}
+	vector<HBITMAP>::iterator itrb;
+	for (itrb = mImages.begin(); itrb != mImages.end(); itrb++) {
+		DeleteObject((*itrb));
+	}
 }
 
 BEGIN_MESSAGE_MAP(CUnitControlBase, CStatic)
@@ -101,22 +105,33 @@ void CUnitControlBase::AddUnit(UINT command)
 
 -# ユニットの登録
 
-@param	command		コマンドID
-@param	size		ユニットサイズ
+@param	command			コマンドID
+@param	size			ユニットサイズ
+@param	strBitmapFile	表示ビットマップファイル名
 
 @retval
 */
 /*============================================================================*/
-void CUnitControlBase::UpdateUnit(UINT command, UINT size)
+void CUnitControlBase::UpdateUnit(UINT command, UINT size, CString strBitmapFile/*=_T("")*/)
 {
 	map<UINT, CUnitControl*>::iterator itr = mUnits.find(command);
 	if (itr == mUnits.end())
 		return;
 
-	CBitmap cbmp;
 	(*itr).second->SetType((size == 2) ? UnitDouble : UnitSingle);
-	cbmp.LoadBitmap(mUnitImage[(*itr).second->GetType()]);
-	((CUnitControl*)(*itr).second)->SetBitmap((HBITMAP)cbmp.Detach());
+
+	if (strBitmapFile.IsEmpty() == true) {
+		CBitmap cbmp;
+		cbmp.LoadBitmap(mUnitImage[(*itr).second->GetType()]);
+		((CUnitControl*)(*itr).second)->SetBitmap((HBITMAP)cbmp.Detach());
+	}
+	else {
+		HBITMAP hBitmap = NULL;
+		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), _T("UnitSize2.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		// ビットマップを登録
+		mImages.push_back(hBitmap);
+		((CUnitControl*)(*itr).second)->SetBitmap((HBITMAP)hBitmap);
+	}
 
 	UnitAlignment();
 }
