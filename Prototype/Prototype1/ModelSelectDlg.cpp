@@ -67,8 +67,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO: ここに初期化を追加してください
-
 	// 機器カテゴリー設定
 	CString stcategory = _T("");
 	for (int i = 0; i < theApp.sModelDataList.size(); i++)
@@ -121,90 +119,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
 
-
-	////// 機種データの取得
-	////mEqDataList.clear();
-	////for (int i = 0; i < sizeof(mEqDataLIst) / sizeof(mEqDataLIst[0]); i++) {
-	////	mEqDataList.push_back(mEqDataLIst[i]);
-	////}
-
-	//// リソースビットマップのサイズ取得
-	//HBITMAP hBmp = NULL;
-	//Gdiplus::Bitmap* pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	//pThumbnail->GetHBITMAP(NULL, &hBmp);
-	//// サイズ取得
-	//BITMAP bm;
-	//::ZeroMemory(&bm, sizeof(BITMAP));
-	//if (::GetObject(hBmp, sizeof(BITMAP), &bm) != 0) {
-	//	m_ImageWidth = bm.bmWidth;
-	//	m_ImageHeight = bm.bmHeight;
-	//}
-	//DeleteObject(hBmp);
-	//delete pThumbnail;
-
-	//// 機種用のイメージリストの作成（一先ず２個とする）
-	//m_imageList.Create(m_ImageWidth, m_ImageHeight, ILC_COLOR24, 0, 1);
-	//m_imageList.SetImageCount(2);
-
-	//CBitmap* pImage = NULL;
-	//// ★機種イメージなしのビットマップを登録
-	//pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	//// ビットマップオブジェクトにアタッチする
-	//pThumbnail->GetHBITMAP(NULL, &hBmp);
-	//// ビットマップイメージの作成
-	//pImage = new CBitmap();
-	//pImage->Attach(hBmp);
-	//// イメージリストの再設定
-	//m_imageList.Replace(0, pImage, NULL);
-	//delete pImage;
-	//delete pThumbnail;
-	//// ★機種I/O Sliceのビットマップを登録
-	//pThumbnail = Gdiplus::Bitmap::FromResource((HINSTANCE)theApp.m_hInstance, MAKEINTRESOURCE(IDB_BITMAP_NOIMAGE));
-	//// ビットマップオブジェクトにアタッチする
-	//pThumbnail->GetHBITMAP(NULL, &hBmp);
-	//// ビットマップイメージの作成
-	//pImage = new CBitmap();
-	//pImage->Attach(hBmp);
-	//// イメージリストの再設定
-	//m_imageList.Replace(1, pImage, NULL);
-	//delete pImage;
-	//delete pThumbnail;
-
-	//// 機種リストにイメージを登録する
-	//m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
-
-	////// リスト作成
-	////vector<mModelData>::iterator itr;
-	////int item = 0;
-	////for (itr = theApp.mModelDataList.begin(); itr != theApp.mModelDataList.end(); itr++) {
-	////	AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
-	////	item++;
-	////}
-
-
-
-	//// NoImage画像設定
-	//// imageList設定
-	//m_imageList.Create(90, 91, ILC_COLOR16 /* | ILC_MASK*/, 0, 1);
-	//CBitmap bm;
-	//bm.LoadBitmap(IDB_BITMAP_NOIMAGE);
-	//m_imageList.Add(&bm, RGB(0, 0, 0));
-	//// リストコントロール設定
-	//// 拡張スタイルの適用
-	//m_listModel.SetExtendedStyle(m_listModel.GetExtendedStyle() |
-	//	// 行単位で選択する
-	//	LVS_EX_FULLROWSELECT
-	//);
-	//m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
-
-	//LVITEM lvItem;
-	//lvItem.iItem = 0;
-	//lvItem.iImage = 0;    // image index that refers to your image list
-	//lvItem.pszText = L"Item 1";
-	//lvItem.mask = LVIF_TEXT;
-
-	//m_listModel.InsertItem(&lvItem);
-
 	// 「選定を開始する」ボタン非活性
 	m_btnStartSelection.EnableWindow(FALSE);
 
@@ -213,7 +127,7 @@ BOOL ModelSelectDlg::OnInitDialog()
 }
 
 /*============================================================================*/
-/*! 「選定を開始する」ボタン押下時イベント
+/*! 機種選択画面
 
 -# 構成画面を表示する
 
@@ -224,8 +138,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 /*============================================================================*/
 void ModelSelectDlg::OnClickedStartselection()
 {
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-
 	// 機種選択情報を選択情報構造体に格納
 	theApp.sSelectinfo.model.set(m_selCategory, m_selModel, eEnable);
 
@@ -234,7 +146,7 @@ void ModelSelectDlg::OnClickedStartselection()
 }
 
 /*============================================================================*/
-/*! 機種選択
+/*! 機種選択画面
 
 -# 機種リストに登録
 
@@ -271,7 +183,7 @@ int ModelSelectDlg::AddItem(int nItem, int nSubItem, CString strItem, LPARAM dwP
 }
 
 /*============================================================================*/
-/*! 機種カテゴリー押下時イベント
+/*! 機種選択画面
 
 -# 選択されたカテゴリーごとに機種リストに表示する機種を変更する
 
@@ -283,7 +195,6 @@ int ModelSelectDlg::AddItem(int nItem, int nSubItem, CString strItem, LPARAM dwP
 void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
 	// 「選定を開始する」ボタン非活性
 	m_btnStartSelection.EnableWindow(FALSE);
@@ -311,7 +222,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 }
 
 /*============================================================================*/
-/*! 機種選択時イベント
+/*! 機種選択画面
 
 -# 「選定を開始する」ボタンを有効化
 
@@ -358,10 +269,18 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
+/*============================================================================*/
+/*! 機種選択画面
 
+-# 選択情報をクリア
+
+@param  なし
+
+@retval なし
+*/
+/*============================================================================*/
 void ModelSelectDlg::OnBnClickedCancel()
 {
-	// 選択情報をクリア
 	theApp.sSelectinfo.clear();
 
 	CDialogEx::OnCancel();

@@ -50,14 +50,6 @@ BOOL UnitQtyDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO: ここに初期化を追加してください
-
-	//int totalusage = 0;
-	//for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
-	//{
-	//	totalusage += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
-	//}
-
 	int opt = m_unitRemaining / m_unitdata->usage;
 
 	for (int i = 0; i < opt; i++)
@@ -72,7 +64,6 @@ BOOL UnitQtyDlg::OnInitDialog()
 	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
 
 
@@ -88,45 +79,43 @@ BOOL UnitQtyDlg::OnInitDialog()
 /*============================================================================*/
 void UnitQtyDlg::OnBnClickedOk()
 {
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	int idx = m_cmbUnitQty.GetCurSel() + 1;
+	int idx = m_cmbUnitQty.GetCurSel();
 
-	//for (int i = mUnitMax - 1; i > 現在選択されているnID; i--)
-	//{
-	//	theApp.sSelectinfo.sSelectedUnitInfo[i].unit = theApp.sSelectinfo.sSelectedUnitInfo[i-1].unit;
-	//}
+	int id = theApp.mSelectUnitId - mUnitStartCommand;
 
-	// 選択情報を構造体に格納
-	for (int i = 0; i < idx; i++) 
+	// 既存更新
+	if (!(theApp.sSelectinfo.sSelectedUnitInfo[id].unit.unitname.IsEmpty()))
 	{
-		//int num = theApp.sSelectinfo.unitselecttotal;
-		//theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
-
-		UINT num = theApp.mSelectUnitId - mUnitStartCommand + i;
-
-		// 空のユニットに追加
-		if (theApp.sSelectinfo.sSelectedUnitInfo[num].unit.unitname.IsEmpty())
+		if (idx > 0) 
 		{
-			theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
+			int count = theApp.sSelectinfo.unitselecttotal - 1;
+			int sum = idx;
+			// Emptyではない場合はユニット情報を再配置
+			for (int i = 0; i < (theApp.sSelectinfo.unitselecttotal - id - 1); i++)
+			{
+				int idxfm = count;
+				int idxto = count + sum;
+				theApp.sSelectinfo.sSelectedUnitInfo[idxto].unit = theApp.sSelectinfo.sSelectedUnitInfo[idxfm].unit;
+				count--;
+			}
+			theApp.sSelectinfo.unitselecttotal += idx;
+		}
+
+		// 選択ユニットに更新
+		for (int i = 0; i <= idx; i++)
+		{
+			theApp.sSelectinfo.sSelectedUnitInfo[id + i].unit = *m_unitdata;
+		}
+	}
+	// 新規追加
+	else
+	{
+		for (int i = 0; i <= idx; i++)
+		{
+			theApp.sSelectinfo.sSelectedUnitInfo[id + i].unit = *m_unitdata;
 			theApp.sSelectinfo.unitselecttotal += 1;
 			continue;
 		}
-		// 既存ユニットの更新
-		else
-		{
-			if (i > 0)
-			{
-				int idxto = theApp.sSelectinfo.unitselecttotal - i + 1;
-				int idxfm = theApp.sSelectinfo.unitselecttotal - i;
-				//既存データをひとつ後にずらす
-				theApp.sSelectinfo.sSelectedUnitInfo[idxto].unit = theApp.sSelectinfo.sSelectedUnitInfo[idxfm].unit;
-				theApp.sSelectinfo.unitselecttotal += 1;
-			}
-			theApp.sSelectinfo.sSelectedUnitInfo[num].unit = *m_unitdata;
-		}
 	}
-
 	CDialogEx::OnOK();
-
-	
 }

@@ -63,15 +63,13 @@ BOOL ConfigurationDlg::OnInitDialog()
 	SetControlInfo(IDOK, ANCHORE_BOTTOM);
 	SetControlInfo(IDCANCEL, ANCHORE_BOTTOM);
 
-	// ★ユニットベースの作成
 	// 各種別のビットマップリソースを登録
-	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitBracket, IDB_BITMAP_BRACKET);
-	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitEmpty, IDB_BITMAP_ADDUNIT);
-	mUnitBase.SetUnitImage(/*CUnitControlBase::*/UnitSingle, IDB_BITMAP_UNIT1);
-	mUnitBase.SetUnitImage(/*CUnitControlBase::*/ UnitDouble, IDB_BITMAP_UNIT2);
+	mUnitBase.SetUnitImage(UnitBracket, IDB_BITMAP_BRACKET);
+	mUnitBase.SetUnitImage(UnitEmpty, IDB_BITMAP_ADDUNIT);
+	mUnitBase.SetUnitImage(UnitSingle, IDB_BITMAP_UNIT1);
+	mUnitBase.SetUnitImage(UnitDouble, IDB_BITMAP_UNIT2);
 	// ユニットベースの作成
 	mUnitBase.CreateUnitBase(theApp.m_hInstance, this);
-	// ★ユニットベースの作成
 
 	// ログフォント情報の取得
 	CFont* pfont;
@@ -81,23 +79,20 @@ BOOL ConfigurationDlg::OnInitDialog()
 	pfont->GetLogFont(&m_lfm);
 	pfont->GetLogFont(&m_lfl);
 	
-	// ユニット選択数フォント設定
+	// フォントサイズ設定
 	m_lfs.lfHeight = -11;
 	m_lfs.lfWeight = 400;
-	m_fnts.CreateFontIndirect(&m_lfs);
-	SetUnitNum(m_fnts);
-	//m_stcUnitNum.SetWindowText(_T("0"));
-	//m_stcUnitNum.SetFont(&m_fnts);
-
-	// ユニットリストフォント設定
 	m_lfm.lfHeight = -13;
 	m_lfm.lfWeight = 450;
+	m_lfl.lfHeight = -20;
+	m_lfl.lfWeight = 800;
+
+	m_fnts.CreateFontIndirect(&m_lfs);
+	SetUnitNum(m_fnts);
+
 	m_fntm.CreateFontIndirect(&m_lfm);
 	SetUnitList(m_fntm);
 
-	// 機種名フォント設定
-	m_lfl.lfHeight = -20;
-	m_lfl.lfWeight = 800;
 	m_fntl.CreateFontIndirect(&m_lfl);
 	m_stcModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
 	m_stcModelName.SetFont(&m_fntl);
@@ -199,17 +194,20 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	// 選択ユニット数の更新
 	SetUnitNum(m_fnts);
-	/*CString unitnum;
-	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
-	m_stcUnitNum.SetWindowText(unitnum);*/
+	// 選択ユニットリストの更新
+	SetUnitList(m_fntm);
 
 	for (int i = nID - mUnitStartCommand; i < theApp.sSelectinfo.unitselecttotal; i++)
 	{
+		if (!mUnitBase.FindUnit(nID)){
+			// 新たに空ユニットを登録する
+			mUnitBase.AddUnit(nID);
+		}
 		UINT selectUnitTypeAf = mUnitBase.GetUnitType(nID);
 
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
 
-		if (selectUnitTypeAf == /*CUnitControlBase:: */ UnitEmpty) {
+		if (selectUnitTypeAf == UnitEmpty) {
 			// 新たに空ユニットを登録する
 			mUnitBase.AddUnit(nID + 1);
 		}
@@ -219,37 +217,6 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	{
 		mUnitBase.DeleteUnit(nID);
 	}
-
-	// 選択ユニットリストの更新
-	SetUnitList(m_fntm);
-
-	/*
-	UINT selectUnitType = mUnitBase.GetUnitType(nID);
-
-	if (MessageBox(_T("Singleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
-		if (MessageBox(_T("Doubleですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
-			if (MessageBox(_T("削除ですか？"), _T(""), MB_YESNO | MB_ICONQUESTION) == IDNO) {
-				return;
-			}
-			// ユニットの削除
-			mUnitBase.DeleteUnit(nID);
-			return;
-		}
-		// ダブルユニットで更新する
-		mUnitBase.UpdateUnit(nID, 2); // 実際はユニット選択画面で選定されたユニットサイズを指定する
-		if (selectUnitType == CUnitControlBase::UnitEmpty) {
-			// 新たに空ユニットを登録する
-			mUnitBase.AddUnit(nID + 1);
-		}
-		return;
-	}
-	// シングルユニットで更新する
-	mUnitBase.UpdateUnit(nID, 1); // 実際はユニット選択画面で選定されたユニットサイズを指定する
-	if (selectUnitType == CUnitControlBase::UnitEmpty) {
-		// 新たに空ユニットを登録する
-		mUnitBase.AddUnit(nID + 1);
-	}
-	*/
 }
 
 /*============================================================================*/
@@ -276,31 +243,19 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	if (message == mMessage_UnitDelete) {
 		// ユニットの削除
 		mUnitBase.DeleteUnit((UINT)wParam);
-		//theApp.sSelectinfo.unitselecttotal -= 1;
 		theApp.sSelectinfo.clearUnit((UINT)wParam - mUnitStartCommand);
 		if (mUnitBase.IsEmpty() == true) {
-			// 新たに空ユニットを登録する
 			// 格納されているユニット数から空ユニット位置を求める
 			mUnitBase.AddUnit(mUnitStartCommand + (mUnitBase.GetUnitCount()));
 		}
-		//if (theApp.sSelectinfo.unitselecttotal == mUnitMax - 1)
-		//{
-		//	// 新たに空ユニットを登録する
-		//	mUnitBase.AddUnit(mUnitStartCommand + mUnitMax);
-		//}
 
 		// 選択ユニット数の更新
 		SetUnitNum(m_fnts);
-		/*CString unitnum;
-		unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
-		m_stcUnitNum.SetWindowText(unitnum);*/
-
 		// 選択ユニットリストの更新
 		SetUnitList(m_fntm);
 
 		return TRUE;
 	}
-
 	return CDialogEx::WindowProc(message, wParam, lParam);
 }
 

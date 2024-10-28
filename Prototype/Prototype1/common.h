@@ -50,7 +50,12 @@ enum {
 /* struct定義                                                                           */
 /* ------------------------------------------------------------------------------------ */
 
-// 機器一覧構造体
+/*============================================================================*/
+/*! 共通定義
+
+-# 機器一覧構造体
+*/
+/*============================================================================*/
 struct sModelData 
 {
 	CString category;
@@ -63,12 +68,6 @@ struct sModelData
 		modelname = _T("");
 		bflg = 0;
 	}
-
-	//sModelData(CString cat, CString name, UINT flg) {
-	//	category = cat;
-	//	modelname = name;
-	//	bflg = flg;
-	//}
 
 	BOOL set(CString cat, CString name, UINT flg) 
 	{
@@ -85,21 +84,14 @@ struct sModelData
 		bflg = 0;
 		return true;
 	}
-
-	//operator UINT() 
-	//{
-	//	if (modelname.IsEmpty()) 
-	//	{
-	//		return -1;
-	//	}
-	//	else
-	//	{
-	//		return bflg;
-	//	}
-	//}
 };
 
-// ユニット一覧構造体
+/*============================================================================*/
+/*! 共通定義
+
+-# ユニット一覧構造体
+*/
+/*============================================================================*/
 struct sUnitData 
 {
 	CString category;
@@ -120,16 +112,6 @@ struct sUnitData
 		fignumber = _T("");
 		message = _T("");
 	}
-
-	/*sUnitData(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) {
-		category = cat;
-		unitname = name;
-		type = ctype;
-		spec = cspec;
-		usage = cusage;
-		fignumber = num;
-		message = msg;
-	}*/
 
 	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) 
 	{
@@ -156,8 +138,12 @@ struct sUnitData
 	}
 };
 
+/*============================================================================*/
+/*! 共通定義
 
-// 選択ユニット情報構造体
+-# 選択ユニット情報構造体
+*/
+/*============================================================================*/
 struct sSelectedInfo 
 {
 	sModelData model;

@@ -67,7 +67,6 @@ BOOL UnitSelectionDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO: ここに初期化を追加してください
 	// 拡張スタイルの適用
 	m_listunit.SetExtendedStyle(m_listunit.GetExtendedStyle() |
 		// 罫線の表示
@@ -90,56 +89,14 @@ BOOL UnitSelectionDlg::OnInitDialog()
 
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
 	{
-		//if (theApp.sUnitDataList.at(i).usage <= (mUnitMax - theApp.sSelectinfo.unitselecttotal))
-		//{
-			CString strusage;
-			strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
-			// 行の挿入
-			m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
-			m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
-			m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
-			m_listunit.SetItemText(i, 3, strusage);
-		//}
-		//else if (m_selUnitType == (UINT)UnitSingle && 
-		//	theApp.sUnitDataList.at(i).usage <= (UINT)UnitSingle - 1)
-		//{
-		//	CString strusage;
-		//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
-		//	// 行の挿入
-		//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
-		//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
-		//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
-		//	m_listunit.SetItemText(i, 3, strusage);
-		//}
-		//else if (m_selUnitType == (UINT)UnitDouble &&
-		//	theApp.sUnitDataList.at(i).usage <= (UINT)UnitDouble - 1)
-		//{
-		//	CString strusage;
-		//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
-		//	// 行の挿入
-		//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
-		//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
-		//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
-		//	m_listunit.SetItemText(i, 3, strusage);
-		//}
+		CString strusage;
+		strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
+		// 行の挿入
+		m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
+		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
+		m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
+		m_listunit.SetItemText(i, 3, strusage);
 	}
-
-	//for (int i = 0; i < theApp.sUnitDataList.size(); i++)
-	//{
-	//	CString strusage;
-	//	strusage.Format(_T("%dユニット"), theApp.sUnitDataList.at(i).usage);
-	//	// 行の挿入
-	//	m_listunit.InsertItem(i, theApp.sUnitDataList.at(i).unitname);
-	//	m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
-	//	m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
-	//	m_listunit.SetItemText(i, 3, strusage);
-	//}
-
-	// 列数を取得して列幅を自動設定をする
-	//for (int i = 0; i < m_listunit.GetHeaderCtrl()->GetItemCount(); i++)
-	//{
-	//	m_listunit.SetColumnWidth(i, LVSCW_AUTOSIZE_USEHEADER);
-	//}
 
 	// ユニット選択可能残の取得
 	m_unitRemaining = mUnitMax;
@@ -173,8 +130,6 @@ BOOL UnitSelectionDlg::OnInitDialog()
 /*============================================================================*/
 void UnitSelectionDlg::OnClickedButtonOk()
 {
-	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-
 	// 選択されているアイテムのユニット名を取得
 	int idx = -1;	
 	TCHAR tszText[256];
@@ -193,9 +148,6 @@ void UnitSelectionDlg::OnClickedButtonOk()
 		if (m_selUnitname == (*itr).unitname)
 		{
 			m_selUnitInfo = (*itr);
-			//unitqtydlg.SetUnitSelData(*itr);
-			//theApp.sSelectinfo.sSelectedUnitInfo[theApp.sSelectinfo.unitselecttotal].unit = (*itr);
-			//theApp.sSelectinfo.unitselecttotal += 1;
 		}
 	}
 
