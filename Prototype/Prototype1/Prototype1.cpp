@@ -152,6 +152,13 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 			inlist.push_back(str);
 		}
 
+		// ヘッダー数と明細数をチェック
+		if (mModelCsvHeader.size() != inlist.size()) {
+			// 明細サイズに誤りがあるため、読み込みを中止する
+			file.Close();
+			return false;
+		}
+
 		// ヘッダー判定
 		if (bHead)
 		{

@@ -7,6 +7,8 @@
 #include "afxdialogex.h"
 #include "ConfigurationDlg.h"
 #include "UnitSelectionDlg.h"
+#include <fstream>
+
 
 // ConfigurationDlg ダイアログ
 
@@ -355,4 +357,46 @@ void ConfigurationDlg::OnClickedButtonCsvexport()
 	}
 
 	// CSV出力処理
+
+	CFileDialog filedlg(false, _T("csv"), nullptr, OFN_OVERWRITEPROMPT ,_T("CSVファイル (*.csv)|*.csv||"));
+
+	if (filedlg.DoModal() != IDOK)	return;
+
+	CString fullpathname = filedlg.GetPathName();
+
+	//CString filename = _T("test.csv");
+
+	CStdioFile file;
+	if (file.Open(fullpathname, CFile::modeCreate | CFile::modeWrite | CFile::shareExclusive | CFile::typeText))
+	{
+		// ヘッダー
+		CString header = _T("");
+		for (int i = 0; i < mUserCsvHeader.size(); i++)
+		{
+			header += mUserCsvHeader.at(i);
+			if (i != (mUserCsvHeader.size() - 1))
+			{
+				header += _T(",");
+			}
+		}
+		file.WriteString(header + _T("\n"));
+
+		// データ
+		CString data = _T("");
+		for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
+		{
+			sModelData tmpmodel = theApp.sSelectinfo.model;
+			sUnitData tmpunit = theApp.sSelectinfo.sSelectedUnitInfo[i].unit;
+
+			CString unitnum, unitsize;
+			unitnum.Format(_T("%d"), i+1);
+			unitsize.Format(_T("%d"), tmpunit.usage);
+
+			data += tmpmodel.category + _T(",") + tmpmodel.modelname + _T(",") + unitnum + _T(",") + tmpunit.unitname + _T(",") + unitsize + _T("\n");
+		}
+		file.WriteString(data);
+	}
+
+	file.Close();
+	MessageBox(_T("CSV出力を行いました。"), _T("情報"), MB_OK | MB_ICONINFORMATION);
 }

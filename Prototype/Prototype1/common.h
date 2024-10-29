@@ -6,6 +6,8 @@
 	◆共通定義
 */
 
+// 入出力CSVヘッダー情報
+const std::vector<CString> mUserCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("ユニット番号")}, {_T("ユニット名称")}, {_T("ユニット占有数")} };
 // 機種一覧CSVヘッダー情報
 const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
 // ユニット一覧CSVヘッダー情報
