@@ -214,11 +214,11 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.bitmapfile);
 
-		if (selectUnitTypeAf == UnitEmpty) {
-			// 新たに空ユニットを登録する
-			mUnitBase.AddUnit(nID + 1);
-		}
 		nID++;
+	}
+	if (mUnitBase.IsEmpty() == true) {
+		// 格納されているユニット数から空ユニット位置を求める
+		mUnitBase.AddUnit(mUnitStartCommand + (mUnitBase.GetUnitCount()));
 	}
 	if (!mUnitBase.IsEmpty())
 	{
