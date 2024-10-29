@@ -152,7 +152,7 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	}
 
 	// 選択ユニットの占有数チェック
-	if (m_selUnitInfo.usage > m_unitRemaining)
+	if (m_selUnitInfo.usage > (UINT)m_unitRemaining)
 	{
 		MessageBox(_T("ユニット選択可能残を超過するため、このユニットは選択できません。"), _T("エラー"), MB_OK | MB_ICONERROR);
 		return;
