@@ -205,7 +205,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 		}
 		UINT selectUnitTypeAf = mUnitBase.GetUnitType(nID);
 
-		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage);
+		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.bitmapfile);
 
 		if (selectUnitTypeAf == UnitEmpty) {
 			// 新たに空ユニットを登録する

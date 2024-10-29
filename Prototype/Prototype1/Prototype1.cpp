@@ -216,6 +216,13 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			inlist.push_back(str);
 		}
 
+		// ヘッダー数と明細数をチェック
+		if (mUnitCsvHeader.size() != inlist.size()) {
+			// 明細サイズに誤りがあるため、読み込みを中止する
+			file.Close();
+			return false;
+		}
+
 		// ヘッダー判定
 		if (bHead)
 		{
@@ -238,7 +245,7 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 		UINT usage;
 		usage = _ttoi(inlist[4]);
 		sUnitData unit;
-		unit.set(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6]);
+		unit.set(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6], inlist[7]);
 		sUnitDataList.push_back(unit);
 		inlist.clear();
 	}

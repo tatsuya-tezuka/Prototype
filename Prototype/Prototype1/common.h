@@ -9,7 +9,7 @@
 // 機種一覧CSVヘッダー情報
 const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
 // ユニット一覧CSVヘッダー情報
-const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, {_T("タイプ")}, {_T("仕様")}, {_T("占有数")}, {_T("手配図番")}, {_T("メッセージ")} };
+const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, {_T("タイプ")}, {_T("仕様")}, {_T("占有数")}, {_T("手配図番")}, {_T("メッセージ")}, {_T("ビットマップファイル")} };
 // ユニット選択画面ヘッダー情報
 const std::vector<CString> mUnitlistHeader = { {_T("形名")}, {_T("タイプ")}, {_T("仕様")}, {_T("ユニット占有数")} };
 const std::vector<UINT> mUnitlistHeaderSize = { {80}, {80}, {250}, {100} };
@@ -109,19 +109,14 @@ struct sUnitData
 	UINT usage;			// ユニット占有数
 	CString fignumber;	// 手配図番
 	CString message;
+	CString bitmapfile;
 
 	sUnitData() 
 	{
-		category = _T("");
-		unitname = _T("");
-		type = _T("");
-		spec = _T("");
-		usage = 0;
-		fignumber = _T("");
-		message = _T("");
+		clear();
 	}
 
-	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg) 
+	BOOL set(CString cat, CString name, CString ctype, CString cspec, UINT cusage, CString num, CString msg, CString bmp)
 	{
 		category = cat;
 		unitname = name;
@@ -130,6 +125,7 @@ struct sUnitData
 		usage = cusage;
 		fignumber = num;
 		message = msg;
+		bitmapfile = bmp;
 		return true;
 	}
 
@@ -142,6 +138,7 @@ struct sUnitData
 		usage = 0;
 		fignumber = _T("");
 		message = _T("");
+		bitmapfile = _T("");
 		return true;
 	}
 };
