@@ -145,7 +145,7 @@ void ModelSelectDlg::OnClickedStartselection()
 	}
 	else if (theApp.sSelectinfo.model.bflg == eDisable)
 	{
-			MessageBox(theApp.sSelectinfo.model.modelname + _T("は未対応です。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		MessageBox(theApp.sSelectinfo.model.modelname + _T("は未対応です。"), _T("エラー"), MB_OK | MB_ICONERROR);
 		return;
 	}
 }

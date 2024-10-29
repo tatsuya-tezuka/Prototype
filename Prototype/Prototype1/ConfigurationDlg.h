@@ -83,4 +83,5 @@ public:
 	afx_msg void OnBnClickedCancel();
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	
+	afx_msg void OnClickedButtonCsvexport();
 };

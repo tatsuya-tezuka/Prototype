@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	//ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + (mUnitMax - 1), OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
+	ON_BN_CLICKED(IDC_BUTTON_CSVEXPORT, &ConfigurationDlg::OnClickedButtonCsvexport)
 END_MESSAGE_MAP()
 
 
@@ -333,4 +334,25 @@ void ConfigurationDlg::SetUnitSizeTotal(CFont& font)
 	strunitsize.Format(_T("%d"), unitsizetotal);
 	m_stcUnitSizeTotal.SetWindowText(strunitsize);
 	m_stcUnitSizeTotal.SetFont(&font);
+}
+
+/*============================================================================*/
+/*! 構成画面
+
+-# CSV出力処理
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::OnClickedButtonCsvexport()
+{
+	if (theApp.sSelectinfo.unitselecttotal < 1)
+	{
+		MessageBox(_T("ユニットが選択されていません。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		return;
+	}
+
+	// CSV出力処理
 }
