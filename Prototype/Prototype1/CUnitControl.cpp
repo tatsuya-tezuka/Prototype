@@ -33,8 +33,12 @@ END_MESSAGE_MAP()
 /*============================================================================*/
 BOOL CUnitControl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-	::SetCursor(mCursor);
-	//SetCursor(mCursor);
+	if (mType == UnitBracket) {
+		SetCursor(AfxGetApp()->LoadStandardCursor(IDC_ARROW));
+	}
+	else {
+		::SetCursor(mCursor);
+	}
 	return TRUE;
 
 	return CStatic::OnSetCursor(pWnd, nHitTest, message);
