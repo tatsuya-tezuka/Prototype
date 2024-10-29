@@ -234,6 +234,12 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 /*============================================================================*/
 void ConfigurationDlg::OnBnClickedCancel()
 {
+	int ret;
+	// 確認メッセージ表示
+	ret = MessageBox(_T("ユニット情報を保存する場合は「CSV出力」を行ってください。\n機種選択画面に戻りますか？"), _T("警告"), MB_YESNO | MB_ICONWARNING);
+
+	if (ret == IDNO) return;
+
 	// ユニット選択情報をクリア
 	theApp.sSelectinfo.clearUnit();
 
