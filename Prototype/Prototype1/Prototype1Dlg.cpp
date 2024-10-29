@@ -212,7 +212,7 @@ void CPrototype1Dlg::OnClickedBtnSelect()
 void CPrototype1Dlg::OnClickedBtnSelectCsv()
 {	
 	//CSVファイル選択ダイアログ
-	CFileDialog csvfileDlg(true, _T("csv"), nullptr, OFN_FILEMUSTEXIST, _T("CSVファイル(*.csv) | *.csv || "));
+	CFileDialog csvfileDlg(true, _T("csv"), nullptr, OFN_FILEMUSTEXIST, _T("CSVファイル(*.csv)|*.csv|| "));
 
 	if (csvfileDlg.DoModal() == IDOK)
 	{
