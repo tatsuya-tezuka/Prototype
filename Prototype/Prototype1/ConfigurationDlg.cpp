@@ -30,6 +30,7 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_MODELNAME, m_stcModelName);
 	DDX_Control(pDX, IDC_EDIT_UNITLIST, m_editUnitList);
 	DDX_Control(pDX, IDC_STATIC_UNITLABEL3, m_stcUnitNum);
+	DDX_Control(pDX, IDC_STATIC_UNITLABEL5, m_stcUnitSizeTotal);
 }
 
 
@@ -89,6 +90,7 @@ BOOL ConfigurationDlg::OnInitDialog()
 
 	m_fnts.CreateFontIndirect(&m_lfs);
 	SetUnitNum(m_fnts);
+	SetUnitSizeTotal(m_fnts);
 
 	m_fntm.CreateFontIndirect(&m_lfm);
 	SetUnitList(m_fntm);
@@ -192,8 +194,9 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 	if(unitseldlg.DoModal() != IDOK) return;
 
-	// 選択ユニット数の更新
+	// 選択ユニット数、サイズ合計の更新
 	SetUnitNum(m_fnts);
+	SetUnitSizeTotal(m_fnts);
 	// 選択ユニットリストの更新
 	SetUnitList(m_fntm);
 
@@ -249,8 +252,9 @@ LRESULT ConfigurationDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 			mUnitBase.AddUnit(mUnitStartCommand + (mUnitBase.GetUnitCount()));
 		}
 
-		// 選択ユニット数の更新
+		// 選択ユニット数、サイズ合計の更新
 		SetUnitNum(m_fnts);
+		SetUnitSizeTotal(m_fnts);
 		// 選択ユニットリストの更新
 		SetUnitList(m_fntm);
 
@@ -298,4 +302,29 @@ void ConfigurationDlg::SetUnitNum(CFont& font)
 	unitnum.Format(_T("%d"), theApp.sSelectinfo.unitselecttotal);
 	m_stcUnitNum.SetWindowText(unitnum);
 	m_stcUnitNum.SetFont(&font);
+}
+
+/*============================================================================*/
+/*! 構成画面
+
+-# ユニットサイズ合計設定関数
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::SetUnitSizeTotal(CFont& font)
+{
+	UINT unitsizetotal = 0;
+	CString strunitsize;
+
+	for (int i = 0; i < mUnitMax; i++)
+	{
+		unitsizetotal += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
+	}
+
+	strunitsize.Format(_T("%d"), unitsizetotal);
+	m_stcUnitSizeTotal.SetWindowText(strunitsize);
+	m_stcUnitSizeTotal.SetFont(&font);
 }

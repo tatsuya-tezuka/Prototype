@@ -35,8 +35,11 @@
 #define IDC_STATIC_UNITLABEL3           1013
 #define IDC_BUTTON_CSVEXPORT            1014
 #define IDC_BUTTON_OK                   1015
+#define IDC_STATIC_UNITLABEL4           1015
 #define IDC_STATIC_UNITQTY              1016
+#define IDC_STATIC_UNITLABEL5           1016
 #define IDC_COMBO_QTY                   1017
+#define IDC_STATIC_UNITLABEL6           1017
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_DELETE                       32774

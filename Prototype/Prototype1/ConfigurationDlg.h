@@ -42,6 +42,7 @@ protected:
 	CStatic m_stcModelName;
 	CEdit m_editUnitList;
 	CStatic m_stcUnitNum;
+	CStatic m_stcUnitSizeTotal;
 	CFont m_fntl, m_fntm, m_fnts;
 	LOGFONT m_lfl, m_lfm, m_lfs;
 
@@ -49,6 +50,7 @@ protected:
 	vector<DWORD>		mControl;
 	int					mSaveCx, mSaveCy;
 	CUnitControlBase mUnitBase;
+
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -67,7 +69,7 @@ protected:
 	}
 	void SetUnitList(CFont& font);
 	void SetUnitNum(CFont& font);
-
+	void SetUnitSizeTotal(CFont& font);
 	/* ------------------------------------------------------------------------------------ */
 
 protected:
@@ -80,4 +82,5 @@ public:
 	afx_msg void OnUnitCommand(UINT nID);
 	afx_msg void OnBnClickedCancel();
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+	
 };
