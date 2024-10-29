@@ -364,8 +364,6 @@ void ConfigurationDlg::OnClickedButtonCsvexport()
 
 	CString fullpathname = filedlg.GetPathName();
 
-	//CString filename = _T("test.csv");
-
 	CStdioFile file;
 	if (file.Open(fullpathname, CFile::modeCreate | CFile::modeWrite | CFile::shareExclusive | CFile::typeText))
 	{

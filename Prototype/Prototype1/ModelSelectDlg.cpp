@@ -119,6 +119,9 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
 
+	// 「選定を開始する」ボタン非活性
+	m_btnStartSelection.EnableWindow(FALSE);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
@@ -226,7 +229,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 /*============================================================================*/
 /*! 機種選択画面
 
--# 「選定を開始する」ボタンを有効化
+-# 「選定を開始する」ボタンを有効化、選択情報保持
 
 @param  なし
 
@@ -236,6 +239,9 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	// 「選定を開始する」ボタン活性
+	m_btnStartSelection.EnableWindow(TRUE);
 
 	// 機種選択情報を取得
 	int idx = -1;
