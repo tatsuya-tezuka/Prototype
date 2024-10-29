@@ -19,6 +19,7 @@ ConfigurationDlg::ConfigurationDlg(CWnd* pParent /*=nullptr*/)
 {
 	// 初期化
 	mSaveCx = mSaveCy = 0;
+	mFrameRect.SetRectEmpty();
 }
 
 ConfigurationDlg::~ConfigurationDlg()
