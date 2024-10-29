@@ -418,6 +418,9 @@ void ConfigurationDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 	GetWindowRect(rect);
 	if (rect.Width() != 0 && mFrameRect.IsRectEmpty()) {
 		mFrameRect = rect;
+	}
+
+	if (mFrameRect.IsRectEmpty() == false) {
 		lpMMI->ptMinTrackSize.x = mFrameRect.Width();
 		lpMMI->ptMinTrackSize.y = mFrameRect.Height();
 		lpMMI->ptMaxTrackSize.y = mFrameRect.Height();
