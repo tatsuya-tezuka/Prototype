@@ -68,6 +68,7 @@ BOOL ModelSelectDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// 機器カテゴリー設定
+	HTREEITEM hSelectItem = NULL;
 	CString stcategory = _T("");
 	for (int i = 0; i < theApp.sModelDataList.size(); i++)
 	{
@@ -76,8 +77,15 @@ BOOL ModelSelectDlg::OnInitDialog()
 			// アイテムの追加
 			stcategory = theApp.sModelDataList.at(i).category;
 			HTREEITEM hItemPnt1 = m_treeModelCategory.InsertItem(stcategory);
+			if (hSelectItem == NULL)
+				hSelectItem = hItemPnt1;
 		}
 	}
+	// 選択状態の設定
+	if (hSelectItem != NULL) {
+		m_treeModelCategory.SelectItem(hSelectItem);
+	}
+
 
 	// ビットマップをイメージリストに設定
 	HBITMAP hBmp = NULL;
