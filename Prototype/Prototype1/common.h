@@ -77,6 +77,14 @@ struct sModelData
 		return true;
 	}
 
+	BOOL setUnit(sModelData data)
+	{
+		category = data.category;
+		modelname = data.modelname;
+		bflg = data.bflg;
+		return true;
+	}
+
 	BOOL clear()
 	{
 		category = _T("");

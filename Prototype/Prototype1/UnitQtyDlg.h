@@ -27,8 +27,8 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-	CComboBox m_cmbUnitQty;
 protected:
+	CComboBox m_cmbUnitQty;
 private:
 	sUnitData* m_unitdata;
 	int m_unitRemaining;		// ユニット選択可能残

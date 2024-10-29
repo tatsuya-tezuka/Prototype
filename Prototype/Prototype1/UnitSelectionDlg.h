@@ -27,9 +27,10 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
+
+protected:
 	CString	m_selUnitname;
 	sUnitData m_selUnitInfo;
-protected:
 	CFont	mListFont;
 	CFont	mHeaderFont;
 	CButton m_btnOk;

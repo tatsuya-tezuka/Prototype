@@ -119,9 +119,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
 
-	// 「選定を開始する」ボタン非活性
-	m_btnStartSelection.EnableWindow(FALSE);
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
@@ -139,10 +136,18 @@ BOOL ModelSelectDlg::OnInitDialog()
 void ModelSelectDlg::OnClickedStartselection()
 {
 	// 機種選択情報を選択情報構造体に格納
-	theApp.sSelectinfo.model.set(m_selCategory, m_selModel, eEnable);
+	theApp.sSelectinfo.model.setUnit(m_SelModelData);
 
-	ConfigurationDlg ConfDlg;
-	ConfDlg.DoModal();
+	if (theApp.sSelectinfo.model.bflg == eEnable)
+	{
+		ConfigurationDlg ConfDlg;
+		ConfDlg.DoModal();
+	}
+	else if (theApp.sSelectinfo.model.bflg == eDisable)
+	{
+		MessageBox(theApp.sSelectinfo.model.modelname + _T("は未対応です。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		return;
+	}
 }
 
 /*============================================================================*/
@@ -196,14 +201,11 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 
-	// 「選定を開始する」ボタン非活性
-	m_btnStartSelection.EnableWindow(FALSE);
-
 	//カテゴリー取得
 	HTREEITEM hItem = m_treeModelCategory.GetSelectedItem();
 	if (hItem == nullptr) return;
 
-	m_selCategory = m_treeModelCategory.GetItemText(hItem);
+	m_SelModelData.category = m_treeModelCategory.GetItemText(hItem);
 
 	m_listModel.DeleteAllItems();
 
@@ -212,7 +214,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 	int item = 0;
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
-		if (m_selCategory == (*itr).category) {
+		if (m_SelModelData.category == (*itr).category) {
 			AddItem(item, 0, (*itr).modelname, 0, (*itr).bflg);
 			item++;
 		}
@@ -241,29 +243,18 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		TCHAR seltext[256];
 		m_listModel.GetItemText(idx, 0, seltext, 256);
-		m_selModel = seltext;
+		m_SelModelData.modelname = seltext;
 	}
 
 	theApp.GetsModelData();
 
-	UINT flg = -1;
 	for (auto itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); ++itr)
 	{
-		if (itr->modelname == m_selModel)
+		if (itr->modelname == m_SelModelData.modelname)
 		{
-			flg = itr->bflg;
+			m_SelModelData.bflg = itr->bflg;
 			break;
 		}
-	}
-	if (flg == eDisable)
-	{
-		// 「選定を開始する」ボタン非活性化
-		m_btnStartSelection.EnableWindow(FALSE);
-	}
-	else if (flg == eEnable)
-	{
-		// 「選定を開始する」ボタン活性化
-		m_btnStartSelection.EnableWindow(TRUE);
 	}
 
 	*pResult = 0;

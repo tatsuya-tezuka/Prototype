@@ -29,6 +29,8 @@ public:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
+
+protected:
 	CTreeCtrl	m_treeModelCategory;
 	CListCtrl	m_listModel;
 	CImageList	m_imageList;		// 機種画像表示用
@@ -36,8 +38,7 @@ public:
 	UINT		m_ImageHeight;
 	CBitmap		m_bmpNoimage;
 	CBitmap		m_bmpimage;
-	CString		m_selCategory;		// ユーザ選択カテゴリー
-	CString		m_selModel;			// ユーザ選択機種
+	sModelData	m_SelModelData;			// ユーザ選択機種データ
 	CButton		m_btnStartSelection;
 
 	/* ------------------------------------------------------------------------------------ */

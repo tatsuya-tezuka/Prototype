@@ -37,13 +37,14 @@ protected:
 	/* メンバ変数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
+
+protected:
 	CStatic m_stcModelName;
 	CEdit m_editUnitList;
 	CStatic m_stcUnitNum;
 	CFont m_fntl, m_fntm, m_fnts;
 	LOGFONT m_lfl, m_lfm, m_lfs;
 
-protected:
 	// コントロールのリサイズ
 	vector<DWORD>		mControl;
 	int					mSaveCx, mSaveCy;
