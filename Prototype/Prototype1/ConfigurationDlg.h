@@ -49,7 +49,8 @@ protected:
 	// コントロールのリサイズ
 	vector<DWORD>		mControl;
 	int					mSaveCx, mSaveCy;
-	CUnitControlBase mUnitBase;
+	CUnitControlBase	mUnitBase;
+	CRect				mFrameRect;
 
 
 	/* ------------------------------------------------------------------------------------ */
@@ -84,4 +85,5 @@ public:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	
 	afx_msg void OnClickedButtonCsvexport();
+	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
 };

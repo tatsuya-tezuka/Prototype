@@ -42,6 +42,7 @@ BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + (mUnitMax - 1), OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_BUTTON_CSVEXPORT, &ConfigurationDlg::OnClickedButtonCsvexport)
+	ON_WM_GETMINMAXINFO()
 END_MESSAGE_MAP()
 
 
@@ -397,4 +398,30 @@ void ConfigurationDlg::OnClickedButtonCsvexport()
 
 	file.Close();
 	MessageBox(_T("CSV出力を行いました。"), _T("情報"), MB_OK | MB_ICONINFORMATION);
+}
+
+/*============================================================================*/
+/*! 構成画面
+
+-# 画面のリサイズを管理する
+
+@param
+
+@retval
+*/
+/*============================================================================*/
+void ConfigurationDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
+{
+	// 初期ウィンドウサイズより小さくしない
+	// 幅のみ拡張できるようにする
+	CRect rect;
+	GetWindowRect(rect);
+	if (rect.Width() != 0 && mFrameRect.IsRectEmpty()) {
+		mFrameRect = rect;
+		lpMMI->ptMinTrackSize.x = mFrameRect.Width();
+		lpMMI->ptMinTrackSize.y = mFrameRect.Height();
+		lpMMI->ptMaxTrackSize.y = mFrameRect.Height();
+	}
+
+	CDialogEx::OnGetMinMaxInfo(lpMMI);
 }
