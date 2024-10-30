@@ -81,12 +81,8 @@ BOOL ModelSelectDlg::OnInitDialog()
 				hSelectItem = hItemPnt1;
 		}
 	}
-	// 選択状態の設定
-	if (hSelectItem != NULL) {
-		m_treeModelCategory.SelectItem(hSelectItem);
-	}
 
-
+#ifdef _NoImage
 	// ビットマップをイメージリストに設定
 	HBITMAP hBmp = NULL;
 	BITMAP Bmp;
@@ -122,13 +118,42 @@ BOOL ModelSelectDlg::OnInitDialog()
 
 	// メモリリーク予防
 	delete pBmp;	
-
+#else
+	// 全てのイメージをイメージリストに登録する
+	BITMAP Bmp;
+	CBitmap cbitmap;
+	cbitmap.LoadBitmap(IDB_BITMAP_NOIMAGE);
+	cbitmap.GetBitmap(&Bmp);
+	cbitmap.DeleteObject();
+	m_imageList.Create(Bmp.bmWidth, Bmp.bmHeight, ILC_COLOR24, 10, 1);
+	//m_imageList.SetImageCount(theApp.sModelDataList.size());
+	for (int i = 0; i < theApp.sModelDataList.size(); i++)
+	{
+		HBITMAP hBitmap = NULL;
+		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), theApp.sModelDataList.at(i).bitmapfile, IMAGE_BITMAP, Bmp.bmWidth, Bmp.bmHeight, LR_LOADFROMFILE);
+		if (hBitmap == NULL) {
+			cbitmap.LoadBitmap(IDB_BITMAP_NOIMAGE);
+			hBitmap = (HBITMAP)cbitmap;
+		}
+		CBitmap* pBmp = NULL;
+		pBmp = new CBitmap();
+		pBmp->Attach(hBitmap);
+		m_imageList.Add(pBmp, RGB(0,0,0));
+		delete pBmp;
+		cbitmap.DeleteObject();
+	}
+#endif
 
 	// 機種リストにイメージを登録する
 	m_listModel.SetImageList(&m_imageList, LVSIL_SMALL);
 
 	// 「選定を開始する」ボタン非活性
 	m_btnStartSelection.EnableWindow(FALSE);
+
+	// 選択状態の設定
+	if (hSelectItem != NULL) {
+		m_treeModelCategory.SelectItem(hSelectItem);
+	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
@@ -222,6 +247,7 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 
 	// リスト作成
 	vector<sModelData>::iterator itr;
+#ifdef _NoImage
 	int item = 0;
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
@@ -230,7 +256,18 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 			item++;
 		}
 	}
+#else
+	int item = 0;
+	int image = 0;
+	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
+		if (m_SelModelData.category == (*itr).category) {
+			AddItem(item, 0, (*itr).modelname, 0, image);
+			item++;
+		}
+		image++;
+	}
+#endif
 	*pResult = 0;
 }
 

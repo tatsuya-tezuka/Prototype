@@ -181,7 +181,7 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 		UINT flg;
 		flg = _ttoi(inlist[2]);
 		sModelData model;
-		model.set(inlist[0], inlist[1], flg);
+		model.set(inlist[0], inlist[1], flg, inlist[3]);
 		sModelDataList.push_back(model);
 		inlist.clear();
 	}

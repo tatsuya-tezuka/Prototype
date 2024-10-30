@@ -9,7 +9,7 @@
 // 入出力CSVヘッダー情報
 const std::vector<CString> mUserCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("ユニット番号")}, {_T("ユニット名称")}, {_T("ユニット占有数")} };
 // 機種一覧CSVヘッダー情報
-const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")} };
+const std::vector<CString> mModelCsvHeader = { {_T("カテゴリー")}, {_T("機種名")}, {_T("有効無効")}, {_T("ビットマップファイル")} };
 // ユニット一覧CSVヘッダー情報
 const std::vector<CString> mUnitCsvHeader = { {_T("カテゴリー")}, {_T("名称")}, {_T("タイプ")}, {_T("仕様")}, {_T("占有数")}, {_T("手配図番")}, {_T("メッセージ")}, {_T("ビットマップファイル")} };
 // ユニット選択画面ヘッダー情報
@@ -63,19 +63,19 @@ struct sModelData
 	CString category;
 	CString modelname;
 	UINT bflg;		// 0:無効、1:有効
+	CString bitmapfile;
 
 	sModelData() 
 	{
-		category = _T("");
-		modelname = _T("");
-		bflg = 0;
+		clear();
 	}
 
-	BOOL set(CString cat, CString name, UINT flg) 
+	BOOL set(CString cat, CString name, UINT flg, CString bmp)
 	{
 		category = cat;
 		modelname = name;
 		bflg = flg;
+		bitmapfile = bmp;
 		return true;
 	}
 
@@ -92,6 +92,7 @@ struct sModelData
 		category = _T("");
 		modelname = _T("");
 		bflg = 0;
+		bitmapfile = _T("");
 		return true;
 	}
 };
