@@ -162,8 +162,11 @@ void UnitSelectionDlg::OnClickedButtonOk()
 	unitqtydlg.GetUnitData(m_selUnitInfo, m_unitRemaining);
 
 	// メッセージ情報がある場合は表示
+	if (m_selUnitInfo.message.IsEmpty() == false)
+	{
+		MessageBox(m_selUnitInfo.message, m_selUnitInfo.unitname, MB_OK | MB_ICONINFORMATION);
+	}
 
-	///UnitQtyDlg unitqtydlg;
 	INT_PTR ret = -1;
 	ret = unitqtydlg.DoModal();
 
