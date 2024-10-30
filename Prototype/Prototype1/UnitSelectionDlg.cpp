@@ -205,14 +205,14 @@ void UnitSelectionDlg::OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pR
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
-	//if (pNMLV->uNewState == 0)
-	//{
-	//	m_btnOk.EnableWindow(FALSE);
-	//}
-	//else
-	//{
-	//	m_btnOk.EnableWindow(TRUE);
-	//}
+	if (pNMLV->uNewState == 0)
+	{
+		m_btnOk.EnableWindow(FALSE);
+	}
+	else
+	{
+		m_btnOk.EnableWindow(TRUE);
+	}
 	
 
 	*pResult = 0;
