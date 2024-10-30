@@ -119,6 +119,11 @@ void CUnitControlBase::UpdateUnit(UINT command, UINT size, CString strBitmapFile
 		return;
 
 	(*itr).second->SetType((size == 2) ? UnitDouble : UnitSingle);
+	HBITMAP hBitmap = NULL;
+	hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), strBitmapFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	if (hBitmap == NULL) {
+		strBitmapFile.Empty();
+	}
 
 	if (strBitmapFile.IsEmpty() == true) {
 		CBitmap cbmp;
@@ -132,7 +137,6 @@ void CUnitControlBase::UpdateUnit(UINT command, UINT size, CString strBitmapFile
 		cbmp.GetBitmap(&bmp);
 		cbmp.DeleteObject();
 
-		HBITMAP hBitmap = NULL;
 		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), strBitmapFile, IMAGE_BITMAP, 0, bmp.bmHeight, LR_LOADFROMFILE);
 		// ビットマップを登録
 		mImages.push_back(hBitmap);
