@@ -30,18 +30,19 @@ public:
 
 protected:
 	CString	m_selUnitname;
+	sUnitData m_cfgUnitInfo;
 	sUnitData m_selUnitInfo;
 	CFont	mListFont;
 	CFont	mHeaderFont;
 	CButton m_btnOk;
 private:
-	UINT m_selUnitType;
+	UINT m_cfgUnitType;
 	int m_unitRemaining;		// ユニット選択可能残
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
 public:
-	void SetUnitType(UINT type) { m_selUnitType = type; }
+	void SetUnitInfo(UINT type, sUnitData unit) { m_cfgUnitType = type, m_cfgUnitInfo = unit; }
 protected:
 
 	/* ------------------------------------------------------------------------------------ */

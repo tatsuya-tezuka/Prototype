@@ -83,6 +83,7 @@ public:
 	void	UpdateUnit(UINT command, UINT size, CString strBitmapFile=_T(""));
 	void	DeleteUnit(UINT command);
 	bool	IsEmpty();
+	UINT	CalcUnitSize();
 
 protected:
 

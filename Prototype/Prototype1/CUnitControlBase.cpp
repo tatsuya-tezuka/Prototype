@@ -284,15 +284,32 @@ void CUnitControlBase::UnitAlignment()
 
 @param
 
-@retval
+@retval 必要な場合はtrue、それ以外はfalseを返す
 */
 /*============================================================================*/
 bool CUnitControlBase::IsEmpty()
 {
-	//if (mUnits.size() == mUnitMax)
-	//	return false;
+	if (CalcUnitSize() == mUnitMax)
+		return false;
+	
+	if (mUnits.size() > 0 && mUnits.rbegin()->second->GetType() == UnitEmpty)
+		return false;
 
-	// ユニットサイズの合計チェック
+	return true;
+}
+
+/*============================================================================*/
+/*! ユニットコントロールベース
+
+-# ユニットサイズ合計計算
+
+@param
+
+@retval ユニットサイズ合計を返す
+*/
+/*============================================================================*/
+UINT CUnitControlBase::CalcUnitSize()
+{
 	map<UINT, CUnitControl*>::iterator itr;
 	UINT unitnum = 0;
 	for (itr = mUnits.begin(); itr != mUnits.end(); itr++) {
@@ -301,8 +318,5 @@ bool CUnitControlBase::IsEmpty()
 		if ((*itr).second->GetType() == UnitDouble)
 			unitnum += 2;
 	}
-	if (unitnum == mUnitMax)
-		return false;
-
-	return true;
+	return unitnum;
 }

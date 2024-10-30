@@ -87,6 +87,11 @@ BOOL UnitSelectionDlg::OnInitDialog()
 		m_listunit.InsertColumn(i, mUnitlistHeader[i], LVCFMT_LEFT, mUnitlistHeaderSize[i]);
 	}
 
+	int selectidx = NULL;
+	if (m_cfgUnitType == (UINT)UnitEmpty)
+	{
+		selectidx = 0;
+	}
 	for (int i = 0; i < theApp.sUnitDataList.size(); i++)
 	{
 		CString strusage;
@@ -96,7 +101,12 @@ BOOL UnitSelectionDlg::OnInitDialog()
 		m_listunit.SetItemText(i, 1, theApp.sUnitDataList.at(i).type);
 		m_listunit.SetItemText(i, 2, theApp.sUnitDataList.at(i).spec);
 		m_listunit.SetItemText(i, 3, strusage);
+		if (selectidx == NULL && m_cfgUnitInfo.unitname == theApp.sUnitDataList.at(i).unitname)
+		{
+			selectidx = i;
+		}
 	}
+	m_listunit.SetItemState(selectidx, LVIS_SELECTED, LVIS_SELECTED);
 
 	// ユニット選択可能残の取得
 	m_unitRemaining = mUnitMax;
@@ -106,13 +116,13 @@ BOOL UnitSelectionDlg::OnInitDialog()
 		unitusagetotal += theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage;
 	}
 	m_unitRemaining -= unitusagetotal;
-	if (!(m_selUnitType == (UINT)UnitEmpty))
+	if (!(m_cfgUnitType == (UINT)UnitEmpty))
 	{
-		m_unitRemaining += (m_selUnitType - 1);
+		m_unitRemaining += (m_cfgUnitType - 1);
 	}
 	
 	// 「OK」ボタン非活性
-	m_btnOk.EnableWindow(FALSE);
+	//m_btnOk.EnableWindow(FALSE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
@@ -195,7 +205,15 @@ void UnitSelectionDlg::OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pR
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
-	m_btnOk.EnableWindow(TRUE);
+	//if (pNMLV->uNewState == 0)
+	//{
+	//	m_btnOk.EnableWindow(FALSE);
+	//}
+	//else
+	//{
+	//	m_btnOk.EnableWindow(TRUE);
+	//}
+	
 
 	*pResult = 0;
 

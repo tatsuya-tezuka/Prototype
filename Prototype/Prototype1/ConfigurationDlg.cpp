@@ -195,7 +195,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 	// ユニット選択画面を表示
 	UnitSelectionDlg unitseldlg;
 
-	unitseldlg.SetUnitType(selectUnitTypeBf);
+	unitseldlg.SetUnitInfo(selectUnitTypeBf, theApp.sSelectinfo.sSelectedUnitInfo[nID - mUnitStartCommand].unit);
 
 	if(unitseldlg.DoModal() != IDOK) return;
 
@@ -217,11 +217,12 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 
 		nID++;
 	}
-	if (mUnitBase.IsEmpty() == true) {
+	if (mUnitBase.IsEmpty() == true) 
+	{
 		// 格納されているユニット数から空ユニット位置を求める
 		mUnitBase.AddUnit(mUnitStartCommand + (mUnitBase.GetUnitCount()));
 	}
-	if (!mUnitBase.IsEmpty())
+	if (mUnitBase.CalcUnitSize() == mUnitMax)
 	{
 		mUnitBase.DeleteUnit(nID);
 	}
