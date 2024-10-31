@@ -30,6 +30,7 @@ void UnitQtyDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(UnitQtyDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &UnitQtyDlg::OnBnClickedOk)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -62,6 +63,15 @@ BOOL UnitQtyDlg::OnInitDialog()
 		// 先頭項目を選択状態にする
 		m_cmbUnitQty.SetCurSel(0);
 	}
+
+	// ヘッダーラベルの設定
+	// 背景色設定
+	m_brsHead.CreateSolidBrush(RGB(100, 100, 100));
+	
+	// ユニット名ラベルの設定
+	GetDlgItem(IDC_STATIC_UNITNAME)->SetWindowText(m_unitdata->unitname);
+	// 背景色設定
+	m_brsUnitName.CreateSolidBrush(RGB(255, 255, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 }
@@ -118,4 +128,41 @@ void UnitQtyDlg::OnBnClickedOk()
 		}
 	}
 	CDialogEx::OnOK();
+}
+
+
+HBRUSH UnitQtyDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO: ここで DC の属性を変更してください。
+	// コントロールのIDを取得
+	int id = pWnd->GetDlgCtrlID();
+	switch (id)
+	{
+		// ヘッダーユニット名ラベルの場合
+	case IDC_STATIC_HDUNITNAME:
+	case IDC_STATIC_HDUNITNUM:
+		// 文字色を設定
+		pDC->SetTextColor(RGB(255, 255, 255));
+		// 文字の背景を設定
+		pDC->SetBkColor(RGB(100, 100, 100));
+		// ラベルの背景色用ブラシを返却
+		return m_brsHead;
+		break;
+
+		// ユニット名ラベルの場合
+	case IDC_STATIC_UNITNAME:
+		// 文字の背景を設定
+		pDC->SetBkColor(RGB(255, 255, 255));
+		// ラベルの背景色用ブラシを返却
+		return m_brsUnitName;
+		break;
+
+	default:
+		break;
+	}
+
+	// TODO: 既定値を使用したくない場合は別のブラシを返します。
+	return hbr;
 }

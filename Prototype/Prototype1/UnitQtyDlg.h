@@ -32,6 +32,8 @@ protected:
 private:
 	sUnitData* m_unitdata;
 	int m_unitRemaining;		// ユニット選択可能残
+	CBrush	m_brsHead;			// ヘッダーの背景用ブラシ
+	CBrush	m_brsUnitName;		// ユニット名の背景用ブラシ
 
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
@@ -54,4 +56,5 @@ public:
 	
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
