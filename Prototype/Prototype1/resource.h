@@ -40,6 +40,7 @@
 #define IDC_STATIC_UNITLABEL5           1016
 #define IDC_COMBO_QTY                   1017
 #define IDC_STATIC_UNITLABEL6           1017
+#define IDC_STATIC_UNITNAME             1020
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_DELETE                       32774
@@ -51,7 +52,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
