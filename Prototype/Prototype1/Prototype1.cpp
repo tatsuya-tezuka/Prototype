@@ -176,6 +176,10 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 			continue;
 		}
 
+		// 空白チェック
+		if (inlist[0].IsEmpty() || inlist[1].IsEmpty())
+			continue;
+
 		// 構造体に格納
 		UINT flg;
 		flg = _ttoi(inlist[2]);
@@ -247,6 +251,10 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			bHead = FALSE;
 			continue;
 		}
+
+		// 空白チェック
+		if (inlist[0].IsEmpty() || inlist[1].IsEmpty() || inlist[2].IsEmpty() || inlist[3].IsEmpty())
+			continue;
 		
 		// 構造体に格納
 		UINT usage;
