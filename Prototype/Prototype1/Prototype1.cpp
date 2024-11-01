@@ -133,7 +133,6 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 {
 	CString	readrow, cbuf, str;
 	BOOL bHead = TRUE;	//ヘッダー判定
-	vector<CString> inlist;
 
 	TCHAR* ploc = _wsetlocale(LC_ALL, _T("japanese"));
 
@@ -145,6 +144,7 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 
 	while (file.ReadString(readrow))
 	{
+		vector<CString> inlist;
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
 			str.Trim();
@@ -173,17 +173,17 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 			}
 
 			bHead = FALSE;
-			inlist.clear();
 			continue;
 		}
 
 		// 構造体に格納
 		UINT flg;
 		flg = _ttoi(inlist[2]);
+		if (flg != eEnable && flg != eDisable)
+			continue;
 		sModelData model;
 		model.set(inlist[0], inlist[1], flg, inlist[3]);
 		sModelDataList.push_back(model);
-		inlist.clear();
 	}
 	file.Close();
 
@@ -204,7 +204,7 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 {
 	CString	readrow, cbuf, str;
 	BOOL bHead = TRUE;	//ヘッダー判定
-	vector<CString> inlist;
+	
 
 	TCHAR* ploc = _wsetlocale(LC_ALL, _T("japanese"));
 
@@ -216,6 +216,7 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 
 	while (file.ReadString(readrow))
 	{
+		vector<CString> inlist;
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
 			str.Trim();
@@ -244,17 +245,17 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 			}
 
 			bHead = FALSE;
-			inlist.clear();
 			continue;
 		}
 		
 		// 構造体に格納
 		UINT usage;
 		usage = _ttoi(inlist[4]);
+		if (usage != (UnitSingle-1) && usage != (UnitDouble-1))
+			continue;
 		sUnitData unit;
 		unit.set(inlist[0], inlist[1], inlist[2], inlist[3], usage, inlist[5], inlist[6], inlist[7]);
 		sUnitDataList.push_back(unit);
-		inlist.clear();
 	}
 	file.Close();
 
