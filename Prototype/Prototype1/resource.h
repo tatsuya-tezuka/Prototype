@@ -42,7 +42,8 @@
 #define IDC_STATIC_UNITLABEL6           1017
 #define IDC_STATIC_UNITNAME             1023
 #define IDC_STATIC_HDUNITNAME           1024
-#define IDC_STATIC_UNITNAME3            1025
+#define IDC_TREE1                       1024
+#define IDC_TREE_UNITCATEGORY           1024
 #define IDC_STATIC_HDUNITNUM            1025
 #define ID_32771                        32771
 #define ID_32772                        32772
@@ -55,7 +56,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_CONTROL_VALUE         1025
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

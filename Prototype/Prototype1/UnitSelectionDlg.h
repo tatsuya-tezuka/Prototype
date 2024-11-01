@@ -38,6 +38,8 @@ protected:
 private:
 	UINT m_cfgUnitType;
 	int m_unitRemaining;		// ユニット選択可能残
+	vector<CString> m_vecUnitCategory;
+
 	/* ------------------------------------------------------------------------------------ */
 	/* メンバ関数                                                                           */
 	/* ------------------------------------------------------------------------------------ */
@@ -58,4 +60,6 @@ public:
 	afx_msg void OnClickedButtonOk();
 	
 	afx_msg void OnItemchangedListUnitselection(NMHDR* pNMHDR, LRESULT* pResult);
+	CTreeCtrl m_treeUnitCategory;
+	afx_msg void OnSelchangedTreeUnitcategory(NMHDR* pNMHDR, LRESULT* pResult);
 };
