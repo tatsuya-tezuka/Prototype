@@ -315,6 +315,12 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 	}
 	file.Close();
 
+	if (sImportinfo.unitselecttotal == 0)
+	{
+		MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		return;
+	}		
+
 	theApp.sSelectinfo = sImportinfo;
 	
 	// 構成画面表示
