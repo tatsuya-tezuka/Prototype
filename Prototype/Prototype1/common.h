@@ -79,7 +79,7 @@ struct sModelData
 		return true;
 	}
 
-	BOOL setUnit(sModelData data)
+	BOOL setModel(sModelData data)
 	{
 		category = data.category;
 		modelname = data.modelname;

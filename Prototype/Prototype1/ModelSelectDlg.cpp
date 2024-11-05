@@ -77,7 +77,10 @@ BOOL ModelSelectDlg::OnInitDialog()
 			// アイテムの追加
 			stcategory = theApp.sModelDataList.at(i).category;
 			HTREEITEM hItemPnt1 = m_treeModelCategory.InsertItem(stcategory);
-			if (hSelectItem == NULL)
+			// 選択情報が存在する場合（CSVから選定時）
+			if (theApp.sSelectinfo.model.category == stcategory)
+				hSelectItem = hItemPnt1;
+			else if (hSelectItem == NULL)
 				hSelectItem = hItemPnt1;
 		}
 	}
@@ -172,7 +175,7 @@ BOOL ModelSelectDlg::OnInitDialog()
 void ModelSelectDlg::OnClickedStartselection()
 {
 	// 機種選択情報を選択情報構造体に格納
-	theApp.sSelectinfo.model.setUnit(m_SelModelData);
+	theApp.sSelectinfo.model.setModel(m_SelModelData);
 
 	if (theApp.sSelectinfo.model.bflg == eEnable)
 	{
@@ -259,14 +262,23 @@ void ModelSelectDlg::OnSelchangedTreeModelcategory(NMHDR* pNMHDR, LRESULT* pResu
 #else
 	int item = 0;
 	int image = 0;
+	int selectidx = NULL;
+	if (theApp.sSelectinfo.model.modelname.IsEmpty())
+		selectidx = 0;
+
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++) {
 
 		if (m_SelModelData.category == (*itr).category) {
 			AddItem(item, 0, (*itr).modelname, 0, image);
+			if (selectidx == NULL && theApp.sSelectinfo.model.modelname == (*itr).modelname)
+				selectidx = item;
 			item++;
 		}
 		image++;
 	}
+	// 選択状態の設定
+	m_listModel.SetItemState(selectidx, LVIS_SELECTED, LVIS_SELECTED);
+
 #endif
 	*pResult = 0;
 }

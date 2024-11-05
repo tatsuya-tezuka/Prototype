@@ -14,6 +14,7 @@
 #include "Prototype1Dlg.h"
 #include "afxdialogex.h"
 #include "ModelSelectDlg.h"
+#include "ConfigurationDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -211,14 +212,120 @@ void CPrototype1Dlg::OnClickedBtnSelect()
 /*============================================================================*/
 void CPrototype1Dlg::OnClickedBtnSelectCsv()
 {	
+	CString	readrow, str;
+	BOOL bHead = TRUE;	//ヘッダー判定
+	sSelectedInfo sImportinfo;
+
 	//CSVファイル選択ダイアログ
 	CFileDialog csvfileDlg(true, _T("csv"), nullptr, OFN_FILEMUSTEXIST, _T("CSVファイル(*.csv)|*.csv|| "));
 
-	if (csvfileDlg.DoModal() == IDOK)
+	if (csvfileDlg.DoModal() != IDOK)	
+		return;
+	
+	// フルパス取得
+	CString fullPathName = csvfileDlg.GetPathName();
+
+	// ファイルをオープン
+	CStdioFile file(fullPathName, CFile::modeRead | CFile::typeText);
+
+	UINT count = 0;
+	while (file.ReadString(readrow))
 	{
-		// フルパス取得
-		CString fullPathName = csvfileDlg.GetPathName();
+		vector<CString> inlist;
+		int i = 0;
+		while (AfxExtractSubString(str, readrow, i++, ',')) {
+			str.Trim();
+			str.Replace(_T("\""), _T(""));
+			inlist.push_back(str);
+		}
+
+		// ヘッダー数と明細数をチェック
+		if (mUserCsvHeader.size() != inlist.size()) {
+			// 明細サイズに誤りがあるため、読み込みを中止する
+			file.Close();
+			return;
+		}
+
+		// ヘッダー判定
+		if (bHead)
+		{
+			// ヘッダ情報チェック
+			for (int i = 0; i < mUserCsvHeader.size(); i++)
+			{
+				if (!(mUserCsvHeader[i] == inlist[i]))
+				{
+					file.Close();
+					return;
+				}
+			}
+
+			bHead = FALSE;
+			continue;
+		}
+
+		// 空白チェック
+		if (inlist[0].IsEmpty() || inlist[1].IsEmpty() || inlist[2].IsEmpty() || inlist[3].IsEmpty() || inlist[4].IsEmpty())
+			continue;
+
+		// 数値データチェック
+		UINT id, usage;
+		id = _ttoi(inlist[2]);
+		// ユニット選択順番が0から始まる連番ではない場合は読み飛ばす
+		if (id != (count + 1) )
+			continue;	
+		usage = _ttoi(inlist[4]);
+		if (usage != (UnitSingle - 1) && usage != (UnitDouble - 1))
+			continue;
+
+		// 機種カテゴリー、機種名存在チェック
+		sModelData impModel;
+		vector<sModelData>::iterator itrmd;
+		for (itrmd = theApp.sModelDataList.begin(); itrmd != theApp.sModelDataList.end(); itrmd++)
+		{
+			if ((*itrmd).category == inlist[0] && (*itrmd).modelname == inlist[1] && (*itrmd).bflg == eEnable)
+			{
+				impModel = (*itrmd);
+				break;
+			}
+		}
+		if (impModel.modelname.IsEmpty())
+			continue;
+
+		// ユニット名存在チェック
+		sUnitData impUnit;
+		vector<sUnitData>::iterator itrun;
+		for (itrun = theApp.sUnitDataList.begin(); itrun != theApp.sUnitDataList.end(); itrun++)
+		{
+			if ((*itrun).unitname == inlist[3] && (*itrun).usage == usage)
+			{
+				impUnit = (*itrun);
+				break;
+			}
+		}
+		if (impUnit.unitname.IsEmpty())
+			continue;
+
+		// 構造体に格納
+		sImportinfo.model = impModel;
+		sImportinfo.sSelectedUnitInfo[count].unit = impUnit;
+
+		sImportinfo.unitselecttotal++;
+		count++;
+
 	}
+	file.Close();
+
+	theApp.sSelectinfo = sImportinfo;
+	
+	// 構成画面表示
+	ConfigurationDlg cfgdlg;
+	INT_PTR nResponse = cfgdlg.DoModal();
+	if (nResponse == IDCANCEL)
+	{
+		ModelSelectDlg mdldlg;
+		mdldlg.DoModal();
+	}
+
 }
 
 /*============================================================================*/

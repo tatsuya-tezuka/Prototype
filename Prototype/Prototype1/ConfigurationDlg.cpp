@@ -104,6 +104,16 @@ BOOL ConfigurationDlg::OnInitDialog()
 	m_stcModelName.SetWindowText(theApp.sSelectinfo.model.modelname);
 	m_stcModelName.SetFont(&m_fntl);
 
+	// CSVから選定時ユニット図を初期表示する
+	if (theApp.sSelectinfo.unitselecttotal == 0)
+		return TRUE;
+	for (int i = 0; i < theApp.sSelectinfo.unitselecttotal; i++)
+	{
+		// 新たに空ユニットを登録する
+		mUnitBase.AddUnit(mUnitStartCommand + i);
+		mUnitBase.UpdateUnit(mUnitStartCommand + i, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.bitmapfile);
+	}
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
 }
@@ -211,7 +221,7 @@ void ConfigurationDlg::OnUnitCommand(UINT nID)
 			// 新たに空ユニットを登録する
 			mUnitBase.AddUnit(nID);
 		}
-		UINT selectUnitTypeAf = mUnitBase.GetUnitType(nID);
+		//UINT selectUnitTypeAf = mUnitBase.GetUnitType(nID);
 
 		mUnitBase.UpdateUnit(nID, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.bitmapfile);
 
