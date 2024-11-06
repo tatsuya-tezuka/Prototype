@@ -70,12 +70,13 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// 機器カテゴリー設定
 	HTREEITEM hSelectItem = NULL;
 	CString stcategory = _T("");
-	for (int i = 0; i < theApp.sModelDataList.size(); i++)
+	vector<sModelData>::iterator itr;
+	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++)
 	{
-		if (stcategory != theApp.sModelDataList.at(i).category)
+		if (stcategory != (*itr).category)
 		{
 			// アイテムの追加
-			stcategory = theApp.sModelDataList.at(i).category;
+			stcategory = (*itr).category;
 			HTREEITEM hItemPnt1 = m_treeModelCategory.InsertItem(stcategory);
 			// 選択情報が存在する場合（CSVから選定時）
 			if (theApp.sSelectinfo.model.category == stcategory)
@@ -130,10 +131,10 @@ BOOL ModelSelectDlg::OnInitDialog()
 	cbitmap.DeleteObject();
 	m_imageList.Create(Bmp.bmWidth, Bmp.bmHeight, ILC_COLOR24, 10, 1);
 	//m_imageList.SetImageCount(theApp.sModelDataList.size());
-	for (int i = 0; i < theApp.sModelDataList.size(); i++)
+	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++)
 	{
 		HBITMAP hBitmap = NULL;
-		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), theApp.sModelDataList.at(i).bitmapfile, IMAGE_BITMAP, Bmp.bmWidth, Bmp.bmHeight, LR_LOADFROMFILE);
+		hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), (*itr).bitmapfile, IMAGE_BITMAP, Bmp.bmWidth, Bmp.bmHeight, LR_LOADFROMFILE);
 		if (hBitmap == NULL) {
 			cbitmap.LoadBitmap(IDB_BITMAP_NOIMAGE);
 			hBitmap = (HBITMAP)cbitmap;
@@ -141,7 +142,7 @@ BOOL ModelSelectDlg::OnInitDialog()
 		CBitmap* pBmp = NULL;
 		pBmp = new CBitmap();
 		pBmp->Attach(hBitmap);
-		m_imageList.Add(pBmp, RGB(0,0,0));
+		m_imageList.Add(pBmp, RGB(0, 0, 0));
 		delete pBmp;
 		cbitmap.DeleteObject();
 	}
@@ -311,11 +312,12 @@ void ModelSelectDlg::OnItemchangedListModel(NMHDR* pNMHDR, LRESULT* pResult)
 
 	theApp.GetsModelData();
 
-	for (auto itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); ++itr)
+	vector<sModelData>::iterator itr;
+	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); ++itr)
 	{
-		if (itr->modelname == m_SelModelData.modelname)
+		if ((*itr).modelname == m_SelModelData.modelname)
 		{
-			m_SelModelData.bflg = itr->bflg;
+			m_SelModelData.bflg = (*itr).bflg;
 			break;
 		}
 	}
