@@ -212,8 +212,9 @@ void CPrototype1Dlg::OnClickedBtnSelect()
 /*============================================================================*/
 void CPrototype1Dlg::OnClickedBtnSelectCsv()
 {	
-	CString	readrow, str;
-	BOOL bHead = TRUE;	//ヘッダー判定
+
+	CString	readrow, str, modelcat = _T(""), modelname = _T("");
+	BOOL bHead = TRUE;		// ヘッダー判定
 	sSelectedInfo sImportinfo;
 
 	//CSVファイル選択ダイアログ
@@ -228,9 +229,12 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 	// ファイルをオープン
 	CStdioFile file(fullPathName, CFile::modeRead | CFile::typeText);
 
-	UINT count = 0;
+	UINT count = 0, usage = 0;
 	while (file.ReadString(readrow))
 	{
+		if (usage > mUnitMax)
+			break;
+
 		vector<CString> inlist;
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
@@ -270,7 +274,7 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		// 数値データチェック
 		UINT id, usage;
 		id = _ttoi(inlist[2]);
-		// ユニット選択順番が0から始まる連番ではない場合は読み飛ばす
+		// ユニット選択順番が連番ではない場合は読み飛ばす
 		if (id != (count + 1) )
 			continue;	
 		usage = _ttoi(inlist[4]);
@@ -288,7 +292,19 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 				break;
 			}
 		}
-		if (impModel.modelname.IsEmpty())
+		if (impModel.modelname.IsEmpty() || impModel.category.IsEmpty())
+			continue;
+
+		// 機種カテゴリー同一チェック
+		if (modelcat.IsEmpty())
+			modelcat = impModel.category;
+		else if (modelcat != impModel.category)
+			continue;
+
+		// 機種名同一チェック
+		if (modelname.IsEmpty())
+			modelname = impModel.modelname;
+		else if (modelname != impModel.modelname)
 			continue;
 
 		// ユニット名存在チェック
@@ -308,8 +324,9 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		// 構造体に格納
 		sImportinfo.model = impModel;
 		sImportinfo.sSelectedUnitInfo[count].unit = impUnit;
-
 		sImportinfo.unitselecttotal++;
+
+		usage += sImportinfo.sSelectedUnitInfo[count].unit.usage;
 		count++;
 
 	}
