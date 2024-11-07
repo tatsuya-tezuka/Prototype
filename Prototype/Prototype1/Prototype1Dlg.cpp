@@ -130,6 +130,7 @@ BOOL CPrototype1Dlg::OnInitDialog()
 	if ( (!theApp.SetmModelDatafromCSV()) || (!theApp.SetmUnitDatafromCSV()))
 	{
 		MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		CDialogEx::OnCancel();
 	};
 
 	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
