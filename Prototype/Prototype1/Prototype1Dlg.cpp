@@ -248,7 +248,8 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		if (mUserCsvHeader.size() != inlist.size()) {
 			// 明細サイズに誤りがあるため、読み込みを中止する
 			file.Close();
-			goto Error;
+			MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+			return;
 		}
 
 		// ヘッダー判定
@@ -260,7 +261,8 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 				if (!(mUserCsvHeader[i] == inlist[i]))
 				{
 					file.Close();
-					goto Error;
+					MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+					return;
 				}
 			}
 
@@ -334,7 +336,10 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 	file.Close();
 
 	if (sImportinfo.unitselecttotal == 0)
-		goto Error;
+	{
+		MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
+		return;
+	}
 
 	theApp.sSelectinfo = sImportinfo;
 	
@@ -346,11 +351,6 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		ModelSelectDlg mdldlg;
 		mdldlg.DoModal();
 	}
-
-Error:
-	MessageBox(_T("CSVファイルが不正です。\nファイル内容を確認してください。"), _T("エラー"), MB_OK | MB_ICONERROR);
-	return;
-
 }
 
 /*============================================================================*/
