@@ -230,12 +230,9 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 	// ファイルをオープン
 	CStdioFile file(fullPathName, CFile::modeRead | CFile::typeText);
 
-	UINT count = 0, usage = 0;
+	UINT count = 0, usage = 0, usagetotal = 0;
 	while (file.ReadString(readrow))
 	{
-		if (usage > mUnitMax)
-			break;
-
 		vector<CString> inlist;
 		int i = 0;
 		while (AfxExtractSubString(str, readrow, i++, ',')) {
@@ -283,6 +280,9 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		usage = _ttoi(inlist[4]);
 		if (usage != (UnitSingle - 1) && usage != (UnitDouble - 1))
 			continue;
+		// ユニットサイズ合計が10を超える場合はこれ以降読まない
+		if ((usagetotal + usage) > mUnitMax)
+			break;
 
 		// 機種カテゴリー、機種名存在チェック
 		sModelData impModel;
@@ -329,7 +329,7 @@ void CPrototype1Dlg::OnClickedBtnSelectCsv()
 		sImportinfo.sSelectedUnitInfo[count].unit = impUnit;
 		sImportinfo.unitselecttotal++;
 
-		usage += sImportinfo.sSelectedUnitInfo[count].unit.usage;
+		usagetotal += sImportinfo.sSelectedUnitInfo[count].unit.usage;
 		count++;
 
 	}
