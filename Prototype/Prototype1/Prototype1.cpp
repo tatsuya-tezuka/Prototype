@@ -139,6 +139,10 @@ BOOL CPrototype1App::SetmModelDatafromCSV()
 	// オープンするファイル名
 	CString fileName = _T("ModelList.CSV");
 
+	CFileFind fileFind;
+	if (fileFind.FindFile(fileName) == false)
+		return false;
+
 	// ファイルをオープン
 	CStdioFile file(fileName, CFile::modeRead | CFile::typeText);
 
@@ -214,6 +218,10 @@ BOOL CPrototype1App::SetmUnitDatafromCSV()
 
 	// オープンするファイル名
 	CString fileName = _T("UnitList.CSV");
+
+	CFileFind fileFind;
+	if (fileFind.FindFile(fileName) == false)
+		return false;
 
 	// ファイルをオープン
 	CStdioFile file(fileName, CFile::modeRead | CFile::typeText);
