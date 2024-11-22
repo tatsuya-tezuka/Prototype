@@ -113,6 +113,11 @@ BOOL ConfigurationDlg::OnInitDialog()
 		mUnitBase.AddUnit(mUnitStartCommand + i);
 		mUnitBase.UpdateUnit(mUnitStartCommand + i, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.usage, theApp.sSelectinfo.sSelectedUnitInfo[i].unit.bitmapfile);
 	}
+	// ユニットサイズ合計数が9以下の場合は追加用ユニットを登録する
+	if (mUnitBase.CalcUnitSize() < mUnitMax)
+	{
+		mUnitBase.AddUnit(mUnitStartCommand + theApp.sSelectinfo.unitselecttotal);
+	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。
