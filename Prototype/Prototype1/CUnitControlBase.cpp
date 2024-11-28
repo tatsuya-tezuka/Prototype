@@ -88,8 +88,6 @@ void CUnitControlBase::AddUnit(UINT command)
 	if (IsEmpty() == false) {
 		return;
 	}
-	//if (mUnits.size() == mUnitMax)
-	//	return;
 
 	// SingleDisable‚Ìì¬
 	CUnitControl* pEmpty = CreateUnit(UnitEmpty, command);
@@ -161,9 +159,6 @@ void CUnitControlBase::DeleteUnit(UINT command)
 	map<UINT, CUnitControl*>::iterator itr = mUnits.find(command);
 	if (itr == mUnits.end())
 		return;
-
-	//if ((*itr).second->GetType() == UnitEmpty)
-	//	return;
 
 	// ‘ÎÛƒ†ƒjƒbƒg‚ğíœ‚·‚é
 	delete (*itr).second;

@@ -105,7 +105,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// イメージリストの再設定
 	m_imageList.Replace(eDisableModel, pBmp, NULL);
 
-	// メモリリーク予防
 	delete pBmp;
 
 
@@ -120,7 +119,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 	// イメージリストの再設定
 	m_imageList.Replace(eEnableModel, pBmp, NULL);
 
-	// メモリリーク予防
 	delete pBmp;	
 #else
 	// 全てのイメージをイメージリストに登録する
@@ -130,7 +128,6 @@ BOOL ModelSelectDlg::OnInitDialog()
 	cbitmap.GetBitmap(&Bmp);
 	cbitmap.DeleteObject();
 	m_imageList.Create(Bmp.bmWidth, Bmp.bmHeight, ILC_COLOR24, 10, 1);
-	//m_imageList.SetImageCount(theApp.sModelDataList.size());
 	for (itr = theApp.sModelDataList.begin(); itr != theApp.sModelDataList.end(); itr++)
 	{
 		HBITMAP hBitmap = NULL;

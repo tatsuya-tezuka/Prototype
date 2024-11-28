@@ -1,6 +1,13 @@
 ﻿
 // ConfigurationDlg.cpp : 実装ファイル
 //
+/******************************************************************************
+* @file    ConfigurationDlg.cpp
+* @brief   ConfigurationDlgクラス
+* @auther  SCC
+* @date    2024/10/04 新規作成
+* @par
+******************************************************************************/
 
 #include "pch.h"
 #include "Prototype1.h"
@@ -39,7 +46,6 @@ void ConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(ConfigurationDlg, CDialogEx)
 	ON_WM_SIZE()
-	//ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + mUnitMax, OnUnitCommand)
 	ON_COMMAND_RANGE(mUnitStartCommand, mUnitStartCommand + (mUnitMax - 1), OnUnitCommand)
 	ON_BN_CLICKED(IDCANCEL, &ConfigurationDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(IDC_BUTTON_CSVEXPORT, &ConfigurationDlg::OnClickedButtonCsvexport)

@@ -2,7 +2,12 @@
 #include "afxdialogex.h"
 #include "CUnitListCtrl.h"
 
-// UnitSelectionDlg ダイアログ
+/*
+	◆UnitSelectionDlgヘッダーファイル
+	・アプリケーションクラス：UnitSelectionDlg
+	・実装ファイル：UnitSelectionDlg.cpp
+	・クラス内には「定義」「メンバ変数」「メンバ関数」のコメントを記述する
+*/
 
 class UnitSelectionDlg : public CDialogEx
 {

@@ -3,7 +3,12 @@
 #include "CUnitControl.h"
 #include "CUnitControlBase.h"
 
-// ConfigurationDlg ダイアログ
+/*
+	◆ConfigurationDlgヘッダーファイル
+	・アプリケーションクラス：ConfigrationDlg
+	・実装ファイル：ConfigrationDlg.cpp
+	・クラス内には「定義」「メンバ変数」「メンバ関数」のコメントを記述する
+*/
 
 class ConfigurationDlg : public CDialogEx
 {

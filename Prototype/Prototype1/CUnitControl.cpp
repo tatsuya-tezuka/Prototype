@@ -66,7 +66,7 @@ void CUnitControl::PreSubclassWindow()
 
 void CUnitControl::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	if (mType == /*CUnitControlBase::*/UnitBracket || mType == /*CUnitControlBase::*/UnitEmpty) {
+	if (mType == UnitBracket || mType == UnitEmpty) {
 		// ‹óƒ†ƒjƒbƒg‚Ìê‡‚Í‰½‚à‚µ‚È‚¢
 		return;
 	}

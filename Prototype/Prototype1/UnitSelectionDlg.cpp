@@ -1,5 +1,12 @@
 ﻿// UnitSelectionDlg.cpp : 実装ファイル
 //
+/******************************************************************************
+* @file    UnitSelectionDlg.cpp
+* @brief   UnitSelectionDlgクラス
+* @auther  SCC
+* @date    2024/10/04 新規作成
+* @par
+******************************************************************************/
 
 #include "pch.h"
 #include "Prototype1.h"

@@ -14,8 +14,6 @@ using namespace Gdiplus;
 using namespace std;
 
 static const UINT mUnitBracketCommand = 4000;
-//static const UINT mUnitStartCommand = 8000;
-//static const UINT mUnitMax = 10;
 
 class CUnitControlBase : public CStatic
 {
@@ -27,14 +25,6 @@ public:
 	/* ------------------------------------------------------------------------------------ */
 public:
 	const UINT mGap = 1;
-	//enum {
-	//	UnitBracket,
-	//	UnitEmpty,
-	//	UnitSingle,
-	//	UnitDouble,
-
-	//	UnitMax,
-	//};
 
 protected:
 
